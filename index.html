@@ -6,9 +6,10 @@
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vite + Lit + TS</title>
-  <link rel="stylesheet" href="./src/index.css" />
-  <script type="module" src="/src/my-element.ts"></script>
-  <script type="module" src="/src/ah-button.ts"></script>
+  <link rel="stylesheet" href="./src/assets/index.css" />
+  <script type="module" src="/src/my-element/my-element/my-element.ts"></script>
+  <script type="module" src="/src/ah-button/ah-button.ts"></script>
+  <script type="module" src="/src/ah-calendar/ah-calendar.js"></script>
 </head>
 
 <body>
@@ -28,14 +29,16 @@
   <ol>
     <li>
       <h3>01 November 2022</h3>
-
+      <h4>ah-button web component</h4>
       <ah-button>
         <div slot="before">🤬</div>
         <span>Button, click me!</span>
         <div slot="after">🦊</div>
       </ah-button>
-    </li>
 
+      <h4>ah-calendar web component</h4>
+      <ah-calendar></ah-calendar>
+    </li>
   </ol>
 </body>
 

@@ -3,11 +3,11 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "main": "dist/my-element.es.js",
+  "main": "dist/ah-button/ah-button.es.js",
   "exports": {
-    ".": "./dist/my-element.es.js"
+    ".": "./dist/ah-button/ah-button.es.js"
   },
-  "types": "types/my-element.d.ts",
+  "types": "types/ah-button/ah-button.d.ts",
   "files": [
     "dist",
     "types"
@@ -17,10 +17,11 @@
     "build": "tsc && vite build"
   },
   "dependencies": {
-    "lit": "^2.4.0"
+    "dayjs": "1.11.6",
+    "lit": "2.4.0"
   },
   "devDependencies": {
-    "typescript": "^4.6.4",
+    "typescript": "4.8.4",
     "vite": "^3.2.0"
   }
 }
