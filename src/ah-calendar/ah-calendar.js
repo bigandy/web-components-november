@@ -2,8 +2,6 @@ import dayjs from "dayjs";
 
 import { html, css, LitElement } from "lit";
 
-// import "./style.css";
-
 /**
  * A calendar Element.
  */
@@ -254,7 +252,7 @@ export class AHCalendar extends LitElement {
     `;
   }
 
-  indexToDay(index) {
+  _indexToDay(index) {
     switch (index) {
       case 1:
         return "Monday";
@@ -293,7 +291,7 @@ export class AHCalendar extends LitElement {
     const month = today.format("MMMM");
     const year = today.format("YYYY");
     const daysInMonth = today.daysInMonth();
-    const firstDayofMonth = this.dayToNumericDay(
+    const firstDayofMonth = this._dayToNumericDay(
       today.startOf("month").format("dd")
     );
 
@@ -309,7 +307,7 @@ export class AHCalendar extends LitElement {
     };
   }
 
-  dayToNumericDay(firstDayofMonth) {
+  _dayToNumericDay(firstDayofMonth) {
     let firstDayNumeric = 0;
 
     const daysOfWeek = [
@@ -332,7 +330,7 @@ export class AHCalendar extends LitElement {
   }
 
   header() {
-    const { month, year } = this.getMonth(this.offset);
+    const { month, year } = this._getMonth(this.offset);
 
     // wrap a span around each letter
     const monthSpread = [...month].map(
@@ -340,7 +338,6 @@ export class AHCalendar extends LitElement {
     );
 
     return html`<header>
-	<div>
 		<h1 class="calendar__month">${monthSpread}</h1>
 		<h2 class="calendar__year">${year}${this.yearButtons()}</h2>
 
@@ -351,8 +348,6 @@ export class AHCalendar extends LitElement {
 
   table() {
     const {
-      month,
-      year,
       daysInMonth,
       firstDayofMonth,
       todayDay,
@@ -366,7 +361,6 @@ export class AHCalendar extends LitElement {
     let rows = Math.ceil(
       (daysInMonth + firstDayofMonth) / 7
     );
-    let returnHtml = "";
 
     const rowsReturn = [];
 
@@ -388,7 +382,7 @@ export class AHCalendar extends LitElement {
                 ? "calendar__day calendar__day--active"
                 : "calendar__day"}
             >
-              <span class="day">${this.indexToDay(i)}</span>
+              <span class="day">${this._indexToDay(i)}</span>
               <span class="daycount">${dayCount}</span>
             </td>`
           );
