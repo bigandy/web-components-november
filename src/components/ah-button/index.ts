@@ -16,30 +16,12 @@ declare global {
  */
 @customElement("ah-button")
 export class AHButton extends LitElement {
-  @state()
-  private active: boolean = false;
-
-  _toggleState = () => {
-    this.active = !this.active;
-  };
-
   render() {
     return html`
-      <button
-        class=${classMap({ active: this.active })}
-        @click=${this._toggleState}
-      >
-        <slot
-          part="before"
-          class="before"
-          name="before"
-        ></slot>
+      <button class=${classMap({ active: this.active })}>
+        <slot part="before" class="before" name="before"></slot>
         <slot></slot>
-        <slot
-          part="after"
-          class="after"
-          name="after"
-        ></slot>
+        <slot part="after" class="after" name="after"></slot>
       </button>
     `;
   }
@@ -50,41 +32,19 @@ export class AHButton extends LitElement {
       display: inline-block;
     }
 
-    .active {
-      background: green;
-      color: white;
-      border-color: green;
-    }
-
     button {
       border-radius: 20px;
-      border: 1px solid transparent;
+      border: none;
       padding: 0.6em 1.2em;
       font-size: 1em;
-      font-weight: 500;
-      font-family: inherit;
-      background-color: #1a1a1a;
+      background-color: var(--ah-button-background, green);
+      color: white;
       cursor: pointer;
-      transition: border-color 0.25s, background-color 0.25s;
+      transition: background-color 0.25s;
     }
 
     button:hover {
-      border-color: #646cff;
-    }
-
-    button:focus,
-    button:focus-visible {
-      outline: 4px auto -webkit-focus-ring-color;
-    }
-
-    @media (prefers-color-scheme: light) {
-      a:hover {
-        color: #747bff;
-      }
-
-      button {
-        background-color: #f9f9f9;
-      }
+      background-color: var(--ah-button-background-hover, darkgreen);
     }
   `;
 }

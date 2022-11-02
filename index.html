@@ -8,6 +8,12 @@
   <title>Web Components of November - with Vite + Lit + TS</title>
   <link rel="stylesheet" href="./src/assets/index.css" />
   <script type="module" src="/src/index"></script>
+  <script type="module">
+  const demoClick = (message) => {
+    alert(message);
+  }
+  window.demoClick = demoClick;
+  </script>
 </head>
 
 <body>
@@ -26,7 +32,7 @@
       <h3>01 November 2022</h3>
       <details>
         <summary>ah-button web component</summary>
-        <ah-button>
+        <ah-button onclick="demoClick('button clicked');">
           <div slot="before">🤬</div>
           <span>Button, click me!</span>
           <div slot="after">🦊</div>

@@ -1,12 +1,7 @@
 import dayjs from "dayjs";
 
 import { LitElement, css, html } from "lit";
-import {
-  customElement,
-  // state,
-  property,
-} from "lit/decorators.js";
-// import { classMap } from "lit/directives/class-map.js";
+import { customElement, property } from "lit/decorators.js";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -25,6 +20,8 @@ export class AHCalendar extends LitElement {
   static styles = css`
     :host {
       --orange: var(--brand, #ff3c00);
+      --ah-button-background: var(--orange);
+      --ah-button-background-hover: red;
     }
 
     .wrapper {
@@ -98,17 +95,10 @@ export class AHCalendar extends LitElement {
       display: none;
     }
 
-    .month-buttons button {
+    .month-buttons ah-button {
       display: inline-block;
-      padding: 0.51em;
       margin: 1rem;
-      background: var(--orange);
       color: white;
-    }
-
-    .month-buttons button:hover {
-      cursor: pointer;
-      background: darkorange;
     }
 
     .medium,
@@ -417,8 +407,8 @@ export class AHCalendar extends LitElement {
 
   private _renderMonthButtons() {
     return html`<div class="month-buttons">
-      <button @click=${() => this._onSubtract()}>Previous</button
-      ><button @click=${() => this._onAdd()}>Next</button>
+      <ah-button @click=${() => this._onSubtract()}>Previous</ah-button
+      ><ah-button @click=${() => this._onAdd()}>Next</ah-button>
     </div>`;
   }
 
