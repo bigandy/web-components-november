@@ -3,10 +3,10 @@ import dayjs from "dayjs";
 import { LitElement, css, html } from "lit";
 import {
   customElement,
-  state,
+  // state,
   property,
 } from "lit/decorators.js";
-import { classMap } from "lit/directives/class-map.js";
+// import { classMap } from "lit/directives/class-map.js";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -19,6 +19,9 @@ declare global {
  */
 @customElement("ah-calendar")
 export class AHCalendar extends LitElement {
+  @property()
+  offset: number = 0;
+
   static styles = css`
     :host {
       --orange: var(--brand, #ff3c00);
@@ -263,7 +266,7 @@ export class AHCalendar extends LitElement {
     }
   `;
 
-  indexToDay(index: number) {
+  private _indexToDay(index: number) {
     switch (index) {
       case 1:
         return "Monday";
@@ -284,20 +287,16 @@ export class AHCalendar extends LitElement {
     }
   }
 
-  @property()
-  offset: number = 0;
-
-  getMonth(offset = 0) {
+  private _getMonth(offset = 0) {
     const today = dayjs().add(offset, "month");
     const month = today.format("MMMM");
     const year = today.format("YYYY");
     const daysInMonth = today.daysInMonth();
-    const firstDayofMonth = this.dayToNumericDay(
+    const firstDayofMonth = this._dayToNumericDay(
       today.startOf("month").format("dd")
     );
 
-    const todayDay =
-      offset === 0 ? parseInt(today.format("DD")) : 0;
+    const todayDay = offset === 0 ? parseInt(today.format("DD")) : 0;
 
     return {
       month,
@@ -308,18 +307,10 @@ export class AHCalendar extends LitElement {
     };
   }
 
-  dayToNumericDay(firstDayofMonth: string) {
+  private _dayToNumericDay(firstDayofMonth: string) {
     let firstDayNumeric = 0;
 
-    const daysOfWeek = [
-      "Mo",
-      "Tu",
-      "We",
-      "Th",
-      "Fr",
-      "Sa",
-      "Su",
-    ];
+    const daysOfWeek = ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"];
 
     daysOfWeek.forEach((dayofWeek, index) => {
       if (dayofWeek === firstDayofMonth) {
@@ -331,7 +322,7 @@ export class AHCalendar extends LitElement {
   }
 
   private _renderHeader() {
-    const { month, year } = this.getMonth(this.offset);
+    const { month, year } = this._getMonth(this.offset);
 
     // wrap a span around each letter
     const monthSpread = [...month].map(
@@ -339,27 +330,23 @@ export class AHCalendar extends LitElement {
     );
 
     return html`<header>
-	<div>
-		<h1 class="calendar__month">${monthSpread}</h1>
-		<h2 class="calendar__year">${year}${this.yearButtons()}</h2>
+      <h1 class="calendar__month">${monthSpread}</h1>
+      <h2 class="calendar__year">${year}${this._renderYearButtons()}</h2>
 
-		${this.monthButtons()}
-	</header>
-	`;
+      ${this._renderMonthButtons()}
+    </header> `;
   }
 
   private _renderTable() {
-    const { daysInMonth, firstDayofMonth, todayDay } =
-      this.getMonth(this.offset);
-    const currentClass =
-      this.offset === 0 ? "calendar--current" : "";
+    const { daysInMonth, firstDayofMonth, todayDay } = this._getMonth(
+      this.offset
+    );
+    const currentClass = this.offset === 0 ? "calendar--current" : "";
 
     // Rows
     let dayCount = 0;
     // calculate number of rows.
-    let rows = Math.ceil(
-      (daysInMonth + firstDayofMonth) / 7
-    );
+    let rows = Math.ceil((daysInMonth + firstDayofMonth) / 7);
 
     const rowsReturn = [];
 
@@ -367,10 +354,7 @@ export class AHCalendar extends LitElement {
       const row = [];
       // returnHtml += `<tr>`;
       for (let i = 1; i < 8; i++) {
-        if (
-          (j === 0 && i < firstDayofMonth) ||
-          dayCount > daysInMonth - 1
-        ) {
+        if ((j === 0 && i < firstDayofMonth) || dayCount > daysInMonth - 1) {
           row.push(html`<td></td>`);
         } else {
           dayCount++;
@@ -381,7 +365,7 @@ export class AHCalendar extends LitElement {
                 ? "calendar__day calendar__day--active"
                 : "calendar__day"}
             >
-              <span class="day">${this.indexToDay(i)}</span>
+              <span class="day">${this._indexToDay(i)}</span>
               <span class="daycount">${dayCount}</span>
             </td>`
           );
@@ -402,32 +386,25 @@ export class AHCalendar extends LitElement {
         <thead>
           <tr>
             <th>
-              m<span class="medium">on</span
-              ><span class="long">day</span>
+              m<span class="medium">on</span><span class="long">day</span>
             </th>
             <th>
-              tu<span class="medium">e</span
-              ><span class="long">sday</span>
+              tu<span class="medium">e</span><span class="long">sday</span>
             </th>
             <th>
-              w<span class="medium">ed</span
-              ><span class="long">nesday</span>
+              w<span class="medium">ed</span><span class="long">nesday</span>
             </th>
             <th>
-              th<span class="medium">u</span
-              ><span class="long">rsday</span>
+              th<span class="medium">u</span><span class="long">rsday</span>
             </th>
             <th>
-              f<span class="medium">ri</span
-              ><span class="long">day</span>
+              f<span class="medium">ri</span><span class="long">day</span>
             </th>
             <th>
-              sa<span class="medium">t</span
-              ><span class="long">urday</span>
+              sa<span class="medium">t</span><span class="long">urday</span>
             </th>
             <th>
-              su<span class="medium">n</span
-              ><span class="long">day</span>
+              su<span class="medium">n</span><span class="long">day</span>
             </th>
           </tr>
         </thead>
@@ -438,54 +415,46 @@ export class AHCalendar extends LitElement {
     </div>`;
   }
 
-  monthButtons() {
+  private _renderMonthButtons() {
     return html`<div class="month-buttons">
-      <button @click=${() => this._onSubtract()}>
-        Previous</button
+      <button @click=${() => this._onSubtract()}>Previous</button
       ><button @click=${() => this._onAdd()}>Next</button>
     </div>`;
   }
 
-  yearButtons() {
-    const { month: lastYearMonth, year: lastYearYear } =
-      this.getMonth(this.offset - 12);
-    const { month: nextYearMonth, year: nextYearYear } =
-      this.getMonth(this.offset + 12);
+  private _renderYearButtons() {
+    const { month: lastYearMonth, year: lastYearYear } = this._getMonth(
+      this.offset - 12
+    );
+    const { month: nextYearMonth, year: nextYearYear } = this._getMonth(
+      this.offset + 12
+    );
 
     return html`<div class="year-buttons">
       <button @click=${() => this._onSubtract(12)}>
-        &larr;<span class="vh"
-          >${lastYearMonth} ${lastYearYear}</span
-        >
+        &larr;<span class="vh">${lastYearMonth} ${lastYearYear}</span>
       </button>
       <button @click=${() => this._onAdd(12)}>
-        <span class="vh"
-          >${nextYearMonth} ${nextYearYear}</span
-        >&rarr;
+        <span class="vh">${nextYearMonth} ${nextYearYear}</span>&rarr;
       </button>
 
-      <button
-        @click=${this._resetCalendar}
-        @disabled=${this.offset === 0}
-      >
+      <button @click=${this._resetCalendar} @disabled=${this.offset === 0}>
         Today
       </button>
     </div>`;
   }
 
-  render() {
-    return html`
-      <div class="wrapper">${this._renderTable()}</div>
-    `;
-  }
-
-  _onAdd(number = 1) {
+  private _onAdd(number = 1) {
     this.offset = this.offset + number;
   }
-  _onSubtract(number = 1) {
+  private _onSubtract(number = 1) {
     this.offset = this.offset - number;
   }
-  _resetCalendar() {
+  private _resetCalendar() {
     this.offset = 0;
+  }
+
+  render() {
+    return html` <div class="wrapper">${this._renderTable()}</div> `;
   }
 }
