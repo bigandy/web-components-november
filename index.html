@@ -7,15 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vite + Lit + TS</title>
   <link rel="stylesheet" href="./src/assets/index.css" />
-  <script type="module" src="/src/my-element/my-element/my-element.ts"></script>
-  <script type="module" src="/src/ah-button/ah-button.ts"></script>
-  <script type="module" src="/src/ah-calendar/ah-calendar.js"></script>
+  <script type="module" src="/src/index"></script>
 </head>
 
 <body>
-  <!-- <my-element>
-    <h1>Vite + Lit</h1>
-  </my-element> -->
 
   <h1>Web Components of November</h1>
 
@@ -29,15 +24,30 @@
   <ol>
     <li>
       <h3>01 November 2022</h3>
-      <h4>ah-button web component</h4>
-      <ah-button>
-        <div slot="before">🤬</div>
-        <span>Button, click me!</span>
-        <div slot="after">🦊</div>
-      </ah-button>
+      <details>
+        <summary>ah-button web component</summary>
+        <ah-button>
+          <div slot="before">🤬</div>
+          <span>Button, click me!</span>
+          <div slot="after">🦊</div>
+        </ah-button>
+      </details>
 
-      <h4>ah-calendar web component</h4>
-      <ah-calendar></ah-calendar>
+      <details open>
+        <summary>ah-calendar web component</summary>
+        <ah-calendar></ah-calendar>
+      </details>
+    </li>
+
+    <li>
+      <h3>02 November 2022</h3>
+
+
+      <details open>
+        <summary>ah-title web component</summary>
+
+        <ah-heading variant="h6">Happy Day of the dead day!</ah-heading>
+      </details>
     </li>
   </ol>
 </body>
