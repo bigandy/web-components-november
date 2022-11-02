@@ -1,8 +1,6 @@
-import { LitElement, css } from "lit";
-
+import { LitElement } from "lit";
 import { html, unsafeStatic } from "lit/static-html.js";
 import { customElement, property } from "lit/decorators.js";
-// import { classMap } from "lit/directives/class-map.js";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -34,16 +32,9 @@ export class AHHeading extends LitElement {
 
   render() {
     return html`
-      <${unsafeStatic(this.variant)} class="heading">
+      <${unsafeStatic(this.variant)}>
         <slot></slot>
       </${unsafeStatic(this.variant)}>
     `;
   }
-
-  static styles = css`
-    // This will be customisable
-    .title {
-      font-size: 30px;
-    }
-  `;
 }
