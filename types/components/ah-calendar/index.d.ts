@@ -8,23 +8,17 @@ declare global {
  * An calendar element.
  */
 export declare class AHCalendar extends LitElement {
-    static styles: import("lit").CSSResult;
-    indexToDay(index: number): "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday" | "no day";
     offset: number;
-    getMonth(offset?: number): {
-        month: string;
-        year: string;
-        daysInMonth: number;
-        firstDayofMonth: number;
-        todayDay: number;
-    };
-    dayToNumericDay(firstDayofMonth: string): number;
+    static styles: import("lit").CSSResult;
+    private _indexToDay;
+    private _getMonth;
+    private _dayToNumericDay;
     private _renderHeader;
     private _renderTable;
-    monthButtons(): import("lit-html").TemplateResult<1>;
-    yearButtons(): import("lit-html").TemplateResult<1>;
+    private _renderMonthButtons;
+    private _renderYearButtons;
+    private _onAdd;
+    private _onSubtract;
+    private _resetCalendar;
     render(): import("lit-html").TemplateResult<1>;
-    _onAdd(number?: number): void;
-    _onSubtract(number?: number): void;
-    _resetCalendar(): void;
 }

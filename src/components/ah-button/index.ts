@@ -1,6 +1,5 @@
 import { LitElement, css, html } from "lit";
-import { customElement, state } from "lit/decorators.js";
-import { classMap } from "lit/directives/class-map.js";
+import { customElement } from "lit/decorators.js";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -18,10 +17,18 @@ declare global {
 export class AHButton extends LitElement {
   render() {
     return html`
-      <button class=${classMap({ active: this.active })}>
-        <slot part="before" class="before" name="before"></slot>
+      <button>
+        <slot
+          part="before"
+          class="before"
+          name="before"
+        ></slot>
         <slot></slot>
-        <slot part="after" class="after" name="after"></slot>
+        <slot
+          part="after"
+          class="after"
+          name="after"
+        ></slot>
       </button>
     `;
   }
@@ -44,7 +51,10 @@ export class AHButton extends LitElement {
     }
 
     button:hover {
-      background-color: var(--ah-button-background-hover, darkgreen);
+      background-color: var(
+        --ah-button-background-hover,
+        darkgreen
+      );
     }
   `;
 }
