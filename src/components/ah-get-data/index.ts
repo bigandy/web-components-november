@@ -37,42 +37,52 @@ export class AHGetData extends LitElement {
         (data) => data.json()
       );
 
-      if (this.key) {
-        console.log({ json: json[this.key] });
-        const key = json[this.key] ?? [];
+      const data = this.key ? json[this.key] : json;
 
-        // console
+      if (this.values !== "") {
+        const fieldsToGrab = this.values.split(" ");
 
-        if (this.values !== "") {
-          const values = this.values.split(" ");
-          console.log(values, key);
+        const result = data.map((drink: any) => {
+          const output = {};
+          fieldsToGrab.forEach((field) => {
+            // @ts-ignore
+            output[field] = drink[field];
+          });
+          return output;
+        });
 
-          // const ret = [];
-          // key.forEach((item) => {
-          //   values.forEach((val) => {
-          //     if (item[val]) {
-          //       ret.push({ret[val]: item[val]});
-          //     }
-          //   });
-
-          // console.log(item);
-          // });
-
-          // console.log(ret);
-
-          //   this.result.map((result) => {
-          //     const ret = result.map((res) => {
-          //       console.log(res);
-          //     });
-          //   });
-        }
-
-        this.result = key;
+        this.result = result;
       } else {
-        console.log(json);
-        this.result = [];
+        this.result = data;
       }
     }
+  }
+
+  renderTable() {
+    if (this.result.length === 0) {
+      return html`<strong>No Results</strong>`;
+    }
+
+    const fieldsToGrab = this.values.split(" ");
+
+    return html`
+      <table>
+        <thead>
+        ${fieldsToGrab.map((field) => {
+          return html` <th>${field}</th> `;
+        })}
+
+        ${this.result.map((row) => {
+          return html`
+            <tr>
+              ${Object.values(row).map((value) => {
+                return html`<td>${value}</td>`;
+              })}
+            </tr>
+          `;
+        })}
+      </table>
+    `;
   }
 
   protected render() {
@@ -81,12 +91,24 @@ export class AHGetData extends LitElement {
         <h2>
           This is the data for
           <a href=${this.dataSource}>${this.dataSource}</a>
-          with the data key of <em>${this.key}</em>
+          with the data key of <u>${this.key}</u> and values
+          of <u>${this.values}</u>
         </h2>
-        ${JSON.stringify(this.result)}
+        ${this.renderTable()}
       </div>
     `;
   }
 
-  static styles = css``;
+  static styles = css`
+    table {
+      width: 100%;
+    }
+    table,
+    th,
+    td {
+      border: 1px solid black;
+      border-collapse: collapse;
+      padding: 0.5em;
+    }
+  `;
 }
