@@ -5,20 +5,48 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="/vite.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Web Components of November - with Vite + Lit + TS</title>
+  <title>Web Components of November 2022 - with Vite + Lit + TS</title>
   <link rel="stylesheet" href="./src/assets/index.css" />
   <script type="module" src="/src/index"></script>
-  <script type="module">
-  const demoClick = (message) => {
-    alert(message);
-  }
-  window.demoClick = demoClick;
+  <script type="module" defer>
+    const handleDemoClick = (message) => {
+      alert(message);
+    }
+
+    // const demoClickButton = document.getElementById('demoClickButton');
+    demoClickButton.addEventListener('click', () => handleDemoClick('demo button clicked'));
+
+
+    // const detailsToggleButton = document.getElementById('detailsToggleButton');
+    let open = true;
+    detailsToggleButton.addEventListener('click', () => {
+      const details = document.querySelectorAll('details');
+      console.log('clicking dialog toggle button')
+      details.forEach(detail => {
+        if (open) {
+          detail.setAttribute('open', true);
+        } else {
+          detail.removeAttribute('open');
+        }
+      })
+      open = !open;
+    });
   </script>
+  <style>
+    #detailsToggleButton {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+    }
+
+  </style>
 </head>
 
 <body>
 
-  <h1>Web Components of November</h1>
+  <h1>Web Components of November 2022</h1>
+
+  <ah-button id="detailsToggleButton">Toggle Details</ah-button>
 
   <h2>Rules</h2>
   <ul>
@@ -27,19 +55,21 @@
     <li>Release the web component into the wild</li>
   </ul>
 
+  <h2>The Components</h2>
+
   <ol>
     <li>
       <h3>01 November 2022</h3>
       <details>
         <summary>ah-button web component</summary>
-        <ah-button onclick="demoClick('button clicked');">
+        <ah-button id="demoClickButton">
           <div slot="before">🤬</div>
           <span>Button, click me!</span>
           <div slot="after">🦊</div>
         </ah-button>
       </details>
 
-      <details open>
+      <details>
         <summary>ah-calendar web component</summary>
         <ah-calendar></ah-calendar>
       </details>
@@ -49,7 +79,7 @@
       <h3>02 November 2022</h3>
 
 
-      <details open>
+      <details>
         <summary>ah-title web component</summary>
 
         <ah-heading variant="h1">Happy Day of the dead day!</ah-heading>
@@ -58,6 +88,20 @@
         <ah-heading variant="h4">Happy Day of the dead day!</ah-heading>
         <ah-heading variant="h5">Happy Day of the dead day!</ah-heading>
         <ah-heading variant="h6">Happy Day of the dead day!</ah-heading>
+      </details>
+    </li>
+
+    <li>
+      <h3>03 November 2022</h3>
+
+      <details open>
+        <summary>ah-get-data web component</summary>
+
+        <ah-get-data dataSource="https://www.thecocktaildb.com/api/json/v1/1/search.php?s=margarita" key="drinks"
+          values="strDrink strInstructions">
+
+        </ah-get-data>
+
       </details>
     </li>
   </ol>
