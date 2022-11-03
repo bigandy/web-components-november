@@ -14,8 +14,8 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build:lib": "tsc && vite build --config vite-lib.config.ts",
-    "build:site": "tsc && vite build"
+    "build:site": "tsc && vite build",
+    "build:lib": "tsc && vite build --config vite-lib.config.ts"
   },
   "dependencies": {
     "dayjs": "1.11.6",
