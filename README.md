@@ -19,7 +19,7 @@ Two parts: the site and the lib:
 - `npm run build:lib`
 
 ## TODOs
-- [x] Create a public website with my work in progress.
+- [x] Create a public website with my work in progress. Here is the site: [https://web-components-november-2022.netlify.app/](https://web-components-november-2022.netlify.app/)
 - [x] Create a library from these so that I can use them on my sites in the future.
 - [ ] This library will be published to NPM
 
