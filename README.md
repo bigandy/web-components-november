@@ -4,6 +4,22 @@ I want to learn more about web components so I have set myself the target of cre
 
 I will use lit to help me create them along with Vite and TS.
 
+## Developing
+1. `npm install`
+2. `npm run dev`
+3. open http://127.0.0.1:5173/ in your browser of choice.
+
+## Building
+Two parts: the site and the lib:
+
+### The Site
+- `npm run build:site`
+
+### The lib
+- `npm run build:lib`
+
 ## TODOs
-I intend to create a library from these so that I can use them on my sites in the future.
-I intend also to create a public website with my work in progress.
+- [x] Create a public website with my work in progress.
+- [x] Create a library from these so that I can use them on my sites in the future.
+- [ ] This library will be published to NPM
+
