@@ -1,4 +1,4 @@
-# Web Component November 2022
+# Web Components November 2022
 
 I want to learn more about web components so I have set myself the target of creating one new web component a day for the 30 days of November 2022.
 
