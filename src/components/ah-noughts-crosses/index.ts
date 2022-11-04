@@ -1,5 +1,5 @@
 import { LitElement, css, html } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 
 declare global {
@@ -86,12 +86,18 @@ export class AHNoughtsCrosses extends LitElement {
     }
 
     .naught {
-      background: var(--ah-noughts-crosses-naught-background, yellow);
+      background: var(
+        --ah-noughts-crosses-naught-background,
+        yellow
+      );
       fill: var(--ah-noughts-crosses-naught-fill, green);
     }
 
     .cross {
-      background: var(--ah-noughts-crosses-cross-background, purple);
+      background: var(
+        --ah-noughts-crosses-cross-background,
+        purple
+      );
       fill: var(--ah-noughts-crosses-cross-fill, yellow);
     }
 
@@ -119,7 +125,10 @@ export class AHNoughtsCrosses extends LitElement {
   winner: boolean = false;
 
   handleInputChange(index: number) {
-    if (this.boardState[index] === undefined && !this.winner) {
+    if (
+      this.boardState[index] === undefined &&
+      !this.winner
+    ) {
       const updatedState = { ...this.boardState };
       updatedState[index] = this.firstPlayerActive;
       this.boardState = updatedState;
@@ -165,13 +174,18 @@ export class AHNoughtsCrosses extends LitElement {
         ${!this.winner
           ? html`<ah-heading variant="h3"
               >Current:
-              ${this.firstPlayerActive ? "Naught" : "Cross"}</ah-heading
+              ${this.firstPlayerActive
+                ? "Naught"
+                : "Cross"}</ah-heading
             >`
           : ""}
         ${this.winner
           ? html`<ah-heading variant="h3"
               >winner winner chicken dinner:
-              ${!this.firstPlayerActive ? "Naught" : "Cross"} wins</ah-heading
+              ${!this.firstPlayerActive
+                ? "Naught"
+                : "Cross"}
+              wins</ah-heading
             >`
           : html`<div
               class=${classMap({
@@ -180,7 +194,9 @@ export class AHNoughtsCrosses extends LitElement {
                 cross: !this.firstPlayerActive,
               })}
             >
-              ${this.firstPlayerActive ? NAUGHT_ICON : CROSS_ICON}
+              ${this.firstPlayerActive
+                ? NAUGHT_ICON
+                : CROSS_ICON}
             </div>`}
       </div>
       <div class="board">
@@ -188,10 +204,13 @@ export class AHNoughtsCrosses extends LitElement {
           return html`<input
               type="checkbox"
               id=${`checkbox-${index}`}
-              ?checked=${this.boardState[index] !== undefined}
+              ?checked=${this.boardState[index] !==
+              undefined}
               @change=${() => this.handleInputChange(index)}
               class=${classMap({
-                noGoCell: this.boardState[index] !== undefined || this.winner,
+                noGoCell:
+                  this.boardState[index] !== undefined ||
+                  this.winner,
               })}
             />
             <label

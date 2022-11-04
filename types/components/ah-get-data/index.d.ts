@@ -14,6 +14,7 @@ export declare class AHGetData extends LitElement {
     values: string;
     result: never[];
     connectedCallback(): Promise<void>;
+    renderTable(): import("lit-html").TemplateResult<1>;
     protected render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
 }
