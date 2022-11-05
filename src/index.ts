@@ -1,8 +1,10 @@
 import { AHButton } from "./components/ah-button";
 import { AHCalendar } from "./components/ah-calendar";
-import { AHHeading } from "./components/ah-heading";
 import { AHGetData } from "./components/ah-get-data";
+import { AHHeading } from "./components/ah-heading";
 import { AHNoughtsCrosses } from "./components/ah-noughts-crosses";
+import { AHScroller } from "./components/ah-scroller";
+
 import { MyElement } from "./components/my-element";
 
 export default {
@@ -11,5 +13,6 @@ export default {
   AHGetData,
   AHHeading,
   AHNoughtsCrosses,
+  AHScroller,
   MyElement,
 };
