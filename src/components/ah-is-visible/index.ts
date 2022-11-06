@@ -14,15 +14,8 @@ declare global {
  * An ah-is-visible element.
  * A wrapper element that detects whether the content within is in the viewport
  */
-// @ts-ignore -- need to sort this one out if possible!
 @customElement("ah-is-visible")
 export class AHIsVisible extends IntersectionElementMixin(LitElement) {
-  static styles = css`
-    ::slotted(*) {
-      display: none;
-    }
-  `;
-
   constructor() {
     super();
 
@@ -33,26 +26,16 @@ export class AHIsVisible extends IntersectionElementMixin(LitElement) {
   @property({
     type: Boolean,
     attribute: false,
-    // hasChanged: (newVal, oldVal) => {
-    //   console.log(this);
-    //   // this.parentNode.style.backgroundColor = newVal ? "red" : "green";
-    //   //   console.log({ newVal, oldVal });
-    //   return true;
-    // },
   })
   elementVisible = false;
 
   render() {
     console.log("is visible?", this.elementVisible);
 
-    // document.documentElement.style.backgroundColor = this.elementVisible
-    //   ? "red"
-    //   : "green";
-
     return html`
       <div
         style=${styleMap({
-          backgroundColor: this.visible ? "red" : "green",
+          backgroundColor: this.elementVisible ? "red" : "green",
         })}
       >
         ${this.elementVisible ? "visible" : "invisible"}
