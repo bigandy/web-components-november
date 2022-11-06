@@ -74,7 +74,6 @@ export const IntersectionElementMixin = <T extends Constructor<LitElement>>(
     handleIntersectionCallback(entries: any) {
       for (let entry of entries) {
         let ratio = Number(entry.intersectionRatio).toFixed(2);
-        console.log(entry, ratio);
         // ensure ratio is higher than our limit before trigger visibility
         if (Number(ratio) >= this.IOVisibleLimit) {
           this.elementVisible = true;
