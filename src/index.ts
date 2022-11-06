@@ -4,6 +4,7 @@ import { AHGetData } from "./components/ah-get-data";
 import { AHHeading } from "./components/ah-heading";
 import { AHIsVisible } from "./components/ah-is-visible";
 import { AHNoughtsCrosses } from "./components/ah-noughts-crosses";
+import { AHWatcher } from "./components/ah-watcher";
 import { AHScroller } from "./components/ah-scroller";
 
 import { MyElement } from "./components/my-element";
@@ -16,5 +17,6 @@ export default {
   AHIsVisible,
   AHNoughtsCrosses,
   AHScroller,
+  AHWatcher,
   MyElement,
 };

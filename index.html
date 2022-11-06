@@ -38,6 +38,15 @@
       top: 1rem;
       right: 1rem;
     }
+
+    ah-watcher {
+      border: 10px solid;
+      width: 100%;
+      display: block;
+    }
+    ah-watcher[matched] {
+      border-color: red;
+    }
   </style>
 </head>
 
@@ -136,7 +145,7 @@
     <li>
       <h3>06 November 2022</h3>
 
-      <details open>
+      <details>
         <summary>ah-is-visible web component</summary>
 
         <ah-scroller height="300" width="300" scrollX scrollY scrollbars>
@@ -146,6 +155,23 @@
             <ah-is-visible style="place-self: end;"><span>End</span></ah-is-visible>
           </div>
       </ah-scroller>
+      </details>
+    </li>
+    <li>
+      <h3>07 November 2022</h3>
+
+      <details open>
+        <summary>ah-is-visible web component</summary>
+
+        <ah-watcher>
+          <ah-scroller height="300" width="300" scrollX scrollY scrollbars>
+            <div style="font-size: 40px; font-weight: bold;min-height: 600px; min-width: 600px; display: grid;">
+              <span>Start</span>
+
+              <ah-is-visible style="place-self: end;"><span>End</span></ah-is-visible>
+            </div>
+        </ah-scroller>
+      </ah-watcher>
       </details>
     </li>
   </ol>
