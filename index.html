@@ -44,9 +44,11 @@
       width: 100%;
       display: block;
     }
+
     ah-watcher[matched] {
       border-color: red;
     }
+
   </style>
 </head>
 
@@ -121,7 +123,7 @@
 
       <details>
         <summary>ah-noughts-crosses web component</summary>
-        
+
         <ah-noughts-crosses></ah-noughts-crosses>
       </details>
     </li>
@@ -139,7 +141,7 @@
 
             <span style="place-self: end;">End</span>
           </div>
-      </ah-scroller>
+        </ah-scroller>
       </details>
     </li>
     <li>
@@ -154,11 +156,21 @@
 
             <ah-is-visible style="place-self: end;"><span>End</span></ah-is-visible>
           </div>
-      </ah-scroller>
+        </ah-scroller>
       </details>
     </li>
+
     <li>
       <h3>07 November 2022</h3>
+
+      <details open>
+        <summary>ah-time-until web component</summary>
+
+        <ah-time-until date="2022-12-25" targetDateString="Christmas Day"></ah-time-until>
+      </details>
+    </li>
+    <!-- <li>
+      <h3>08 November 2022</h3>
 
       <details open>
         <summary>ah-watcher web component</summary>
@@ -173,7 +185,7 @@
         </ah-scroller>
       </ah-watcher>
       </details>
-    </li>
+    </li> -->
   </ol>
 </body>
 
