@@ -1,18 +1,15 @@
 import { LitElement } from "lit";
 declare global {
     interface HTMLElementTagNameMap {
-        "ah-is-visible": AHIsVisible;
+        "ah-watcher": AHWatcher;
     }
 }
-declare const AHIsVisible_base: typeof LitElement;
 /**
  * An ah-is-visible element.
  * A wrapper element that detects whether the content within is in the viewport
  */
-export declare class AHIsVisible extends AHIsVisible_base {
-    constructor();
-    elementVisible: boolean;
-    handleVisible(): void;
+export declare class AHWatcher extends LitElement {
+    matched: boolean;
+    handleMatched(e: any): void;
     render(): import("lit-html").TemplateResult<1>;
 }
-export {};

@@ -29,6 +29,12 @@ export class AHIsVisible extends IntersectionElementMixin(LitElement) {
   })
   elementVisible = false;
 
+  handleVisible() {
+    this.dispatchEvent(
+      new CustomEvent("matched", { detail: this.elementVisible, bubbles: true })
+    );
+  }
+
   render() {
     console.log("is visible?", this.elementVisible);
 
@@ -37,6 +43,7 @@ export class AHIsVisible extends IntersectionElementMixin(LitElement) {
         style=${styleMap({
           backgroundColor: this.elementVisible ? "red" : "green",
         })}
+        @click=${this.handleVisible}
       >
         ${this.elementVisible ? "visible" : "invisible"}
         <slot></slot>
