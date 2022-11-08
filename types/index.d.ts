@@ -6,7 +6,7 @@ import { AHIsVisible } from "./components/ah-is-visible";
 import { AHNoughtsCrosses } from "./components/ah-noughts-crosses";
 import { AHWatcher } from "./components/ah-watcher";
 import { AHScroller } from "./components/ah-scroller";
-import { AHTimeUntil } from "./components/ah-time-until";
+import { AHTimeDiff } from "./components/ah-time-diff";
 import { MyElement } from "./components/my-element";
 declare const _default: {
     AHButton: typeof AHButton;
@@ -16,7 +16,7 @@ declare const _default: {
     AHIsVisible: typeof AHIsVisible;
     AHNoughtsCrosses: typeof AHNoughtsCrosses;
     AHScroller: typeof AHScroller;
-    AHTimeUntil: typeof AHTimeUntil;
+    AHTimeDiff: typeof AHTimeDiff;
     AHWatcher: typeof AHWatcher;
     MyElement: typeof MyElement;
 };

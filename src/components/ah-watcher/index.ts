@@ -16,17 +16,16 @@ export class AHWatcher extends LitElement {
   @property({
     type: Boolean,
     reflect: true,
-    // attribute: false,
   })
   matched = false;
 
   handleMatched(e: any) {
-    console.log("Detail is:::", e.detail);
-
-    this.matched = !this.matched;
+    this.matched = e.detail;
   }
 
   render() {
-    return html` <slot @matched=${this.handleMatched}></slot> `;
+    return html`
+      <slot @matched=${this.handleMatched}></slot>
+    `;
   }
 }

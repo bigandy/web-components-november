@@ -10,9 +10,10 @@ declare const AHIsVisible_base: typeof LitElement;
  * A wrapper element that detects whether the content within is in the viewport
  */
 export declare class AHIsVisible extends AHIsVisible_base {
-    constructor();
-    elementVisible: boolean;
-    handleVisible(): void;
+    private _elementVisible;
+    IOVisibleLimit: number;
+    get elementVisible(): boolean;
+    set elementVisible(val: boolean);
     render(): import("lit-html").TemplateResult<1>;
 }
 export {};

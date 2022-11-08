@@ -15,37 +15,41 @@ declare global {
  * A wrapper element that detects whether the content within is in the viewport
  */
 @customElement("ah-is-visible")
-export class AHIsVisible extends IntersectionElementMixin(LitElement) {
-  constructor() {
-    super();
+export class AHIsVisible extends IntersectionElementMixin(
+  LitElement
+) {
+  private _elementVisible = false;
 
-    // this.IORemoveOnVisible = true;
-    // this.IORootElement = this.parentNode;
+  @property()
+  IOVisibleLimit = 0.5;
+
+  @property()
+  get elementVisible() {
+    return this._elementVisible;
   }
 
-  @property({
-    type: Boolean,
-    attribute: false,
-  })
-  elementVisible = false;
+  set elementVisible(val: boolean) {
+    let oldVal = this._elementVisible;
+    this._elementVisible = val;
 
-  handleVisible() {
     this.dispatchEvent(
-      new CustomEvent("matched", { detail: this.elementVisible, bubbles: true })
+      new CustomEvent("matched", {
+        detail: this.elementVisible,
+        bubbles: true,
+      })
     );
+    this.requestUpdate("elementVisible", oldVal);
   }
 
   render() {
-    console.log("is visible?", this.elementVisible);
-
     return html`
       <div
         style=${styleMap({
-          backgroundColor: this.elementVisible ? "red" : "green",
+          backgroundColor: this.elementVisible
+            ? "green"
+            : "red",
         })}
-        @click=${this.handleVisible}
       >
-        ${this.elementVisible ? "visible" : "invisible"}
         <slot></slot>
       </div>
     `;

@@ -15,6 +15,7 @@ export declare class AHScroller extends LitElement {
     scrollbars: boolean;
     height: undefined;
     width: undefined;
+    hideBorder: boolean;
     render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
 }
