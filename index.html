@@ -40,13 +40,13 @@
     }
 
     ah-watcher {
-      border: 10px solid;
       width: 100%;
       display: block;
+      background: hotpink;
     }
 
     ah-watcher[matched] {
-      border-color: red;
+      background-color: green;
     }
 
   </style>
@@ -166,26 +166,40 @@
       <details open>
         <summary>ah-time-until web component</summary>
 
-        <ah-time-until date="2022-12-25" targetDateString="Christmas Day"></ah-time-until>
+        <ah-time-diff date="2022-11-05" targetDateString="Fireworks Day"></ah-time-diff>
+
+        <ah-time-diff date="2022-12-25" targetDateString="Christmas Day"></ah-time-diff>
       </details>
     </li>
-    <!-- <li>
+    <li>
       <h3>08 November 2022</h3>
 
       <details open>
         <summary>ah-watcher web component</summary>
 
-        <ah-watcher>
-          <ah-scroller height="300" width="300" scrollX scrollY scrollbars>
+        <p>So this component is <strong>ah-watcher</strong> and it listens to the `matched` custom event that is being
+          emitted elsewhere in one of its children. In this example I am using the ah-is-visible element to send the
+          `matched` custom event when an element is visible in its context.</p>
+
+        <p>To test this out you will need to scroll the below box to the bottom. That will trigger the event when the
+          "Bottom of the box" text is visible in the scrollbox. There is another element on the right half way up.</p>
+
+        <ah-watcher style="height:300px; width: 300px">
+          <ah-scroller hideBorder height="300" width="300" scrollX scrollY scrollbars>
             <div style="font-size: 40px; font-weight: bold;min-height: 600px; min-width: 600px; display: grid;">
               <span>Start</span>
 
-              <ah-is-visible style="place-self: end;"><span>End</span></ah-is-visible>
+              <ah-is-visible style="place-self: end;"><span>Middle Right</span></ah-is-visible>
             </div>
-        </ah-scroller>
-      </ah-watcher>
+
+
+            <div style="margin-top: 600px;">
+              <ah-is-visible>Bottom of the box</ah-is-visible>
+            </div>
+          </ah-scroller>
+        </ah-watcher>
       </details>
-    </li> -->
+    </li>
   </ol>
 </body>
 

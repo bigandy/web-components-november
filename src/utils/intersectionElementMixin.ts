@@ -7,7 +7,9 @@ type Constructor<T = {}> = new (...args: any[]) => T;
  * `IntersectionElementSuper`
  * `Wiring to provide basic IntersectionObserver support to any web component`
  */
-export const IntersectionElementMixin = <T extends Constructor<LitElement>>(
+export const IntersectionElementMixin = <
+  T extends Constructor<LitElement>
+>(
   superClass: T
 ) => {
   // SuperClass so we can write any web component library / base class
@@ -45,14 +47,15 @@ export const IntersectionElementMixin = <T extends Constructor<LitElement>>(
       // setup the intersection observer, only if we are not visible
       if (!this.elementVisible) {
         // @ts-ignore
-        this.intersectionObserver = new IntersectionObserver(
-          this.handleIntersectionCallback.bind(this),
-          {
-            root: this.IORootElement,
-            rootMargin: "0px",
-            threshold: this.IOVisibleLimit,
-          }
-        );
+        this.intersectionObserver =
+          new IntersectionObserver(
+            this.handleIntersectionCallback.bind(this),
+            {
+              root: this.IORootElement,
+              rootMargin: "0px",
+              threshold: this.IOVisibleLimit,
+            }
+          );
         // @ts-ignore
         this.intersectionObserver.observe(this);
       }
@@ -73,7 +76,9 @@ export const IntersectionElementMixin = <T extends Constructor<LitElement>>(
      */
     handleIntersectionCallback(entries: any) {
       for (let entry of entries) {
-        let ratio = Number(entry.intersectionRatio).toFixed(2);
+        let ratio = Number(entry.intersectionRatio).toFixed(
+          2
+        );
         // ensure ratio is higher than our limit before trigger visibility
         if (Number(ratio) >= this.IOVisibleLimit) {
           this.elementVisible = true;
