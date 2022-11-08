@@ -140,6 +140,7 @@ export class AHTodoList extends LitElement {
 
     // newState[index].done = !newState[index].done;
 
+    newState.splice(index, 1);
     this.todos = newState;
 
     this.save(this.todos);
@@ -154,10 +155,13 @@ export class AHTodoList extends LitElement {
   render() {
     return html`
       <div>
+        <label for="todoInput">Todo: </label>
         <input
+          id="todoInput"
           type="text"
           .value="${this.inputValue}"
           @change=${this.onChange}
+          placeholder="Clean the car"
         />
 
         <ul>
@@ -173,7 +177,7 @@ export class AHTodoList extends LitElement {
                   ${todo.text}
 
                   <ah-button
-                    @click=${(e) =>
+                    @click=${(e: any) =>
                       this.handleDelete(e, index)}
                     >Delete?</ah-button
                   >
