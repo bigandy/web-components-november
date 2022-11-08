@@ -7,6 +7,7 @@ import { AHNoughtsCrosses } from "./components/ah-noughts-crosses";
 import { AHWatcher } from "./components/ah-watcher";
 import { AHScroller } from "./components/ah-scroller";
 import { AHTimeDiff } from "./components/ah-time-diff";
+import { AHTodoList } from "./components/ah-todo-list";
 
 import { MyElement } from "./components/my-element";
 
@@ -19,6 +20,7 @@ export default {
   AHNoughtsCrosses,
   AHScroller,
   AHTimeDiff,
+  AHTodoList,
   AHWatcher,
   MyElement,
 };
