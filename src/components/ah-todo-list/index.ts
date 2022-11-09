@@ -194,7 +194,7 @@ export class AHTodoList extends LitElement {
   render() {
     return html`
       <div>
-        <label for="todoInput">Todo: </label>
+        <label for="todoInput">Create To-do: </label>
         <input
           id="todoInput"
           type="text"
