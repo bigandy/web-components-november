@@ -18,9 +18,17 @@ export class AHButton extends LitElement {
   render() {
     return html`
       <button>
-        <slot part="before" class="before" name="before"></slot>
+        <slot
+          part="before"
+          class="before"
+          name="before"
+        ></slot>
         <slot></slot>
-        <slot part="after" class="after" name="after"></slot>
+        <slot
+          part="after"
+          class="after"
+          name="after"
+        ></slot>
       </button>
     `;
   }
@@ -34,16 +42,23 @@ export class AHButton extends LitElement {
     button {
       border-radius: 20px;
       border: none;
-      padding: 0.6em 1.2em;
+      padding-inline: var(
+        --ah-button-padding-inline,
+        1.2em
+      );
+      padding-block: var(--ah-button-padding-block, 0.6em);
       font-size: 1em;
       background-color: var(--ah-button-background, green);
-      color: white;
+      color: var(--ah-button-color, white);
       cursor: pointer;
       transition: background-color 0.25s;
     }
 
     button:hover {
-      background-color: var(--ah-button-background-hover, darkgreen);
+      background-color: var(
+        --ah-button-background-hover,
+        darkgreen
+      );
     }
   `;
 }
