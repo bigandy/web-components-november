@@ -8,6 +8,8 @@ import { classMap } from "lit/directives/class-map.js";
 
 import dayjs, { Dayjs } from "dayjs";
 
+import { CROSS_ICON } from "../../constants/icons";
+
 declare global {
   interface HTMLElementTagNameMap {
     "ah-todo-list": AHTodoList;
@@ -45,19 +47,24 @@ export class AHTodoList extends LitElement {
     if (Array.isArray(storageArray)) {
       this.todos = storageArray;
     }
+  }
 
-    console.log(storageArray);
+  private _keydownHandler(e: any) {
+    if (e.target.value) {
+      this.inputValue = e.target.value;
+    }
+
+    if (e.code === "Enter") {
+      this.handleSubmit();
+      this.clearInput();
+    }
   }
 
   onChange(e: any) {
-    console.log(e.target.value);
     this.inputValue = e.target.value;
   }
 
   handleSubmit() {
-    console.log("submit please");
-    console.log(this.inputValue);
-
     const oldState = [...this.todos];
 
     this.todos = [
@@ -71,6 +78,10 @@ export class AHTodoList extends LitElement {
 
     this.save(this.todos);
 
+    this.clearInput();
+  }
+
+  clearInput() {
     this.inputValue = "";
   }
 
@@ -82,12 +93,16 @@ export class AHTodoList extends LitElement {
   }
 
   static styles = css`
+    :host > div {
+      margin-block: 2em;
+    }
+
     .done {
-      color: green;
+      text-decoration: line-through;
     }
 
     .done::before {
-      background: lightgrey;
+      background: black;
     }
 
     .todo {
@@ -99,8 +114,14 @@ export class AHTodoList extends LitElement {
       display: inline-block;
       height: 0.7em;
       width: 0.7em;
-      border-radius: 50%;
-      border: 1px solid;
+      border: 2px solid;
+      position: relative;
+      top: 0.25em;
+    }
+
+    input {
+      width: 250px;
+      padding: 1em;
     }
 
     li {
@@ -108,9 +129,39 @@ export class AHTodoList extends LitElement {
       margin-bottom: 1em;
       --ah-button-background: red;
       --ah-button-color: white;
-      --ah-button-padding-inline: 0;
-      --ah-button-padding-block: 0;
+      --ah-button-padding-inline: 1em;
+      --ah-button-padding-block: 0.5em;
       --ah-button-background-hover: darkred;
+      display: grid;
+
+      grid-template-columns: auto 1fr 1fr;
+      gap: 1em;
+      width: 400px;
+    }
+
+    [type="submit"] {
+      --ah-button-padding-inline: 1.8em;
+      --ah-button-padding-block: 0.9em;
+
+      --ah-button-background: rgb(0 0 0 / 0.5);
+      --ah-button-background-hover: black;
+    }
+
+    li svg {
+      fill: currentColor;
+      width: 1.25em;
+      height: 1.25em;
+      vertical-align: -3px;
+    }
+
+    li ah-button {
+      font-size: 12px;
+      opacity: 0.15;
+      transitiion: opacity 300ms ease-in-out;
+    }
+
+    li:hover ah-button {
+      opacity: 1;
     }
 
     ul {
@@ -121,8 +172,6 @@ export class AHTodoList extends LitElement {
   `;
 
   handleTodoDone(index: number) {
-    console.log(index, this.todos[index]);
-
     const newState = [...this.todos];
 
     newState[index].done = !newState[index].done;
@@ -134,22 +183,12 @@ export class AHTodoList extends LitElement {
 
   handleDelete(e: any, index: number) {
     e.stopPropagation();
-    console.log(index, this.todos[index]);
 
     const newState = [...this.todos];
-
-    // newState[index].done = !newState[index].done;
-
     newState.splice(index, 1);
     this.todos = newState;
 
     this.save(this.todos);
-
-    // const newState = [...this.todos];
-
-    // newState[index].done = !newState[index].done;
-
-    // this.todos = newState;
   }
 
   render() {
@@ -161,8 +200,13 @@ export class AHTodoList extends LitElement {
           type="text"
           .value="${this.inputValue}"
           @change=${this.onChange}
-          placeholder="Clean the car"
+          @keydown=${this._keydownHandler}
+          placeholder="Create a new web component with lit!"
         />
+
+        <ah-button type="submit" @click=${this.handleSubmit}
+          >Submit</ah-button
+        >
 
         <ul>
           ${Boolean(this.todos.length > 0)
@@ -179,16 +223,14 @@ export class AHTodoList extends LitElement {
                   <ah-button
                     @click=${(e: any) =>
                       this.handleDelete(e, index)}
-                    >Delete?</ah-button
+                  >
+                    <div slot="before">${CROSS_ICON}</div>
+                    Delete</ah-button
                   >
                 </li>`;
               })
             : null}
         </ul>
-
-        <ah-button type="submit" @click=${this.handleSubmit}
-          >Submit</ah-button
-        >
       </div>
     `;
   }

@@ -47,7 +47,6 @@ export class AHButton extends LitElement {
         1.2em
       );
       padding-block: var(--ah-button-padding-block, 0.6em);
-      padding: 0.6em 1.2em;
       font-size: 1em;
       background-color: var(--ah-button-background, green);
       color: var(--ah-button-color, white);
