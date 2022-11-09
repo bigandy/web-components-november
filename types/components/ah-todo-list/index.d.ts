@@ -18,8 +18,10 @@ export declare class AHTodoList extends LitElement {
     todos: TodoType[];
     inputValue: string;
     connectedCallback(): void;
+    private _keydownHandler;
     onChange(e: any): void;
     handleSubmit(): void;
+    clearInput(): void;
     save(state: TodoType[]): void;
     static styles: import("lit").CSSResult;
     handleTodoDone(index: number): void;
