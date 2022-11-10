@@ -77,7 +77,7 @@ export class AHHoudiniBanner extends LitElement {
   }
 
   static styles = css`
-    @supports (background: paint(checkers)) {
+    
       .checkers {
         background: paint(checkers);
       }
@@ -86,7 +86,7 @@ export class AHHoudiniBanner extends LitElement {
         background: paint(circles);
         color: black;
       }
-    }
+    
 
     .fallback {
       background: black;
