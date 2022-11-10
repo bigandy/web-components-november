@@ -204,7 +204,7 @@
     <li>
       <h3>09 November 2022</h3>
 
-      <details open>
+      <details>
         <summary>ah-todo-list web component</summary>
 
         <ah-todo-list>
@@ -219,12 +219,20 @@
       <details open>
         <summary>ah-houdini-banner web component</summary>
 
-        <ah-houdini-banner checkers>
-          <h2 style="color: white; padding: 3em;">Houdini Banner - checkers</h2>
+        <ah-houdini-banner checkers style="--color-1: blue; --color-2: gold">
+          <h2 style="color: black; padding: 3em;">Houdini Banner - checkers</h2>
         </ah-houdini-banner>
 
-        <ah-houdini-banner stars>
-          <h2 style="color: white; padding: 3em;">Houdini Banner - stars</h2>
+        <ah-houdini-banner circles hideWarning>
+          <h2 style="color: black; padding: 3em;">Houdini Banner - circles</h2>
+        </ah-houdini-banner>
+
+        <ah-houdini-banner checkers hideWarning style="--color-1: cyan; --color-2: magenta; --square-dimension: 100">
+          <h2 style="color: black; padding: 3em;">Houdini Banner - checkers</h2>
+        </ah-houdini-banner>
+
+        <ah-houdini-banner circles hideWarning>
+          <h2 style="color: black; padding: 3em;">Houdini Banner - circles</h2>
         </ah-houdini-banner>
       </details>
     </li>

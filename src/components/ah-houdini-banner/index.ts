@@ -26,7 +26,10 @@ export class AHHoudiniBanner extends LitElement {
   checkers = false;
 
   @property({ type: Boolean })
-  stars = false;
+  circles = false;
+
+  @property({ type: Boolean })
+  hideWarning = false;
 
   connectedCallback(): void {
     super.connectedCallback();
@@ -39,9 +42,11 @@ export class AHHoudiniBanner extends LitElement {
         CSS.paintWorklet.addModule(
           "/js/houdini-checkers.js"
         );
-      } else if (this.stars) {
+      } else if (this.circles) {
         // @ts-ignore
-        CSS.paintWorklet.addModule("/js/houdini-stars.js");
+        CSS.paintWorklet.addModule(
+          "/js/houdini-circles.js"
+        );
       }
     } else {
       console.log("doesn't support paintWorklet");
@@ -52,11 +57,12 @@ export class AHHoudiniBanner extends LitElement {
     return html`<div
       class=${classMap({
         checkers: this.checkers,
-        stars: this.stars,
-        fallback: !this.stars && !this.checkers,
+        circles: this.circles,
+        fallback: !this.circles && !this.checkers,
       })}
     >
-      <ah-supports .show=${!this.browserSupported}
+      <ah-supports
+        .show=${!this.browserSupported && !this.hideWarning}
         ><p>
           Your browser does not support the CSS Houdini
           Paint API. Please try latest Chrome or Edge or
@@ -76,8 +82,9 @@ export class AHHoudiniBanner extends LitElement {
         background: paint(checkers);
       }
 
-      .stars {
-        background: paint(stars);
+      .circles {
+        background: paint(circles);
+        color: black;
       }
     }
 
