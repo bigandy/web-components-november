@@ -34,7 +34,7 @@ export class AHHoudiniBanner extends LitElement {
   connectedCallback(): void {
     super.connectedCallback();
 
-    if ("paintWorklet" in CSS) {
+    
       console.log("supports  paintWorklet!");
 
       if (this.checkers) {
@@ -48,10 +48,8 @@ export class AHHoudiniBanner extends LitElement {
           "/js/houdini-circles.js"
         );
       }
-    } else {
-      console.log("doesn't support paintWorklet");
-      this.browserSupported = false;
-    }
+ 
+      
   }
   render() {
     return html`<div
