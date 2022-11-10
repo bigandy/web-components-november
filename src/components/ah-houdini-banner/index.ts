@@ -72,7 +72,7 @@ export class AHHoudiniBanner extends LitElement {
           >
         </p></ah-supports
       >
-      ${this.browserSupported ? html`<slot> </slot>` : null}
+      <slot> </slot>
     </div>`;
   }
 
