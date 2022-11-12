@@ -1,9 +1,5 @@
 import { LitElement, css, html } from "lit";
-import {
-  customElement,
-  property,
-  state,
-} from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 
 import { classMap } from "lit/directives/class-map.js";
 
@@ -34,57 +30,51 @@ export class AHHoudiniBanner extends LitElement {
   connectedCallback(): void {
     super.connectedCallback();
 
-    
+    if ("paintWorklet" in CSS) {
       console.log("supports  paintWorklet!");
 
       if (this.checkers) {
         // @ts-ignore
-        CSS.paintWorklet.addModule(
-          "/js/houdini-checkers.js"
-        );
+        CSS.paintWorklet.addModule("/js/houdini-checkers.js");
       } else if (this.circles) {
         // @ts-ignore
-        CSS.paintWorklet.addModule(
-          "/js/houdini-circles.js"
-        );
+        CSS.paintWorklet.addModule("/js/houdini-circles.js");
       }
- 
-      
+    } else {
+      this.browserSupported = false;
+    }
   }
   render() {
-    return html`<div
-      class=${classMap({
-        checkers: this.checkers,
-        circles: this.circles,
-        fallback: !this.circles && !this.checkers,
-      })}
-    >
-      <ah-supports
+    return html` <ah-supports
         .show=${!this.browserSupported && !this.hideWarning}
         ><p>
-          Your browser does not support the CSS Houdini
-          Paint API. Please try latest Chrome or Edge or
-          Opera.
-          <a href="https://caniuse.com/?search=paint%20"
-            >Details here</a
-          >
+          Your browser does not support the CSS Houdini Paint API. Please try
+          latest Chrome or Edge or Opera.
+          <a href="https://caniuse.com/?search=paint%20">Details here</a>
         </p></ah-supports
       >
-      <slot> </slot>
-    </div>`;
+      <div
+        class=${classMap({
+          checkers: this.checkers,
+          circles: this.circles,
+          fallback: !this.browserSupported || (!this.circles && !this.checkers),
+        })}
+      >
+        <slot> </slot>
+      </div>`;
   }
 
   static styles = css`
-    
-      .checkers {
-        background: paint(checkers);
-      }
+    :host {
+      color: var(--ah-houdini-banner-color, inherit);
+    }
+    .checkers {
+      background: paint(checkers);
+    }
 
-      .circles {
-        background: paint(circles);
-        color: black;
-      }
-    
+    .circles {
+      background: paint(circles);
+    }
 
     .fallback {
       background: black;

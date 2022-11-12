@@ -7,18 +7,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Web Components of November 2022 - with Vite + Lit + TS</title>
   <link rel="stylesheet" href="./src/assets/index.css" />
-<script src="https://unpkg.com/css-paint-polyfill"></script>
   <script type="module" src="/src/index"></script>
   <script type="module" defer>
     const handleDemoClick = (message) => {
       alert(message);
     }
 
-    // const demoClickButton = document.getElementById('demoClickButton');
     demoClickButton.addEventListener('click', () => handleDemoClick('demo button clicked'));
 
 
-    // const detailsToggleButton = document.getElementById('detailsToggleButton');
     let open = true;
     detailsToggleButton.addEventListener('click', () => {
       const details = document.querySelectorAll('details');
@@ -50,6 +47,9 @@
       background-color: green;
     }
 
+    ah-houdini-banner {
+      --ah-houdini-banner-color: black;
+    }
   </style>
 </head>
 
@@ -230,19 +230,19 @@
         <summary>ah-houdini-banner web component</summary>
 
         <ah-houdini-banner checkers style="--color-1: blue; --color-2: gold">
-          <h2 style="color: black; padding: 3em;">Houdini Banner - checkers</h2>
+          <h2 style="padding: 3em;">Houdini Banner - checkers</h2>
         </ah-houdini-banner>
 
         <ah-houdini-banner circles hideWarning>
-          <h2 style="color: black; padding: 3em;">Houdini Banner - circles</h2>
+          <h2 style="padding: 3em;">Houdini Banner - circles</h2>
         </ah-houdini-banner>
 
         <ah-houdini-banner checkers hideWarning style="--color-1: cyan; --color-2: magenta; --square-dimension: 100">
-          <h2 style="color: black; padding: 3em;">Houdini Banner - checkers</h2>
+          <h2 style="padding: 3em;">Houdini Banner - checkers</h2>
         </ah-houdini-banner>
 
         <ah-houdini-banner circles hideWarning>
-          <h2 style="color: black; padding: 3em;">Houdini Banner - circles</h2>
+          <h2 style="padding: 3em;">Houdini Banner - circles</h2>
         </ah-houdini-banner>
       </details>
     </li>
