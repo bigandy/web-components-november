@@ -64,7 +64,6 @@ export class AHNoiseButton extends LitElement {
   private playKick(time: number) {
     this.checkPolicy();
     if (this.audioCtx) {
-      this.audioCtx = new AudioContext();
       const osc = new OscillatorNode(this.audioCtx, {
         frequency: 130,
         type: "sine",
