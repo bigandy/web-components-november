@@ -11,6 +11,7 @@ declare global {
  * @csspart before - The before part of the button
  */
 export declare class AHButton extends LitElement {
+    outlined: boolean;
     render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
 }

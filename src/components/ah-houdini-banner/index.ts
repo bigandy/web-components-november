@@ -31,8 +31,6 @@ export class AHHoudiniBanner extends LitElement {
     super.connectedCallback();
 
     if ("paintWorklet" in CSS) {
-      console.log("supports  paintWorklet!");
-
       if (this.checkers) {
         // @ts-ignore
         CSS.paintWorklet.addModule("/js/houdini-checkers.js");
