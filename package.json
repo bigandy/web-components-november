@@ -13,7 +13,7 @@
     "types"
   ],
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --open",
     "build:site": "tsc && vite build",
     "build:lib": "tsc && vite build --config vite-lib.config.ts"
   },

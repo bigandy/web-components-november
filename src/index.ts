@@ -1,5 +1,7 @@
+import { AHBetterNoiseButton } from "./components/ah-better-noise-button";
 import { AHButton } from "./components/ah-button";
 import { AHCalendar } from "./components/ah-calendar";
+import { AHDetailsLink } from "./components/ah-details-link";
 import { AHGetData } from "./components/ah-get-data";
 import { AHHeading } from "./components/ah-heading";
 import { AHHoudiniBanner } from "./components/ah-houdini-banner";
@@ -15,8 +17,10 @@ import { AHTodoList } from "./components/ah-todo-list";
 import { MyElement } from "./components/my-element";
 
 export default {
+  AHBetterNoiseButton,
   AHButton,
   AHCalendar,
+  AHDetailsLink,
   AHGetData,
   AHHeading,
   AHHoudiniBanner,

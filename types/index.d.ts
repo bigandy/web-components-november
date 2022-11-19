@@ -1,3 +1,4 @@
+import { AHBetterNoiseButton } from "./components/ah-better-noise-button";
 import { AHButton } from "./components/ah-button";
 import { AHCalendar } from "./components/ah-calendar";
 import { AHGetData } from "./components/ah-get-data";
@@ -13,6 +14,7 @@ import { AHTimeDiff } from "./components/ah-time-diff";
 import { AHTodoList } from "./components/ah-todo-list";
 import { MyElement } from "./components/my-element";
 declare const _default: {
+    AHBetterNoiseButton: typeof AHBetterNoiseButton;
     AHButton: typeof AHButton;
     AHCalendar: typeof AHCalendar;
     AHGetData: typeof AHGetData;
