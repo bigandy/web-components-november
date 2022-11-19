@@ -8,6 +8,7 @@ declare global {
  * An ah-better-noise-button element.
  */
 export declare class AHBetterNoiseButton extends LitElement {
+    cycling: boolean;
     private initialized;
     private sinea;
     private sineb;
