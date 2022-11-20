@@ -13,71 +13,101 @@ declare global {
  */
 @customElement("ah-noise-button")
 export class AHNoiseButton extends LitElement {
-  @property()
-  audioCtx: AudioContext | null = null;
-
   @property({ type: Boolean })
   noise = false;
 
   @property({ type: Boolean })
   kick = false;
 
-  checkPolicy() {
-    if (this.audioCtx?.state === "suspended") {
-      this.audioCtx.resume();
-    } else {
-      this.audioCtx = new AudioContext();
+  private initialized = false;
+
+  private sinea: OscillatorNode | null = null;
+  private sineb: OscillatorNode | null = null;
+  private sinec: OscillatorNode | null = null;
+  private osc: OscillatorNode | null = null;
+  private gainNode: GainNode | null = null;
+
+  private volume: GainNode | null = null;
+  private audioCtx: AudioContext | null = null;
+
+  private _initializeAudio() {
+    if (this.initialized) {
+      return;
     }
+    this.initialized = true;
+    this.audioCtx = new AudioContext();
+
+    this.volume = this.audioCtx.createGain();
+    this.volume.connect(this.audioCtx.destination);
+    this.volume.gain.value = 0.01; // can adjust this later if you want to have a louder/quieter volume
+  }
+
+  private createOscillator(
+    frequency: number = 440,
+    type: OscillatorType = "sine"
+  ) {
+    const oscillator = this.audioCtx ? this.audioCtx.createOscillator() : null;
+
+    if (oscillator && this.audioCtx && this.volume) {
+      oscillator.frequency.value = frequency;
+      oscillator.type = type;
+      oscillator.connect(this.volume).connect(this.audioCtx.destination);
+    }
+
+    return oscillator;
   }
 
   private _playNoise(time: number = 1) {
-    this.checkPolicy();
+    this._initializeAudio();
     if (this.audioCtx) {
       var volume = this.audioCtx.createGain();
       volume.connect(this.audioCtx.destination);
       volume.gain.value = 0.01;
 
-      //create, tune, start and connect each oscillator sinea, sineb and sinec
-      var sinea = this.audioCtx.createOscillator();
-      sinea.frequency.value = 440;
-      sinea.type = "sine";
-      sinea.start(0.2);
-      sinea.connect(volume).connect(this.audioCtx.destination);
-      sinea.stop(time);
+      this.sinea = this.createOscillator();
+      this.sinea?.start(this.audioCtx.currentTime);
+      this.sinea?.stop(this.audioCtx.currentTime + 1);
 
-      var sineb = this.audioCtx.createOscillator();
-      sineb.frequency.value = 523.25;
-      sineb.type = "square";
-      sineb.start(0.5);
-      sineb.connect(volume).connect(this.audioCtx.destination);
-      sineb.stop(time + 0.3);
+      this.sineb = this.createOscillator(523.25, "square");
+      this.sineb?.start(this.audioCtx.currentTime + 0.3);
+      this.sineb?.stop(this.audioCtx.currentTime + 0.3 + 1);
 
-      var sinec = this.audioCtx.createOscillator();
-      sinec.frequency.value = 698.46;
-      sinec.type = "sine";
-      sinec.start(0.9);
-      sinec.connect(volume).connect(this.audioCtx.destination);
-      sinec.stop(time + 0.6);
+      this.sinec = this.createOscillator(698.46);
+      this.sinec?.start(this.audioCtx.currentTime + 0.9);
+      this.sinec?.stop(this.audioCtx.currentTime + 0.9 + 1);
     }
   }
 
-  private playKick(time: number) {
-    this.checkPolicy();
+  createOscNode(freq = 130) {
     if (this.audioCtx) {
       const osc = new OscillatorNode(this.audioCtx, {
-        frequency: 130,
+        frequency: freq,
         type: "sine",
       });
+      this.gainNode = new GainNode(this.audioCtx);
+      this.gainNode.gain.setValueAtTime(0.1, this.audioCtx.currentTime);
+      this.gainNode.gain.linearRampToValueAtTime(
+        0,
+        this.audioCtx.currentTime + 0.4
+      );
+      osc.connect(this.gainNode).connect(this.audioCtx.destination);
+      return osc;
+    }
+    return null;
+  }
 
-      osc.frequency.linearRampToValueAtTime(0.01, time + 0.4);
+  private playKick() {
+    this._initializeAudio();
+    if (this.audioCtx) {
+      this.osc = this.createOscNode(555);
 
-      const gainNode = new GainNode(this.audioCtx);
-      gainNode.gain.setValueAtTime(0.1, time);
-      gainNode.gain.linearRampToValueAtTime(0, time + 0.4);
+      this.osc?.frequency.linearRampToValueAtTime(
+        0.01,
+        this.audioCtx.currentTime + 0.4
+      );
 
-      osc.start(time);
-      osc.connect(gainNode).connect(this.audioCtx.destination);
-      osc.stop(time + 0.4);
+      this.osc?.start(this.audioCtx.currentTime);
+      this.osc?.stop(this.audioCtx.currentTime + 0.4);
     }
   }
 
@@ -86,7 +116,7 @@ export class AHNoiseButton extends LitElement {
       this._playNoise(2);
     }
     if (this.kick) {
-      this.playKick(0.02);
+      this.playKick(2);
     }
   }
 
