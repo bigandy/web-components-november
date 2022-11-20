@@ -9,12 +9,21 @@ declare global {
  * @slot - This element has a slot
  */
 export declare class AHNoiseButton extends LitElement {
-    audioCtx: AudioContext | null;
     noise: boolean;
     kick: boolean;
-    checkPolicy(): void;
+    private initialized;
+    private sinea;
+    private sineb;
+    private sinec;
+    private osc;
+    private gainNode;
+    private volume;
+    private audioCtx;
+    private _initializeAudio;
+    private createOscillator;
     private _playNoise;
-    private playKick;
+    createOscNode(freq?: number): OscillatorNode | null;
+    private _playKick;
     handleClick(): void;
     render(): import("lit-html").TemplateResult<1>;
 }

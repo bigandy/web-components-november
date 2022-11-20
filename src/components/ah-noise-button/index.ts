@@ -57,7 +57,7 @@ export class AHNoiseButton extends LitElement {
     return oscillator;
   }
 
-  private _playNoise(time: number = 1) {
+  private _playNoise() {
     this._initializeAudio();
     if (this.audioCtx) {
       var volume = this.audioCtx.createGain();
@@ -96,7 +96,7 @@ export class AHNoiseButton extends LitElement {
     return null;
   }
 
-  private playKick() {
+  private _playKick() {
     this._initializeAudio();
     if (this.audioCtx) {
       this.osc = this.createOscNode(555);
@@ -113,10 +113,10 @@ export class AHNoiseButton extends LitElement {
 
   handleClick() {
     if (this.noise) {
-      this._playNoise(2);
+      this._playNoise();
     }
     if (this.kick) {
-      this.playKick(2);
+      this._playKick();
     }
   }
 
