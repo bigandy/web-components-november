@@ -40,11 +40,10 @@ export class AHComponentSection extends LitElement {
   static styles = css`
     .container {
       padding: 0.5em 1em;
-      border: 10px solid transparent;
     }
 
     .containerOpen {
-      border-left-color: lightblue;
+      box-shadow: inset 0 0 0px 10px lightblue;
       margin-bottom: 1.5em;
       padding-bottom: 1em;
     }
