@@ -401,6 +401,24 @@
             previous and next component where applicable.
           </p>
         </ah-component-section>
+
+      <li>
+        <ah-component-section
+          date="21 November 2022"
+          id="21.11.2022"
+          prev="20.11.2022"
+          summary="ah-house web component"
+        >
+          <p>
+            This component is used to demonstrate the way that lit uses events to go up the tree and properties to go down the tree. 
+          </p>
+
+          <p>In the ah-house I have a light switch that emits the switch event when it is used and the ah-house component listens for this event.</p>
+
+          <p>When a swiched event comes in the ah-component reacts to it and passes down the on property to the ah-light component</p>
+
+          <ah-house></ah-house>
+        </ah-component-section>
       </li>
     </ol>
   </body>
