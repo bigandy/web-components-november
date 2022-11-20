@@ -66,6 +66,7 @@ export class AHHoudiniBanner extends LitElement {
     :host {
       color: var(--ah-houdini-banner-color, inherit);
     }
+
     .checkers {
       background: paint(checkers);
     }

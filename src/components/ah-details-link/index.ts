@@ -1,5 +1,6 @@
 import { LitElement, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
+import { classMap } from "lit/directives/class-map.js";
 
 import { BACK_ICON, FORWARD_ICON, COPY_ICON } from "../../constants/icons";
 
@@ -37,29 +38,43 @@ export class AHDetailsLink extends LitElement {
   open = false;
 
   static styles = css`
+    .container {
+      padding: 0.5em 1em;
+    }
+
+    .containerOpen {
+      background: lightblue;
+      margin-bottom: 1.5em;
+      padding-bottom: 1em;
+    }
     h3 {
       cursor: pointer;
     }
 
     h3 svg {
-      fill: black;
+      fill: lightgray;
       height: 20px;
       aspect-ratio: 1;
       transition: fill 0.3s ease-in-out;
     }
 
     h3:hover svg {
-      fill: lightgray;
+      fill: black;
     }
 
     .link {
       position: fixed;
-      top: 50%;
-      transition: fill 0.3s ease-in-out;
+      top: 0;
+      display: grid;
+      place-content: center;
+      height: 100%;
+      transition: background-color 0.3s ease-in-out, fill 0.3s ease-in-out;
+      fill: var(--brand);
     }
 
     .link:hover {
-      fill: orangered;
+      background-color: lightgrey;
+      fill: var(--brand-hover);
     }
 
     .link--prev {
@@ -126,32 +141,39 @@ export class AHDetailsLink extends LitElement {
 
   render() {
     return html`
-      <h3 id=${this.id} @click=${this.handleDateClick}>
-        ${this.date}${COPY_ICON}
-      </h3>
+      <div
+        class=${classMap({
+          container: true,
+          containerOpen: this.open,
+        })}
+      >
+        <h3 id=${this.id} @click=${this.handleDateClick}>
+          ${this.date}${COPY_ICON}
+        </h3>
 
-      <details .open=${this.open}>
-        <summary>${this.summary}</summary>
+        <details .open=${this.open}>
+          <summary>${this.summary}</summary>
 
-        <slot></slot>
+          <slot></slot>
 
-        ${this.prev
-          ? html`<a
-              class="link link--prev"
-              href="#${this.prev}"
-              @click=${this.handlePrevClick}
-              >${BACK_ICON}<span class="vh">previous</span></a
-            >`
-          : null}
-        ${this.next
-          ? html`<a
-              class="link link--next"
-              href="#${this.next}"
-              @click=${this.handleNextClick}
-              >${FORWARD_ICON}<span class="vh">next</span></a
-            >`
-          : null}
-      </details>
+          ${this.prev
+            ? html`<a
+                class="link link--prev"
+                href="#${this.prev}"
+                @click=${this.handlePrevClick}
+                >${BACK_ICON}<span class="vh">previous</span></a
+              >`
+            : null}
+          ${this.next
+            ? html`<a
+                class="link link--next"
+                href="#${this.next}"
+                @click=${this.handleNextClick}
+                >${FORWARD_ICON}<span class="vh">next</span></a
+              >`
+            : null}
+        </details>
+      </div>
     `;
   }
 }
