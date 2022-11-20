@@ -1,7 +1,7 @@
 import { AHBetterNoiseButton } from "./components/ah-better-noise-button";
 import { AHButton } from "./components/ah-button";
 import { AHCalendar } from "./components/ah-calendar";
-import { AHDetailsLink } from "./components/ah-details-link";
+import { AHComponentSection } from "./components/ah-component-section";
 import { AHGetData } from "./components/ah-get-data";
 import { AHHeading } from "./components/ah-heading";
 import { AHHoudiniBanner } from "./components/ah-houdini-banner";
@@ -18,7 +18,7 @@ declare const _default: {
     AHBetterNoiseButton: typeof AHBetterNoiseButton;
     AHButton: typeof AHButton;
     AHCalendar: typeof AHCalendar;
-    AHDetailsLink: typeof AHDetailsLink;
+    AHComponentSection: typeof AHComponentSection;
     AHGetData: typeof AHGetData;
     AHHeading: typeof AHHeading;
     AHHoudiniBanner: typeof AHHoudiniBanner;

@@ -18,7 +18,7 @@
 
       let open = true;
       detailsToggleButton.addEventListener("click", () => {
-        const details = document.querySelectorAll("ah-details-link");
+        const details = document.querySelectorAll("ah-component-section");
 
         [...details].forEach((detail) => {
           if (open) {
@@ -91,7 +91,7 @@
 
     <ol>
       <li>
-        <ah-details-link
+        <ah-component-section
           id="01.11.2022"
           next="02.11.2022"
           date="01 November 2022"
@@ -102,11 +102,11 @@
             <span>Button, click me!</span>
             <div slot="after">🦊</div>
           </ah-button>
-        </ah-details-link>
+        </ah-component-section>
       </li>
 
       <li>
-        <ah-details-link
+        <ah-component-section
           id="02.11.2022"
           next="03.11.2022"
           prev="01.11.2022"
@@ -119,11 +119,11 @@
           <ah-heading variant="h4">Happy Day of the dead day!</ah-heading>
           <ah-heading variant="h5">Happy Day of the dead day!</ah-heading>
           <ah-heading variant="h6">Happy Day of the dead day!</ah-heading>
-        </ah-details-link>
+        </ah-component-section>
       </li>
 
       <li>
-        <ah-details-link
+        <ah-component-section
           id="03.11.2022"
           next="04.11.2022"
           prev="02.11.2022"
@@ -141,11 +141,11 @@
             values="date localName"
           >
           </ah-get-data>
-        </ah-details-link>
+        </ah-component-section>
       </li>
 
       <li>
-        <ah-details-link
+        <ah-component-section
           id="04.11.2022"
           next="05.11.2022"
           prev="03.11.2022"
@@ -153,11 +153,11 @@
           summary="ah-noughts-crosses web component"
         >
           <ah-noughts-crosses></ah-noughts-crosses>
-        </ah-details-link>
+        </ah-component-section>
       </li>
 
       <li>
-        <ah-details-link
+        <ah-component-section
           id="05.11.2022"
           next="06.11.2022"
           prev="04.11.2022"
@@ -179,10 +179,10 @@
               <span style="place-self: end">End</span>
             </div>
           </ah-scroller>
-        </ah-details-link>
+        </ah-component-section>
       </li>
       <li>
-        <ah-details-link
+        <ah-component-section
           id="06.11.2022"
           next="07.11.2022"
           prev="05.11.2022"
@@ -206,11 +206,11 @@
               >
             </div>
           </ah-scroller>
-        </ah-details-link>
+        </ah-component-section>
       </li>
 
       <li>
-        <ah-details-link
+        <ah-component-section
           id="07.11.2022"
           next="08.11.2022"
           prev="06.11.2022"
@@ -226,10 +226,10 @@
             date="2022-12-25"
             targetDateString="Christmas Day"
           ></ah-time-diff>
-        </ah-details-link>
+        </ah-component-section>
       </li>
       <li>
-        <ah-details-link
+        <ah-component-section
           id="08.11.2022"
           next="09.11.2022"
           prev="07.11.2022"
@@ -281,11 +281,11 @@
               </div>
             </ah-scroller>
           </ah-watcher>
-        </ah-details-link>
+        </ah-component-section>
       </li>
 
       <li>
-        <ah-details-link
+        <ah-component-section
           id="09.11.2022"
           next="10.11.2022"
           prev="08.11.2022"
@@ -307,11 +307,11 @@
           <p>You can mark the todo as complete or incomplete</p>
 
           <ah-todo-list> </ah-todo-list>
-        </ah-details-link>
+        </ah-component-section>
       </li>
 
       <li>
-        <ah-details-link
+        <ah-component-section
           id="10.11.2022"
           next="11.11.2022"
           prev="09.11.2022"
@@ -345,11 +345,11 @@
           <ah-houdini-banner circles hideWarning>
             <h2 style="padding: 3em">Houdini Banner - circles</h2>
           </ah-houdini-banner>
-        </ah-details-link>
+        </ah-component-section>
       </li>
 
       <li>
-        <ah-details-link
+        <ah-component-section
           id="11.11.2022"
           next="12.11.2022"
           prev="10.11.2022"
@@ -359,10 +359,10 @@
           <ah-noise-button noise> Play Noise </ah-noise-button>
 
           <ah-noise-button kick> Play Kick </ah-noise-button>
-        </ah-details-link>
+        </ah-component-section>
       </li>
       <li>
-        <ah-details-link
+        <ah-component-section
           id="12.11.2022"
           next="19.11.2022"
           prev="11.11.2022"
@@ -370,10 +370,10 @@
           summary="ah-calendar web component"
         >
           <ah-calendar></ah-calendar>
-        </ah-details-link>
+        </ah-component-section>
       </li>
       <li>
-        <ah-details-link
+        <ah-component-section
           id="19.11.2022"
           next="20.11.2022"
           prev="12.11.2022"
@@ -386,21 +386,21 @@
           <div>
             <ah-better-noise-button>Once</ah-better-noise-button>
           </div>
-        </ah-details-link>
+        </ah-component-section>
       </li>
       <li>
-        <ah-details-link
+        <ah-component-section
           date="20 November 2022"
           id="20.11.2022"
           prev="19.11.2022"
-          summary="ah-details-link web component"
+          summary="ah-component-section web component"
         >
           <p>
-            So I have created the ah-details-link component to be able to wrap a
-            section and link to it. I have also included links to the previous
-            and next component where applicable.
+            So I have created the ah-component-section component to be able to
+            wrap a section and link to it. I have also included links to the
+            previous and next component where applicable.
           </p>
-        </ah-details-link>
+        </ah-component-section>
       </li>
     </ol>
   </body>

@@ -3,6 +3,9 @@ import { customElement, property, state } from "lit/decorators.js";
 
 import { classMap } from "lit/directives/class-map.js";
 
+import checkersWorklet from "../../assets/js/houdini-checkers.js?url";
+import circlesWorklet from "../../assets/js/houdini-circles.js?url";
+
 declare global {
   interface HTMLElementTagNameMap {
     "ah-houdini-banner": AHHoudiniBanner;
@@ -33,10 +36,10 @@ export class AHHoudiniBanner extends LitElement {
     if ("paintWorklet" in CSS) {
       if (this.checkers) {
         // @ts-ignore
-        CSS.paintWorklet.addModule("/js/houdini-checkers.js");
+        CSS.paintWorklet.addModule(checkersWorklet);
       } else if (this.circles) {
         // @ts-ignore
-        CSS.paintWorklet.addModule("/js/houdini-circles.js");
+        CSS.paintWorklet.addModule(circlesWorklet);
       }
     } else {
       this.browserSupported = false;

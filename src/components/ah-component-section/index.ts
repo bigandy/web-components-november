@@ -6,7 +6,7 @@ import { BACK_ICON, FORWARD_ICON, COPY_ICON } from "../../constants/icons";
 
 declare global {
   interface HTMLElementTagNameMap {
-    "ah-details-link": AHDetailsLink;
+    "ah-component-section": AHComponentSection;
   }
 }
 
@@ -14,8 +14,8 @@ declare global {
  * An ah-details-link element.
  * @slot - This element has a slot
  */
-@customElement("ah-details-link")
-export class AHDetailsLink extends LitElement {
+@customElement("ah-component-section")
+export class AHComponentSection extends LitElement {
   @property()
   id: string = "";
 
@@ -40,10 +40,11 @@ export class AHDetailsLink extends LitElement {
   static styles = css`
     .container {
       padding: 0.5em 1em;
+      border: 10px solid transparent;
     }
 
     .containerOpen {
-      background: lightblue;
+      border-left-color: lightblue;
       margin-bottom: 1.5em;
       padding-bottom: 1em;
     }
