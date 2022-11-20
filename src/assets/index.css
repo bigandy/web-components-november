@@ -37,6 +37,12 @@ body {
   }
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ah-button-color: white;
+  }
+}
+
 details summary {
   cursor: pointer;
 }

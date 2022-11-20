@@ -1,5 +1,7 @@
-import { LitElement, html } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import { LitElement, html, css } from "lit";
+import { customElement, property } from "lit/decorators.js";
+
+import { BACK_ICON, FORWARD_ICON, COPY_ICON } from "../../constants/icons";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -31,21 +33,65 @@ export class AHDetailsLink extends LitElement {
   @property()
   next?: string;
 
-  @state()
+  @property({ type: Boolean })
   open = false;
+
+  static styles = css`
+    h3 {
+      cursor: pointer;
+    }
+
+    h3 svg {
+      fill: black;
+      height: 20px;
+      aspect-ratio: 1;
+      transition: fill 0.3s ease-in-out;
+    }
+
+    h3:hover svg {
+      fill: lightgray;
+    }
+
+    .link {
+      position: fixed;
+      top: 50%;
+      transition: fill 0.3s ease-in-out;
+    }
+
+    .link:hover {
+      fill: orangered;
+    }
+
+    .link--prev {
+      left: 0;
+    }
+
+    .link--next {
+      right: 0;
+    }
+
+    .vh {
+      border: 0;
+      clip: rect(0, 0, 0, 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
+  `;
 
   constructor() {
     super();
 
     window.addEventListener("hashchange", () => {
-      console.log("hash has changed");
-
+      // console.log("hash has changed");
       if ("#" + this.id === window.location.hash) {
-        const details = document.querySelectorAll("details");
-        [...details].forEach(function (detail) {
-          detail.removeAttribute("open");
-        });
         this.open = true;
+      } else {
+        this.open = false;
       }
     });
   }
@@ -54,7 +100,6 @@ export class AHDetailsLink extends LitElement {
     super.connectedCallback();
 
     if ("#" + this.id === window.location.hash) {
-      this.shadowRoot?.querySelector("details")?.setAttribute("open", "open");
       this.open = true;
     }
   }
@@ -70,6 +115,7 @@ export class AHDetailsLink extends LitElement {
   async handleDateClick() {
     window.location.hash = "#" + this.id;
 
+    // add the url to the clipboard
     try {
       await navigator.clipboard.writeText(window.location.href);
       console.log("Content copied to clipboard", window.location.href);
@@ -80,7 +126,9 @@ export class AHDetailsLink extends LitElement {
 
   render() {
     return html`
-      <h3 id=${this.id} @click=${this.handleDateClick}>${this.date}</h3>
+      <h3 id=${this.id} @click=${this.handleDateClick}>
+        ${this.date}${COPY_ICON}
+      </h3>
 
       <details .open=${this.open}>
         <summary>${this.summary}</summary>
@@ -88,13 +136,19 @@ export class AHDetailsLink extends LitElement {
         <slot></slot>
 
         ${this.prev
-          ? html`<a href="#${this.prev}" @click=${this.handlePrevClick}
-              >previous component</a
+          ? html`<a
+              class="link link--prev"
+              href="#${this.prev}"
+              @click=${this.handlePrevClick}
+              >${BACK_ICON}<span class="vh">previous</span></a
             >`
           : null}
         ${this.next
-          ? html`<a href="#${this.next}" @click=${this.handleNextClick}
-              >next component</a
+          ? html`<a
+              class="link link--next"
+              href="#${this.next}"
+              @click=${this.handleNextClick}
+              >${FORWARD_ICON}<span class="vh">next</span></a
             >`
           : null}
       </details>

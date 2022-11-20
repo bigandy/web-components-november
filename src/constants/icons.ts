@@ -20,3 +20,32 @@ export const CROSS_ICON = html`<svg
     d="m12.45 37.65-2.1-2.1L21.9 24 10.35 12.45l2.1-2.1L24 21.9l11.55-11.55 2.1 2.1L26.1 24l11.55 11.55-2.1 2.1L24 26.1Z"
   />
 </svg>`;
+
+export const BACK_ICON = html` <svg
+  xmlns="http://www.w3.org/2000/svg"
+  height="48"
+  width="48"
+  viewBox="0 0 48 48"
+>
+  <path d="M24 40 8 24 24 8l2.1 2.1-12.4 12.4H40v3H13.7l12.4 12.4Z" />
+</svg>`;
+
+export const FORWARD_ICON = html` <svg
+  xmlns="http://www.w3.org/2000/svg"
+  height="48"
+  width="48"
+  viewBox="0 0 48 48"
+>
+  <path d="m24 40-2.1-2.15L34.25 25.5H8v-3h26.25L21.9 10.15 24 8l16 16Z" />
+</svg>`;
+
+export const COPY_ICON = html` <svg
+  xmlns="http://www.w3.org/2000/svg"
+  height="48"
+  width="48"
+  viewBox="0 0 48 48"
+>
+  <path
+    d="M9 43.95q-1.2 0-2.1-.9-.9-.9-.9-2.1V10.8h3v30.15h23.7v3Zm6-6q-1.2 0-2.1-.9-.9-.9-.9-2.1v-28q0-1.2.9-2.1.9-.9 2.1-.9h22q1.2 0 2.1.9.9.9.9 2.1v28q0 1.2-.9 2.1-.9.9-2.1.9Zm0-3h22v-28H15v28Zm0 0v-28 28Z"
+  />
+</svg>`;

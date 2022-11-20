@@ -45,14 +45,14 @@ export class AHButton extends LitElement {
       padding-inline: var(--ah-button-padding-inline, 1.2em);
       padding-block: var(--ah-button-padding-block, 0.6em);
       font-size: 1em;
-      background-color: var(--ah-button-background, green);
+      background-color: var(--ah-button-background, var(--brand));
       color: var(--ah-button-color, white);
       cursor: pointer;
       transition: background-color 0.25s;
     }
 
     .outlined {
-      border: 1px solid var(--ah-button-background, green);
+      border: 1px solid var(--ah-button-background, var(--brand));
       color: var(--ah-button-color, black);
     }
 
@@ -62,12 +62,12 @@ export class AHButton extends LitElement {
     }
 
     .outlined:hover {
-      border-color: var(--ah-button-background-hover, darkgreen);
+      border-color: var(--ah-button-background-hover, var(--brand-hover));
       background-color: lightgray;
     }
 
     button:hover {
-      background-color: var(--ah-button-background-hover, darkgreen);
+      background-color: var(--ah-button-background-hover, var(--brand-hover));
     }
   `;
 }

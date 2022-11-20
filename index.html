@@ -18,9 +18,9 @@
 
       let open = true;
       detailsToggleButton.addEventListener("click", () => {
-        const details = document.querySelectorAll("details");
-        console.log("clicking dialog toggle button");
-        details.forEach((detail) => {
+        const details = document.querySelectorAll("ah-details-link");
+
+        [...details].forEach((detail) => {
           if (open) {
             detail.setAttribute("open", true);
           } else {
@@ -31,10 +31,18 @@
       });
     </script>
     <style>
+      :root {
+        --orange: #ff3c00;
+        --orange-hover: #7c1e02;
+        --brand: var(--orange);
+        --brand-hover: var(--orange-hover);
+      }
+
       #detailsToggleButton {
         position: fixed;
         top: 1rem;
         right: 1rem;
+        z-index: 1;
       }
 
       ah-watcher {
@@ -376,7 +384,8 @@
         >
           <p>
             So I have created the ah-details-link component to be able to wrap a
-            section and link to it.
+            section and link to it. I have also included links to the previous
+            and next component where applicable.
           </p>
         </ah-details-link>
       </li>
