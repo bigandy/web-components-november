@@ -12,6 +12,7 @@ declare global {
  */
 export declare class AHButton extends LitElement {
     outlined: boolean;
+    fullwidth: boolean;
     render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
 }

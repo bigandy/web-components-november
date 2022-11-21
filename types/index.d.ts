@@ -5,6 +5,7 @@ import { AHComponentSection } from "./components/ah-component-section";
 import { AHGetData } from "./components/ah-get-data";
 import { AHHeading } from "./components/ah-heading";
 import { AHHoudiniBanner } from "./components/ah-houdini-banner";
+import { AHHouse } from "./components/ah-house";
 import { AHSupports } from "./components/ah-supports";
 import { AHIsVisible } from "./components/ah-is-visible";
 import { AHNoiseButton } from "./components/ah-noise-button";
@@ -22,6 +23,7 @@ declare const _default: {
     AHGetData: typeof AHGetData;
     AHHeading: typeof AHHeading;
     AHHoudiniBanner: typeof AHHoudiniBanner;
+    AHHouse: typeof AHHouse;
     AHIsVisible: typeof AHIsVisible;
     AHNoughtsCrosses: typeof AHNoughtsCrosses;
     AHNoiseButton: typeof AHNoiseButton;

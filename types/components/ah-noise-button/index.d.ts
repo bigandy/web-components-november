@@ -10,7 +10,8 @@ declare global {
  */
 export declare class AHNoiseButton extends LitElement {
     noise: boolean;
-    kick: boolean;
+    mute: boolean;
+    lazer: boolean;
     private initialized;
     private sinea;
     private sineb;
@@ -23,7 +24,7 @@ export declare class AHNoiseButton extends LitElement {
     private createOscillator;
     private _playNoise;
     createOscNode(freq?: number): OscillatorNode | null;
-    private _playKick;
+    private _playLazer;
     handleClick(): void;
     render(): import("lit-html").TemplateResult<1>;
 }

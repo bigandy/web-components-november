@@ -17,7 +17,10 @@ export class AHNoiseButton extends LitElement {
   noise = false;
 
   @property({ type: Boolean })
-  kick = false;
+  mute = false;
+
+  @property({ type: Boolean })
+  lazer = false;
 
   private initialized = false;
 
@@ -46,12 +49,16 @@ export class AHNoiseButton extends LitElement {
     frequency: number = 440,
     type: OscillatorType = "sine"
   ) {
-    const oscillator = this.audioCtx ? this.audioCtx.createOscillator() : null;
+    const oscillator = this.audioCtx
+      ? this.audioCtx.createOscillator()
+      : null;
 
     if (oscillator && this.audioCtx && this.volume) {
       oscillator.frequency.value = frequency;
       oscillator.type = type;
-      oscillator.connect(this.volume).connect(this.audioCtx.destination);
+      oscillator
+        .connect(this.volume)
+        .connect(this.audioCtx.destination);
     }
 
     return oscillator;
@@ -59,7 +66,7 @@ export class AHNoiseButton extends LitElement {
 
   private _playNoise() {
     this._initializeAudio();
-    if (this.audioCtx) {
+    if (this.audioCtx && !this.mute) {
       var volume = this.audioCtx.createGain();
       volume.connect(this.audioCtx.destination);
       volume.gain.value = 0.01;
@@ -85,20 +92,25 @@ export class AHNoiseButton extends LitElement {
         type: "sine",
       });
       this.gainNode = new GainNode(this.audioCtx);
-      this.gainNode.gain.setValueAtTime(0.1, this.audioCtx.currentTime);
+      this.gainNode.gain.setValueAtTime(
+        0.1,
+        this.audioCtx.currentTime
+      );
       this.gainNode.gain.linearRampToValueAtTime(
         0,
         this.audioCtx.currentTime + 0.4
       );
-      osc.connect(this.gainNode).connect(this.audioCtx.destination);
+      osc
+        .connect(this.gainNode)
+        .connect(this.audioCtx.destination);
       return osc;
     }
     return null;
   }
 
-  private _playKick() {
+  private _playLazer() {
     this._initializeAudio();
-    if (this.audioCtx) {
+    if (this.audioCtx && !this.mute) {
       this.osc = this.createOscNode(555);
 
       this.osc?.frequency.linearRampToValueAtTime(
@@ -115,8 +127,8 @@ export class AHNoiseButton extends LitElement {
     if (this.noise) {
       this._playNoise();
     }
-    if (this.kick) {
-      this._playKick();
+    if (this.lazer) {
+      this._playLazer();
     }
   }
 
