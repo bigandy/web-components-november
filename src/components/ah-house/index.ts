@@ -239,10 +239,12 @@ export class AHRoom extends LitElement {
       height: 100%;
       display: grid;
       place-content: center;
+      color: white;
     }
 
     .on {
       background: yellow;
+      color: black;
     }
   `;
 
