@@ -1,15 +1,9 @@
 import { LitElement, html, css } from "lit";
-import {
-  customElement,
-  state,
-  property,
-} from "lit/decorators.js";
+import { customElement, state, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
 
-import {
-  LIGHT_ICON,
-  DARK_ICON,
-} from "../../constants/icons";
+import { LIGHT_ICON, DARK_ICON } from "../../constants/icons";
 
 import switchOnMp3 from "../../assets/sounds/stories_sounds_switch-on.mp3";
 import switchOffMp3 from "../../assets/sounds/stories_sounds_switch-off.mp3";
@@ -40,6 +34,7 @@ export class AHHouse extends LitElement {
   static styles = css`
     :host {
       position: relative;
+      --house-bg: black;
     }
 
     .roof {
@@ -49,8 +44,7 @@ export class AHHouse extends LitElement {
       height: 0;
       border-style: solid;
       border-width: 0 200px 100px 200px;
-      border-color: transparent transparent #007bff
-        transparent;
+      border-color: transparent transparent var(--house-bg) transparent;
     }
 
     .house {
@@ -59,15 +53,11 @@ export class AHHouse extends LitElement {
       margin-top: 100px;
       height: 250px;
       width: 400px;
-      background: black;
+      background: var(--house-bg);
       position: relative;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 1em;
-    }
-
-    ah-light {
-      color: white;
     }
 
     .controls {
@@ -91,50 +81,39 @@ export class AHHouse extends LitElement {
   }
 
   render() {
+    const checkedPercent =
+      (Object.values(this.lights).filter(Boolean).length /
+        Object.values(this.lights).length) *
+      100;
     return html`
       <div
-        class=${classMap({
-          house: true,
-        })}
+        class="house"
         @switch=${this.handleSwitch}
+        style=${styleMap({
+          "--house-bg": `hsla(60, 100%, ${checkedPercent / 2}%, 1)`,
+        })}
       >
         <div class="roof"></div>
-        <ah-room room="main" .on=${this.lights.main}>
-        </ah-room>
+        <ah-room room="main" .on=${this.lights.main}> </ah-room>
 
-        <ah-room room="kitchen" .on=${this.lights.kitchen}>
-        </ah-room>
+        <ah-room room="kitchen" .on=${this.lights.kitchen}> </ah-room>
 
-        <ah-room room="bedroom" .on=${this.lights.bedroom}>
-        </ah-room>
+        <ah-room room="bedroom" .on=${this.lights.bedroom}> </ah-room>
 
-        <ah-room room="lounge" .on=${this.lights.lounge}>
-        </ah-room>
+        <ah-room room="lounge" .on=${this.lights.lounge}> </ah-room>
 
         <div class="controls">
-          <h3>Main Room</h3>
-          <ah-switch
-            .on=${this.lights.main}
-            room="main"
-          ></ah-switch>
+          <h3>main</h3>
+          <ah-switch ?on=${this.lights.main} room="main"></ah-switch>
 
-          <h3>kitchen Room</h3>
-          <ah-switch
-            .on=${this.lights.kitchen}
-            room="kitchen"
-          ></ah-switch>
+          <h3>kitchen</h3>
+          <ah-switch ?on=${this.lights.kitchen} room="kitchen"></ah-switch>
 
-          <h3>bedroom Room</h3>
-          <ah-switch
-            .on=${this.lights.bedroom}
-            room="bedroom"
-          ></ah-switch>
+          <h3>bedroom</h3>
+          <ah-switch ?on=${this.lights.bedroom} room="bedroom"></ah-switch>
 
-          <h3>lounge Room</h3>
-          <ah-switch
-            .on=${this.lights.lounge}
-            room="lounge"
-          ></ah-switch>
+          <h3>lounge</h3>
+          <ah-switch ?on=${this.lights.lounge} room="lounge"></ah-switch>
         </div>
       </div>
     `;
@@ -158,12 +137,6 @@ export class AHSwitch extends LitElement {
   handleSound() {
     this._initializeAudio();
     this.play(this.on ? switchOnMp3 : switchOffMp3);
-
-    console.log(
-      this.on,
-      "create the sound",
-      this.on ? "TURN ON SWITCH" : "TURN OFF SWITCH"
-    );
   }
 
   private _initializeAudio() {
@@ -178,9 +151,7 @@ export class AHSwitch extends LitElement {
     if (this.audioCtx) {
       const buffer = await fetch(url)
         .then((response) => response.arrayBuffer())
-        .then((arrayBuffer) =>
-          this.audioCtx?.decodeAudioData(arrayBuffer)
-        );
+        .then((arrayBuffer) => this.audioCtx?.decodeAudioData(arrayBuffer));
 
       if (buffer) {
         const source = this.audioCtx.createBufferSource();
@@ -208,14 +179,9 @@ export class AHSwitch extends LitElement {
     this.handleSound();
   }
 
-  static styles = css``;
-
   render() {
     return html`
-      <ah-button
-        .outlined=${!this.on}
-        fullwidth
-        @click=${this.handleToggle}
+      <ah-button ?outlined=${!this.on} fullwidth @click=${this.handleToggle}
         >${!this.on ? "ON" : "OFF"}</ah-button
       >
     `;

@@ -34,7 +34,6 @@ export declare class AHSwitch extends LitElement {
     private _initializeAudio;
     play(url: string): Promise<void>;
     handleToggle(): void;
-    static styles: import("lit").CSSResult;
     render(): import("lit-html").TemplateResult<1>;
 }
 /**
