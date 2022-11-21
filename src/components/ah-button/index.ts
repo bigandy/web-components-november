@@ -19,11 +19,15 @@ export class AHButton extends LitElement {
   @property({ type: Boolean })
   outlined = false;
 
+  @property({ type: Boolean })
+  fullwidth = false;
+
   render() {
     return html`
       <button
         class=${classMap({
           outlined: this.outlined,
+          fullwidth: this.fullwidth,
         })}
       >
         <slot
@@ -65,6 +69,11 @@ export class AHButton extends LitElement {
       color: var(--ah-button-color, white);
       cursor: pointer;
       transition: background-color 0.25s;
+      display: block;
+    }
+
+    .fullwidth {
+      width: 100%;
     }
 
     .outlined {

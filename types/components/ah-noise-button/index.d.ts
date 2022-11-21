@@ -10,6 +10,7 @@ declare global {
  */
 export declare class AHNoiseButton extends LitElement {
     noise: boolean;
+    mute: boolean;
     lazer: boolean;
     private initialized;
     private sinea;

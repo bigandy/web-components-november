@@ -17,6 +17,9 @@ export class AHNoiseButton extends LitElement {
   noise = false;
 
   @property({ type: Boolean })
+  mute = false;
+
+  @property({ type: Boolean })
   lazer = false;
 
   private initialized = false;
@@ -63,7 +66,7 @@ export class AHNoiseButton extends LitElement {
 
   private _playNoise() {
     this._initializeAudio();
-    if (this.audioCtx) {
+    if (this.audioCtx && !this.mute) {
       var volume = this.audioCtx.createGain();
       volume.connect(this.audioCtx.destination);
       volume.gain.value = 0.01;
@@ -107,7 +110,7 @@ export class AHNoiseButton extends LitElement {
 
   private _playLazer() {
     this._initializeAudio();
-    if (this.audioCtx) {
+    if (this.audioCtx && !this.mute) {
       this.osc = this.createOscNode(555);
 
       this.osc?.frequency.linearRampToValueAtTime(
