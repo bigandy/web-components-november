@@ -2,7 +2,11 @@ import { LitElement, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 
-import { BACK_ICON, FORWARD_ICON, COPY_ICON } from "../../constants/icons";
+import {
+  BACK_ICON,
+  FORWARD_ICON,
+  COPY_ICON,
+} from "../../constants/icons";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -68,7 +72,8 @@ export class AHComponentSection extends LitElement {
       display: grid;
       place-content: center;
       height: 100%;
-      transition: background-color 0.3s ease-in-out, fill 0.3s ease-in-out;
+      transition: background-color 0.3s ease-in-out,
+        fill 0.3s ease-in-out;
       fill: var(--brand);
     }
 
@@ -95,6 +100,12 @@ export class AHComponentSection extends LitElement {
       position: absolute;
       white-space: nowrap;
       width: 1px;
+    }
+
+    ah-noise-button {
+      --ah-button-padding-inline: 0;
+      --ah-button-padding-block: 0;
+      --ah-button-border-radius: 5;
     }
   `;
 
@@ -132,8 +143,13 @@ export class AHComponentSection extends LitElement {
 
     // add the url to the clipboard
     try {
-      await navigator.clipboard.writeText(window.location.href);
-      console.log("Content copied to clipboard", window.location.href);
+      await navigator.clipboard.writeText(
+        window.location.href
+      );
+      console.log(
+        "Content copied to clipboard",
+        window.location.href
+      );
     } catch (err) {
       console.error("Failed to copy: ", err);
     }
@@ -157,19 +173,24 @@ export class AHComponentSection extends LitElement {
           <slot></slot>
 
           ${this.prev
-            ? html`<a
+            ? html`<ah-noise-button
                 class="link link--prev"
-                href="#${this.prev}"
                 @click=${this.handlePrevClick}
-                >${BACK_ICON}<span class="vh">previous</span></a
+                lazer
+                >${BACK_ICON}<span class="vh"
+                  >previous</span
+                ></ah-noise-button
               >`
             : null}
           ${this.next
-            ? html`<a
+            ? html`<ah-noise-button
                 class="link link--next"
                 href="#${this.next}"
                 @click=${this.handleNextClick}
-                >${FORWARD_ICON}<span class="vh">next</span></a
+                lazer
+                >${FORWARD_ICON}<span class="vh"
+                  >next</span
+                ></ah-noise-button
               >`
             : null}
         </details>
