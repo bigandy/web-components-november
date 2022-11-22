@@ -28,8 +28,10 @@ export class AHSupports extends LitElement {
 
   static styles = css`
     .banner {
+      all: initial;
       display: block;
       padding-inline: 1em;
+      margin-block: 1em;
       border: 10px double red;
     }
   `;

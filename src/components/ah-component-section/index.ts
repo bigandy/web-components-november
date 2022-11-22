@@ -167,8 +167,10 @@ export class AHComponentSection extends LitElement {
           ${this.date}${COPY_ICON}
         </h3>
 
-        <details .open=${this.open}>
-          <summary>${this.summary}</summary>
+        <details ?open=${this.open}>
+          <summary @click=${this.handleDateClick}>
+            ${this.summary}
+          </summary>
 
           <slot></slot>
 
