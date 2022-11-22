@@ -30,9 +30,17 @@ export class AHButton extends LitElement {
           fullwidth: this.fullwidth,
         })}
       >
-        <slot part="before" class="before" name="before"></slot>
+        <slot
+          part="before"
+          class="before"
+          name="before"
+        ></slot>
         <slot></slot>
-        <slot part="after" class="after" name="after"></slot>
+        <slot
+          part="after"
+          class="after"
+          name="after"
+        ></slot>
       </button>
     `;
   }
@@ -44,15 +52,24 @@ export class AHButton extends LitElement {
     }
 
     button {
-      border-radius: calc(var(--ah-button-border-radius, 20) * 1px);
+      border-radius: calc(
+        var(--ah-button-border-radius, 20) * 1px
+      );
       border: none;
-      padding-inline: var(--ah-button-padding-inline, 1.2em);
+      padding-inline: var(
+        --ah-button-padding-inline,
+        1.2em
+      );
       padding-block: var(--ah-button-padding-block, 0.6em);
       font-size: 1em;
-      background-color: var(--ah-button-background, var(--brand));
+      background-color: var(
+        --ah-button-background,
+        var(--brand)
+      );
       color: var(--ah-button-color, white);
       cursor: pointer;
       transition: background-color 0.25s;
+      border: 1px solid transparent;
     }
 
     .fullwidth {
@@ -60,7 +77,10 @@ export class AHButton extends LitElement {
     }
 
     .outlined {
-      border: 1px solid var(--ah-button-background, var(--brand));
+      border-color: var(
+        --ah-button-background,
+        var(--brand)
+      );
       color: var(--ah-button-color, black);
     }
 
@@ -70,12 +90,18 @@ export class AHButton extends LitElement {
     }
 
     .outlined:hover {
-      border-color: var(--ah-button-background-hover, var(--brand-hover));
+      border-color: var(
+        --ah-button-background-hover,
+        var(--brand-hover)
+      );
       background-color: lightgray;
     }
 
     button:hover {
-      background-color: var(--ah-button-background-hover, var(--brand-hover));
+      background-color: var(
+        --ah-button-background-hover,
+        var(--brand-hover)
+      );
     }
   `;
 }

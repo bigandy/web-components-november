@@ -3,7 +3,6 @@ declare global {
     interface HTMLElementTagNameMap {
         "ah-house": AHHouse;
         "ah-light": AHLight;
-        "ah-switch": AHSwitch;
         "ah-room": AHRoom;
     }
 }
@@ -20,20 +19,6 @@ export declare class AHHouse extends LitElement {
     };
     static styles: import("lit").CSSResult;
     handleSwitch(e: any): void;
-    render(): import("lit-html").TemplateResult<1>;
-}
-/**
- * An ah-house element.
- */
-export declare class AHSwitch extends LitElement {
-    on: boolean;
-    room: string;
-    private initialized;
-    private audioCtx;
-    handleSound(): void;
-    private _initializeAudio;
-    play(url: string): Promise<void>;
-    handleToggle(): void;
     render(): import("lit-html").TemplateResult<1>;
 }
 /**

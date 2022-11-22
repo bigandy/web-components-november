@@ -1,18 +1,21 @@
 import { LitElement, html, css } from "lit";
-import { customElement, state, property } from "lit/decorators.js";
+import {
+  customElement,
+  state,
+  property,
+} from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 
-import { LIGHT_ICON, DARK_ICON } from "../../constants/icons";
-
-import switchOnMp3 from "../../assets/sounds/stories_sounds_switch-on.mp3";
-import switchOffMp3 from "../../assets/sounds/stories_sounds_switch-off.mp3";
+import {
+  LIGHT_ICON,
+  DARK_ICON,
+} from "../../constants/icons";
 
 declare global {
   interface HTMLElementTagNameMap {
     "ah-house": AHHouse;
     "ah-light": AHLight;
-    "ah-switch": AHSwitch;
     "ah-room": AHRoom;
   }
 }
@@ -44,7 +47,8 @@ export class AHHouse extends LitElement {
       height: 0;
       border-style: solid;
       border-width: 0 200px 100px 200px;
-      border-color: transparent transparent var(--house-bg) transparent;
+      border-color: transparent transparent var(--house-bg)
+        transparent;
     }
 
     .house {
@@ -76,7 +80,7 @@ export class AHHouse extends LitElement {
   handleSwitch(e: any) {
     const newState = { ...this.lights };
     // @ts-ignore
-    newState[e.detail.room] = e.detail.state;
+    newState[e.detail.ref] = e.detail.state;
     this.lights = newState;
   }
 
@@ -90,100 +94,54 @@ export class AHHouse extends LitElement {
         class="house"
         @switch=${this.handleSwitch}
         style=${styleMap({
-          "--house-bg": `hsla(60, 100%, ${checkedPercent / 2}%, 1)`,
+          "--house-bg": `hsla(60, 100%, ${
+            checkedPercent / 2
+          }%, 1)`,
         })}
       >
         <div class="roof"></div>
-        <ah-room room="main" .on=${this.lights.main}> </ah-room>
+        <ah-room room="main" .on=${this.lights.main}>
+        </ah-room>
 
-        <ah-room room="kitchen" .on=${this.lights.kitchen}> </ah-room>
+        <ah-room room="kitchen" .on=${this.lights.kitchen}>
+        </ah-room>
 
-        <ah-room room="bedroom" .on=${this.lights.bedroom}> </ah-room>
+        <ah-room room="bedroom" .on=${this.lights.bedroom}>
+        </ah-room>
 
-        <ah-room room="lounge" .on=${this.lights.lounge}> </ah-room>
+        <ah-room room="lounge" .on=${this.lights.lounge}>
+        </ah-room>
 
         <div class="controls">
           <h3>main</h3>
-          <ah-switch ?on=${this.lights.main} room="main"></ah-switch>
+          <ah-switch
+            ?on=${this.lights.main}
+            ref="main"
+            fullWidth
+          ></ah-switch>
 
           <h3>kitchen</h3>
-          <ah-switch ?on=${this.lights.kitchen} room="kitchen"></ah-switch>
+          <ah-switch
+            ?on=${this.lights.kitchen}
+            ref="kitchen"
+            fullWidth
+          ></ah-switch>
 
           <h3>bedroom</h3>
-          <ah-switch ?on=${this.lights.bedroom} room="bedroom"></ah-switch>
+          <ah-switch
+            ?on=${this.lights.bedroom}
+            ref="bedroom"
+            fullWidth
+          ></ah-switch>
 
           <h3>lounge</h3>
-          <ah-switch ?on=${this.lights.lounge} room="lounge"></ah-switch>
+          <ah-switch
+            ?on=${this.lights.lounge}
+            ref="lounge"
+            fullWidth
+          ></ah-switch>
         </div>
       </div>
-    `;
-  }
-}
-
-/**
- * An ah-house element.
- */
-@customElement("ah-switch")
-export class AHSwitch extends LitElement {
-  @state()
-  on = false;
-
-  @property({ type: String })
-  room = "";
-
-  private initialized = false;
-  private audioCtx: AudioContext | null = null;
-
-  handleSound() {
-    this._initializeAudio();
-    this.play(this.on ? switchOnMp3 : switchOffMp3);
-  }
-
-  private _initializeAudio() {
-    if (this.initialized) {
-      return;
-    }
-    this.initialized = true;
-    this.audioCtx = new AudioContext();
-  }
-
-  async play(url: string) {
-    if (this.audioCtx) {
-      const buffer = await fetch(url)
-        .then((response) => response.arrayBuffer())
-        .then((arrayBuffer) => this.audioCtx?.decodeAudioData(arrayBuffer));
-
-      if (buffer) {
-        const source = this.audioCtx.createBufferSource();
-        source.buffer = buffer;
-        source.connect(this.audioCtx.destination);
-        source.start();
-      }
-    }
-  }
-
-  handleToggle() {
-    this.on = !this.on;
-    // emit custom event
-
-    this.dispatchEvent(
-      new CustomEvent("switch", {
-        detail: {
-          state: this.on,
-          room: this.room,
-        },
-        bubbles: true,
-      })
-    );
-
-    this.handleSound();
-  }
-
-  render() {
-    return html`
-      <ah-button ?outlined=${!this.on} fullwidth @click=${this.handleToggle}
-        >${!this.on ? "ON" : "OFF"}</ah-button
-      >
     `;
   }
 }
