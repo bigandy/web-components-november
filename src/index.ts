@@ -2,6 +2,7 @@ import { AHBetterNoiseButton } from "./components/ah-better-noise-button";
 import { AHButton } from "./components/ah-button";
 import { AHCalendar } from "./components/ah-calendar";
 import { AHComponentSection } from "./components/ah-component-section";
+import { AHConnectFour } from "./components/ah-connect-four";
 import { AHGetData } from "./components/ah-get-data";
 import { AHHeading } from "./components/ah-heading";
 import { AHHoudiniBanner } from "./components/ah-houdini-banner";
@@ -23,6 +24,7 @@ export default {
   AHButton,
   AHCalendar,
   AHComponentSection,
+  AHConnectFour,
   AHGetData,
   AHHeading,
   AHHoudiniBanner,
