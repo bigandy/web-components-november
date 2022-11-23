@@ -1,9 +1,5 @@
 import { LitElement, css, html } from "lit";
-import {
-  customElement,
-  property,
-  state,
-} from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 
@@ -50,15 +46,11 @@ export class AHConnectFour extends LitElement {
     const newGameState = [...this.gameState];
 
     const array = newGameState[column];
-    const foundIndex = array.findIndex(
-      (item: any) => item === null
-    );
+    const foundIndex = array.findIndex((item: any) => item === null);
 
     if (foundIndex !== -1) {
       // @ts-ignore
-      newGameState[column][foundIndex] = this.currentPlayer
-        ? "yellow"
-        : "red";
+      newGameState[column][foundIndex] = this.currentPlayer ? "yellow" : "red";
       this.gameState = newGameState;
       this.currentPlayer = !this.currentPlayer;
     }
@@ -83,10 +75,7 @@ export class AHConnectFour extends LitElement {
         for (let y = 1; y < board[x].length; y++) {
           const currentToken = board[x][y];
 
-          if (
-            currentToken === lastToken &&
-            currentToken !== null
-          ) {
+          if (currentToken === lastToken && currentToken !== null) {
             maxNumInRow++;
             if (maxNumInRow === NUM_IN_ROW_WIN) {
               return currentToken;
@@ -107,10 +96,7 @@ export class AHConnectFour extends LitElement {
         let lastToken = board[0][y];
         for (let x = 1; x < board.length; x++) {
           const currentToken = board[x][y];
-          if (
-            currentToken === lastToken &&
-            currentToken !== null
-          ) {
+          if (currentToken === lastToken && currentToken !== null) {
             maxNumInRow++;
             if (maxNumInRow === NUM_IN_ROW_WIN) {
               return currentToken;
@@ -171,9 +157,7 @@ export class AHConnectFour extends LitElement {
   render() {
     return html` <div class="info">
         <ah-heading variant="h3"
-          >${this.finished
-            ? "Winning Color"
-            : "Current Color"}<span
+          >${this.finished ? "Winning Color" : "Current Color"}<span
             class=${classMap({
               nextCell: true,
               cell: true,
@@ -188,9 +172,7 @@ export class AHConnectFour extends LitElement {
           ></span
         ></ah-heading>
 
-        <ah-button @click=${this.resetBoard}
-          >Reset</ah-button
-        >
+        <ah-button @click=${this.resetBoard}>Reset</ah-button>
       </div>
       <div
         class=${classMap({
@@ -198,63 +180,52 @@ export class AHConnectFour extends LitElement {
           finishedBoard: this.finished,
         })}
         style=${styleMap({
-          "--current-color": this.currentPlayer
-            ? "yellow"
-            : "red",
+          "--current-color": this.currentPlayer ? "yellow" : "red",
         })}
       >
         ${[...new Array(7)].map((_, column) => {
           return html`
-            <div
-              class="column"
-              @click=${() => this.handleColumn(column)}
-            >
+            <div class="column" @click=${() => this.handleColumn(column)}>
               <div
                 class=${classMap({
                   cell: true,
                   red: this.gameState[column][5] === "red",
-                  yellow:
-                    this.gameState[column][5] === "yellow",
+                  yellow: this.gameState[column][5] === "yellow",
                 })}
               ></div>
               <div
                 class=${classMap({
                   cell: true,
                   red: this.gameState[column][4] === "red",
-                  yellow:
-                    this.gameState[column][4] === "yellow",
+                  yellow: this.gameState[column][4] === "yellow",
                 })}
               ></div>
               <div
                 class=${classMap({
                   cell: true,
                   red: this.gameState[column][3] === "red",
-                  yellow:
-                    this.gameState[column][3] === "yellow",
+                  yellow: this.gameState[column][3] === "yellow",
                 })}
               ></div>
               <div
                 class=${classMap({
                   cell: true,
                   red: this.gameState[column][2] === "red",
-                  yellow:
-                    this.gameState[column][2] === "yellow",
+                  yellow: this.gameState[column][2] === "yellow",
                 })}
               ></div>
               <div
                 class=${classMap({
                   cell: true,
                   red: this.gameState[column][1] === "red",
-                  yellow:
-                    this.gameState[column][1] === "yellow",
+                  yellow: this.gameState[column][1] === "yellow",
                 })}
               ></div>
               <div
                 class=${classMap({
                   cell: true,
                   red: this.gameState[column][0] === "red",
-                  yellow:
-                    this.gameState[column][0] === "yellow",
+                  yellow: this.gameState[column][0] === "yellow",
                 })}
               ></div>
             </div>
@@ -278,10 +249,7 @@ export class AHConnectFour extends LitElement {
 
     .board {
       display: grid;
-      grid-template-columns: repeat(
-        7,
-        calc(var(--size) * 1px)
-      );
+      grid-template-columns: repeat(7, calc(var(--size) * 1px));
       gap: 1em;
       background: blue;
       padding-left: 1em;
@@ -297,10 +265,11 @@ export class AHConnectFour extends LitElement {
       width: calc(var(--size) * 1px);
     }
 
-    .board:not(.boardFinished)
-      .column:hover
-      .cell:not(.red):not(.yellow) {
-      background: var(--current-color);
+    /* thanks to https://www.youtube.com/watch?v=uuluAyw9AI0&ab_channel=KevinPowell */
+    @media (hover: hover) {
+      .board:not(.boardFinished) .column:hover .cell:not(.red):not(.yellow) {
+        background: var(--current-color);
+      }
     }
 
     .cell {
