@@ -135,7 +135,7 @@ export class AHNoughtsCrosses extends LitElement {
 
   resetBoard() {
     this.boardState = initialBoardState;
-    this.winner = false;
+    // this.winner = false;
   }
 
   calculateIfWinner() {
