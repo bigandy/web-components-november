@@ -10,13 +10,13 @@ declare global {
  */
 export declare class AHConnectFour extends LitElement {
     currentPlayer: boolean;
-    gameState: null[][];
+    gameState: any;
     finished: boolean;
     winner: string;
-    private winningArrays;
     handleColumn(column: number): void;
-    checkWinner(): void;
+    checkForWinner(): any;
     resetBoard(): void;
+    deepClone(arr: any): any;
     render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
 }
