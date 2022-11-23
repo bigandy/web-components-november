@@ -16,7 +16,6 @@ import { AHWatcher } from "./components/ah-watcher";
 import { AHScroller } from "./components/ah-scroller";
 import { AHTimeDiff } from "./components/ah-time-diff";
 import { AHTodoList } from "./components/ah-todo-list";
-import { MyElement } from "./components/my-element";
 declare const _default: {
     AHBetterNoiseButton: typeof AHBetterNoiseButton;
     AHButton: typeof AHButton;
@@ -36,6 +35,5 @@ declare const _default: {
     AHTimeDiff: typeof AHTimeDiff;
     AHTodoList: typeof AHTodoList;
     AHWatcher: typeof AHWatcher;
-    MyElement: typeof MyElement;
 };
 export default _default;

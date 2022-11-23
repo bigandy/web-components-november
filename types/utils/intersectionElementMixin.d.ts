@@ -1,5 +1,5 @@
 import { LitElement } from "lit";
-declare type Constructor<T = {}> = new (...args: any[]) => T;
+type Constructor<T = {}> = new (...args: any[]) => T;
 /**
  * `IntersectionElementSuper`
  * `Wiring to provide basic IntersectionObserver support to any web component`

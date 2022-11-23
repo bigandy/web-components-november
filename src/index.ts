@@ -17,8 +17,6 @@ import { AHScroller } from "./components/ah-scroller";
 import { AHTimeDiff } from "./components/ah-time-diff";
 import { AHTodoList } from "./components/ah-todo-list";
 
-import { MyElement } from "./components/my-element";
-
 export default {
   AHBetterNoiseButton,
   AHButton,
@@ -38,5 +36,4 @@ export default {
   AHTimeDiff,
   AHTodoList,
   AHWatcher,
-  MyElement,
 };
