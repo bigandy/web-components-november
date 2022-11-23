@@ -170,33 +170,24 @@ export class AHConnectFour extends LitElement {
 
   render() {
     return html` <div class="info">
-        ${this.finished
-          ? html`
-              <ah-heading variant="h3"
-                >Winning Color</ah-heading
-              >
-              <div
-                class=${classMap({
-                  nextCell: true,
-                  cell: true,
-                  red: this.winner === "red",
-                  yellow: this.winner === "yellow",
-                })}
-              ></div>
-            `
-          : html`
-              <ah-heading variant="h3"
-                >Current Color</ah-heading
-              >
-              <div
-                class=${classMap({
-                  nextCell: true,
-                  cell: true,
-                  red: this.currentPlayer === false,
-                  yellow: this.currentPlayer === true,
-                })}
-              ></div>
-            `}
+        <ah-heading variant="h3"
+          >${this.finished
+            ? "Winning Color"
+            : "Current Color"}<span
+            class=${classMap({
+              nextCell: true,
+              cell: true,
+              red: this.finished
+                ? this.winner === "red"
+                : this.currentPlayer === false,
+              yellow: this.finished
+                ? this.winner === "yellow"
+                : this.currentPlayer === true,
+            })}
+            style="--size: 20; display: inline-block; vertical-align: -12px; margin-left: 5px;"
+          ></span
+        ></ah-heading>
+
         <ah-button @click=${this.resetBoard}
           >Reset</ah-button
         >
@@ -277,14 +268,15 @@ export class AHConnectFour extends LitElement {
       --size: 50;
     }
 
-    .info {
+    ah-heading {
       display: inline-block;
-      padding-right: 1em;
-      float: left;
+    }
+
+    ah-button {
+      margin-left: 1em;
     }
 
     .board {
-      margin: 2em 0;
       display: grid;
       grid-template-columns: repeat(
         7,
@@ -298,6 +290,7 @@ export class AHConnectFour extends LitElement {
 
     .finishedBoard {
       pointer-events: none;
+      background: black;
     }
 
     .column {
@@ -325,6 +318,16 @@ export class AHConnectFour extends LitElement {
 
     .yellow {
       background: yellow;
+    }
+
+    @media (max-width: 600px) {
+      :host {
+        --size: 25;
+      }
+      .info {
+        width: 100%;
+        margin-bottom: 1em;
+      }
     }
   `;
 }

@@ -43,14 +43,15 @@ export class AHComponentSection extends LitElement {
 
   static styles = css`
     .container {
-      padding: 0.5em 1em;
+      padding: 0.5em 0;
+      overflow: auto;
     }
 
     .containerOpen {
-      box-shadow: inset 0 0 0px 10px lightblue;
       margin-bottom: 1.5em;
       padding-bottom: 1em;
     }
+
     h3 {
       cursor: pointer;
     }
@@ -66,11 +67,29 @@ export class AHComponentSection extends LitElement {
       fill: black;
     }
 
+    @media (min-width: 500px) {
+      .link {
+        display: block;
+        display: grid;
+        place-content: center;
+      }
+
+      .container {
+        padding: 0.5em 1em;
+        border: 10px solid transparent;
+      }
+
+      .containerOpen {
+        border-color: lightblue;
+        padding-bottom: 1em;
+      }
+    }
+
     .link {
+      display: none;
       position: fixed;
       top: 0;
-      display: grid;
-      place-content: center;
+
       height: 100%;
       transition: background-color 0.3s ease-in-out,
         fill 0.3s ease-in-out;
@@ -144,10 +163,6 @@ export class AHComponentSection extends LitElement {
     // add the url to the clipboard
     try {
       await navigator.clipboard.writeText(
-        window.location.href
-      );
-      console.log(
-        "Content copied to clipboard",
         window.location.href
       );
     } catch (err) {

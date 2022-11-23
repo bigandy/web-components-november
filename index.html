@@ -74,288 +74,293 @@
 </head>
 
 <body>
-  <h1>
-    Web Components of November 2022 by
-    <a href="https://andrewhudson.dev">Andrew Hudson</a>
-  </h1>
+  <main>
+    <h1>
+      Web Components of November 2022 by
+      <a href="https://andrewhudson.dev">Andrew Hudson</a>
+    </h1>
 
-  <div id="controls">
-    <ah-button id="detailsToggleButton">Toggle Details</ah-button>
-  </div>
+    <div id="controls">
+      <ah-button id="detailsToggleButton">Toggle Details</ah-button>
+    </div>
 
-  <h2>Rules</h2>
-  <ul>
-    <li>Create one web component per day</li>
-    <li>Use Lit</li>
-    <li>Release the web component into the wild</li>
-    <li>
-      Code can be found here at
-      <a href="https://github.com/bigandy/web-components-november">github.com/bigandy/web-components-november repo</a>
-    </li>
-  </ul>
+    <h2>Rules</h2>
+    <ul>
+      <li>Create one web component per day</li>
+      <li>Use Lit</li>
+      <li>Release the web component into the wild</li>
+      <li>
+        Code can be found here at
+        <a href="https://github.com/bigandy/web-components-november">github.com/bigandy/web-components-november repo</a>
+      </li>
+    </ul>
 
-  <h2>The Components</h2>
+    <h2>The Components</h2>
 
-  <ol>
-    <li>
-      <ah-component-section id="01.11.2022" next="02.11.2022" date="01 November 2022" summary="ah-button web component">
-        <ah-button id="demoClickButton">
-          <div slot="before">🤬</div>
-          <span>Button, click me!</span>
-          <div slot="after">🦊</div>
-        </ah-button>
-      </ah-component-section>
-    </li>
+    <ol>
+      <li>
+        <ah-component-section id="01.11.2022" next="02.11.2022" date="01 November 2022"
+          summary="ah-button web component">
+          <ah-button id="demoClickButton">
+            <div slot="before">🤬</div>
+            <span>Button, click me!</span>
+            <div slot="after">🦊</div>
+          </ah-button>
+        </ah-component-section>
+      </li>
 
-    <li>
-      <ah-component-section id="02.11.2022" next="03.11.2022" prev="01.11.2022" date="02 November 2022"
-        summary="ah-title web component">
-        <ah-heading variant="h1">Happy Day of the dead day!</ah-heading>
-        <ah-heading variant="h2">Happy Day of the dead day!</ah-heading>
-        <ah-heading variant="h3">Happy Day of the dead day!</ah-heading>
-        <ah-heading variant="h4">Happy Day of the dead day!</ah-heading>
-        <ah-heading variant="h5">Happy Day of the dead day!</ah-heading>
-        <ah-heading variant="h6">Happy Day of the dead day!</ah-heading>
-      </ah-component-section>
-    </li>
+      <li>
+        <ah-component-section id="02.11.2022" next="03.11.2022" prev="01.11.2022" date="02 November 2022"
+          summary="ah-title web component">
+          <ah-heading variant="h1">Happy Day of the dead day!</ah-heading>
+          <ah-heading variant="h2">Happy Day of the dead day!</ah-heading>
+          <ah-heading variant="h3">Happy Day of the dead day!</ah-heading>
+          <ah-heading variant="h4">Happy Day of the dead day!</ah-heading>
+          <ah-heading variant="h5">Happy Day of the dead day!</ah-heading>
+          <ah-heading variant="h6">Happy Day of the dead day!</ah-heading>
+        </ah-component-section>
+      </li>
 
-    <li>
-      <ah-component-section id="03.11.2022" next="04.11.2022" prev="02.11.2022" date="03 November 2022"
-        summary="ah-get-data web component">
-        <ah-get-data dataSource="https://www.thecocktaildb.com/api/json/v1/1/search.php?s=martini" key="drinks"
-          values="strDrink strInstructions"></ah-get-data>
+      <li>
+        <ah-component-section id="03.11.2022" next="04.11.2022" prev="02.11.2022" date="03 November 2022"
+          summary="ah-get-data web component">
+          <ah-get-data dataSource="https://www.thecocktaildb.com/api/json/v1/1/search.php?s=martini" key="drinks"
+            values="strDrink strInstructions"></ah-get-data>
 
-        <ah-get-data dataSource="https://date.nager.at/api/v2/publicholidays/2022/GB" values="date localName">
-        </ah-get-data>
-      </ah-component-section>
-    </li>
+          <ah-get-data dataSource="https://date.nager.at/api/v2/publicholidays/2022/GB" values="date localName">
+          </ah-get-data>
+        </ah-component-section>
+      </li>
 
-    <li>
-      <ah-component-section id="04.11.2022" next="05.11.2022" prev="03.11.2022" date="04 November 2022"
-        summary="ah-noughts-crosses web component">
-        <ah-noughts-crosses></ah-noughts-crosses>
-      </ah-component-section>
-    </li>
+      <li>
+        <ah-component-section id="04.11.2022" next="05.11.2022" prev="03.11.2022" date="04 November 2022"
+          summary="ah-noughts-crosses web component">
+          <ah-noughts-crosses></ah-noughts-crosses>
+        </ah-component-section>
+      </li>
 
-    <li>
-      <ah-component-section id="05.11.2022" next="06.11.2022" prev="04.11.2022" date="05 November 2022"
-        summary="ah-scroller web component">
-        <ah-scroller height="300" width="300" scrollX scrollY scrollbars>
-          <div style="
-                font-size: 40px;
-                font-weight: bold;
-                min-height: 600px;
-                min-width: 600px;
-                display: grid;
-              ">
-            <span>Start</span>
-
-            <span style="place-self: end">End</span>
-          </div>
-        </ah-scroller>
-      </ah-component-section>
-    </li>
-    <li>
-      <ah-component-section id="06.11.2022" next="07.11.2022" prev="05.11.2022" date="06 November 2022"
-        summary="ah-is-visible web component">
-        <ah-scroller height="300" width="300" scrollX scrollY scrollbars>
-          <div style="
-                font-size: 40px;
-                font-weight: bold;
-                min-height: 600px;
-                min-width: 600px;
-                display: grid;
-              ">
-            <span>Start</span>
-
-            <ah-is-visible style="place-self: end"><span>End</span></ah-is-visible>
-          </div>
-        </ah-scroller>
-      </ah-component-section>
-    </li>
-
-    <li>
-      <ah-component-section id="07.11.2022" next="08.11.2022" prev="06.11.2022" date="07 November 2022"
-        summary="ah-time-until web component">
-        <ah-time-diff date="2022-11-05" targetDateString="Fireworks Day"></ah-time-diff>
-
-        <ah-time-diff date="2022-12-25" targetDateString="Christmas Day"></ah-time-diff>
-      </ah-component-section>
-    </li>
-    <li>
-      <ah-component-section id="08.11.2022" next="09.11.2022" prev="07.11.2022" date="08 November 2022"
-        summary="ah-watcher web component">
-        <p>
-          So this component is <strong>ah-watcher</strong> and it listens to
-          the `matched` custom event that is being emitted elsewhere in one of
-          its children. In this example I am using the ah-is-visible element
-          to send the `matched` custom event when an element is visible in its
-          context.
-        </p>
-
-        <p>
-          To test this out you will need to scroll the below box to the
-          bottom. That will trigger the event when the "Bottom of the box"
-          text is visible in the scrollbox. There is another element on the
-          right half way up.
-        </p>
-
-        <ah-watcher style="height: 300px; width: 300px">
-          <ah-scroller hideBorder height="300" width="300" scrollX scrollY scrollbars>
+      <li>
+        <ah-component-section id="05.11.2022" next="06.11.2022" prev="04.11.2022" date="05 November 2022"
+          summary="ah-scroller web component">
+          <ah-scroller height="300" width="300" scrollX scrollY scrollbars>
             <div style="
+                font-size: 40px;
+                font-weight: bold;
+                min-height: 600px;
+                min-width: 600px;
+                display: grid;
+              ">
+              <span>Start</span>
+
+              <span style="place-self: end">End</span>
+            </div>
+          </ah-scroller>
+        </ah-component-section>
+      </li>
+      <li>
+        <ah-component-section id="06.11.2022" next="07.11.2022" prev="05.11.2022" date="06 November 2022"
+          summary="ah-is-visible web component">
+          <ah-scroller height="300" width="300" scrollX scrollY scrollbars>
+            <div style="
+                font-size: 40px;
+                font-weight: bold;
+                min-height: 600px;
+                min-width: 600px;
+                display: grid;
+              ">
+              <span>Start</span>
+
+              <ah-is-visible style="place-self: end"><span>End</span></ah-is-visible>
+            </div>
+          </ah-scroller>
+        </ah-component-section>
+      </li>
+
+      <li>
+        <ah-component-section id="07.11.2022" next="08.11.2022" prev="06.11.2022" date="07 November 2022"
+          summary="ah-time-until web component">
+          <ah-time-diff date="2022-11-05" targetDateString="Fireworks Day"></ah-time-diff>
+
+          <ah-time-diff date="2022-12-25" targetDateString="Christmas Day"></ah-time-diff>
+        </ah-component-section>
+      </li>
+      <li>
+        <ah-component-section id="08.11.2022" next="09.11.2022" prev="07.11.2022" date="08 November 2022"
+          summary="ah-watcher web component">
+          <p>
+            So this component is <strong>ah-watcher</strong> and it listens to
+            the `matched` custom event that is being emitted elsewhere in one of
+            its children. In this example I am using the ah-is-visible element
+            to send the `matched` custom event when an element is visible in its
+            context.
+          </p>
+
+          <p>
+            To test this out you will need to scroll the below box to the
+            bottom. That will trigger the event when the "Bottom of the box"
+            text is visible in the scrollbox. There is another element on the
+            right half way up.
+          </p>
+
+          <ah-watcher style="height: 300px; width: 300px">
+            <ah-scroller hideBorder height="300" width="300" scrollX scrollY scrollbars>
+              <div style="
                   font-size: 40px;
                   font-weight: bold;
                   min-height: 600px;
                   min-width: 600px;
                   display: grid;
                 ">
-              <span>Start</span>
+                <span>Start</span>
 
-              <ah-is-visible style="place-self: end"><span>Middle Right</span></ah-is-visible>
-            </div>
+                <ah-is-visible style="place-self: end"><span>Middle Right</span></ah-is-visible>
+              </div>
 
-            <div style="margin-top: 600px">
-              <ah-is-visible>Bottom of the box</ah-is-visible>
-            </div>
-          </ah-scroller>
-        </ah-watcher>
-      </ah-component-section>
-    </li>
+              <div style="margin-top: 600px">
+                <ah-is-visible>Bottom of the box</ah-is-visible>
+              </div>
+            </ah-scroller>
+          </ah-watcher>
+        </ah-component-section>
+      </li>
 
-    <li>
-      <ah-component-section id="09.11.2022" next="10.11.2022" prev="08.11.2022" date="09 November 2022"
-        summary="ah-todo-list web component">
-        <p>
-          This is a to-do web component which saves the todos to localStorage
-          so if you refresh the page the todos will still be there.
-        </p>
+      <li>
+        <ah-component-section id="09.11.2022" next="10.11.2022" prev="08.11.2022" date="09 November 2022"
+          summary="ah-todo-list web component">
+          <p>
+            This is a to-do web component which saves the todos to localStorage
+            so if you refresh the page the todos will still be there.
+          </p>
 
-        <p>
-          Also if you hit enter while adding a todo in the input box the todo
-          will be added. Nice.
-        </p>
+          <p>
+            Also if you hit enter while adding a todo in the input box the todo
+            will be added. Nice.
+          </p>
 
-        <p>You can delete a todo</p>
+          <p>You can delete a todo</p>
 
-        <p>You can mark the todo as complete or incomplete</p>
+          <p>You can mark the todo as complete or incomplete</p>
 
-        <ah-todo-list> </ah-todo-list>
-      </ah-component-section>
-    </li>
+          <ah-todo-list> </ah-todo-list>
+        </ah-component-section>
+      </li>
 
-    <li>
-      <ah-component-section id="10.11.2022" next="11.11.2022" prev="09.11.2022" date="10 November 2022"
-        summary="ah-houdini-banner web component">
-        <ah-houdini-banner checkers style="
+      <li>
+        <ah-component-section id="10.11.2022" next="11.11.2022" prev="09.11.2022" date="10 November 2022"
+          summary="ah-houdini-banner web component">
+          <ah-houdini-banner checkers style="
               --color-1: blue;
               --color-2: gold;
               --ah-houdini-banner-color: white;
               text-shadow: 0 0 5px black;
             ">
-          <h2 style="padding: 3em">Houdini Banner - checkers</h2>
-        </ah-houdini-banner>
+            <h2 style="padding: 3em">Houdini Banner - checkers</h2>
+          </ah-houdini-banner>
 
-        <ah-houdini-banner circles hideWarning>
-          <h2 style="padding: 3em">Houdini Banner - circles</h2>
-        </ah-houdini-banner>
+          <ah-houdini-banner circles hideWarning>
+            <h2 style="padding: 3em">Houdini Banner - circles</h2>
+          </ah-houdini-banner>
 
-        <ah-houdini-banner checkers hideWarning style="--color-1: cyan; --color-2: magenta; --square-dimension: 100">
-          <h2 style="padding: 3em">Houdini Banner - checkers</h2>
-        </ah-houdini-banner>
+          <ah-houdini-banner checkers hideWarning style="--color-1: cyan; --color-2: magenta; --square-dimension: 100">
+            <h2 style="padding: 3em">Houdini Banner - checkers</h2>
+          </ah-houdini-banner>
 
-        <ah-houdini-banner circles hideWarning>
-          <h2 style="padding: 3em">Houdini Banner - circles</h2>
-        </ah-houdini-banner>
-      </ah-component-section>
-    </li>
+          <ah-houdini-banner circles hideWarning>
+            <h2 style="padding: 3em">Houdini Banner - circles</h2>
+          </ah-houdini-banner>
+        </ah-component-section>
+      </li>
 
-    <li>
-      <ah-component-section id="11.11.2022" next="12.11.2022" prev="10.11.2022" date="11 November 2022"
-        summary="ah-noise-button web component">
-        <ah-noise-button noise> Play Noise </ah-noise-button>
+      <li>
+        <ah-component-section id="11.11.2022" next="12.11.2022" prev="10.11.2022" date="11 November 2022"
+          summary="ah-noise-button web component">
+          <ah-noise-button noise> Play Noise </ah-noise-button>
 
-        <ah-noise-button lazer> Play Lazer </ah-noise-button>
-      </ah-component-section>
-    </li>
-    <li>
-      <ah-component-section id="12.11.2022" next="19.11.2022" prev="11.11.2022" date="12 November 2022"
-        summary="ah-calendar web component">
-        <ah-calendar></ah-calendar>
-      </ah-component-section>
-    </li>
-    <li>
-      <ah-component-section id="19.11.2022" next="20.11.2022" prev="12.11.2022" date="19 November 2022"
-        summary="ah-better-noise-button web component">
-        <div style="margin-bottom: 2em">
-          <ah-better-noise-button cycling>Looping</ah-better-noise-button>
-        </div>
-        <div>
-          <ah-better-noise-button>Once</ah-better-noise-button>
-        </div>
-      </ah-component-section>
-    </li>
-    <li>
-      <ah-component-section date="20 November 2022" id="20.11.2022" prev="19.11.2022" next="21.11.2022"
-        summary="ah-component-section web component">
-        <p>
-          So I have created the ah-component-section component to be able to
-          wrap a section and link to it. I have also included links to the
-          previous and next component where applicable.
-        </p>
-      </ah-component-section>
+          <ah-noise-button lazer> Play Lazer </ah-noise-button>
+        </ah-component-section>
+      </li>
+      <li>
+        <ah-component-section id="12.11.2022" next="19.11.2022" prev="11.11.2022" date="12 November 2022"
+          summary="ah-calendar web component">
+          <ah-calendar></ah-calendar>
+        </ah-component-section>
+      </li>
+      <li>
+        <ah-component-section id="19.11.2022" next="20.11.2022" prev="12.11.2022" date="19 November 2022"
+          summary="ah-better-noise-button web component">
+          <div style="margin-bottom: 2em">
+            <ah-better-noise-button cycling>Looping</ah-better-noise-button>
+          </div>
+          <div>
+            <ah-better-noise-button>Once</ah-better-noise-button>
+          </div>
+        </ah-component-section>
+      </li>
+      <li>
+        <ah-component-section date="20 November 2022" id="20.11.2022" prev="19.11.2022" next="21.11.2022"
+          summary="ah-component-section web component">
+          <p>
+            So I have created the ah-component-section component to be able to
+            wrap a section and link to it. I have also included links to the
+            previous and next component where applicable.
+          </p>
+        </ah-component-section>
 
-    <li>
-      <ah-component-section date="21 November 2022" id="21.11.2022" prev="20.11.2022" next="22.11.2022"
-        summary="ah-house web component">
-        <p>
-          This component is used to demonstrate the way that lit uses events to go up the tree and properties to go down
-          the tree.
-        </p>
+      <li>
+        <ah-component-section date="21 November 2022" id="21.11.2022" prev="20.11.2022" next="22.11.2022"
+          summary="ah-house web component">
+          <p>
+            This component is used to demonstrate the way that lit uses events to go up the tree and properties to go
+            down
+            the tree.
+          </p>
 
-        <p>In the ah-house I have a light switch that emits the switch event when it is used and the ah-house component
-          listens for this event.</p>
+          <p>In the ah-house I have a light switch that emits the switch event when it is used and the ah-house
+            component
+            listens for this event.</p>
 
-        <p>When a swiched event comes in the ah-component reacts to it and passes down the on property to the ah-light
-          component</p>
+          <p>When a swiched event comes in the ah-component reacts to it and passes down the on property to the ah-light
+            component</p>
 
-        <ah-house></ah-house>
-      </ah-component-section>
-    </li>
+          <ah-house></ah-house>
+        </ah-component-section>
+      </li>
 
-    <li>
-      <ah-component-section date="22 November 2022" id="22.11.2022" prev="21.11.2022" next="23.11.2022"
-        summary="ah-switch web component">
-        <p>
-          This is a switch with sound and mute
-        </p>
+      <li>
+        <ah-component-section date="22 November 2022" id="22.11.2022" prev="21.11.2022" next="23.11.2022"
+          summary="ah-switch web component">
+          <p>
+            This is a switch with sound and mute
+          </p>
 
-        <h3>Normal Switch</h3>
-        <ah-switch></ah-switch>
+          <h3>Normal Switch</h3>
+          <ah-switch></ah-switch>
 
-        <h3>Muted Switch</h3>
-        <ah-switch muted></ah-switch>
+          <h3>Muted Switch</h3>
+          <ah-switch muted></ah-switch>
 
-        <h3>Label Hidden</h3>
-        <ah-switch hideLabel></ah-switch>
+          <h3>Label Hidden</h3>
+          <ah-switch hideLabel></ah-switch>
 
-        <h3>Full Width</h3>
-        <ah-switch fullWidth></ah-switch>
-      </ah-component-section>
-    </li>
+          <h3>Full Width</h3>
+          <ah-switch fullWidth></ah-switch>
+        </ah-component-section>
+      </li>
 
-    <li>
-      <ah-component-section date="23 November 2022" id="23.11.2022" prev="22.11.2022"
-        summary="ah-connect-four web component">
-        <p>
-          This is the ah-connect-four component
-        </p>
+      <li>
+        <ah-component-section date="23 November 2022" id="23.11.2022" prev="22.11.2022"
+          summary="ah-connect-four web component">
+          <p>
+            This is the ah-connect-four component
+          </p>
 
-        <ah-connect-four></ah-connect-four>
+          <ah-connect-four></ah-connect-four>
 
 
-      </ah-component-section>
-    </li>
-  </ol>
+        </ah-component-section>
+      </li>
+    </ol>
+  </main>
 </body>
 
 </html>

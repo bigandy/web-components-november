@@ -27,7 +27,17 @@ a:hover {
 body {
   margin: 0;
   min-height: 100vh;
-  padding: 3em;
+}
+
+@media (min-width: 500px) {
+  body {
+    padding: 3em;
+  }
+}
+
+main {
+  max-width: 1000px;
+  margin-inline: auto;
 }
 
 @media (prefers-color-scheme: light) {
