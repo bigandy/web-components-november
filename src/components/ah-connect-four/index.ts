@@ -291,7 +291,7 @@ export class AHConnectFour extends LitElement {
 
     @media (max-width: 600px) {
       :host {
-        --size: 25;
+        --size: 30;
       }
       .info {
         width: 100%;
