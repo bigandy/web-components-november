@@ -16,6 +16,7 @@ import { AHWatcher } from "./components/ah-watcher";
 import { AHScroller } from "./components/ah-scroller";
 import { AHTimeDiff } from "./components/ah-time-diff";
 import { AHTodoList } from "./components/ah-todo-list";
+import { AHVideoCapture } from "./components/ah-video-capture";
 
 export default {
   AHBetterNoiseButton,
@@ -35,5 +36,6 @@ export default {
   AHSwitch,
   AHTimeDiff,
   AHTodoList,
+  AHVideoCapture,
   AHWatcher,
 };

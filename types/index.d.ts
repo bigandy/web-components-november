@@ -16,6 +16,7 @@ import { AHWatcher } from "./components/ah-watcher";
 import { AHScroller } from "./components/ah-scroller";
 import { AHTimeDiff } from "./components/ah-time-diff";
 import { AHTodoList } from "./components/ah-todo-list";
+import { AHVideoCapture } from "./components/ah-video-capture";
 declare const _default: {
     AHBetterNoiseButton: typeof AHBetterNoiseButton;
     AHButton: typeof AHButton;
@@ -34,6 +35,7 @@ declare const _default: {
     AHSwitch: typeof AHSwitch;
     AHTimeDiff: typeof AHTimeDiff;
     AHTodoList: typeof AHTodoList;
+    AHVideoCapture: typeof AHVideoCapture;
     AHWatcher: typeof AHWatcher;
 };
 export default _default;
