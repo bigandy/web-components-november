@@ -36,8 +36,6 @@ export class AHVideoCapture extends LitElement {
   }
 
   activateVideo() {
-    // using first updated because connectedCallback does not yet contain the contents added by the render() function
-
     // Code copied and then modified from https://davidwalsh.name/browser-camera demo. Thanks David Walsh!
 
     // Grab elements, create settings, etc.
@@ -69,7 +67,6 @@ export class AHVideoCapture extends LitElement {
     this.showVideo = true;
 
     if (!this.active && this.showVideo) {
-      console.log("here");
       this.active = true;
 
       this.activateVideo();
@@ -98,7 +95,7 @@ export class AHVideoCapture extends LitElement {
           height="480"
         ></canvas>
       </div>
-      <button
+      <ah-button
         @click=${this.handleShowVideo}
         class=${classMap({
           hide: this.showVideo,
@@ -106,7 +103,7 @@ export class AHVideoCapture extends LitElement {
         })}
       >
         Use Video
-      </button>`;
+      </ah-button>`;
   }
 
   static styles = css`

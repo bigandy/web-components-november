@@ -11,8 +11,11 @@ declare global {
 export declare class AHVideoCapture extends LitElement {
     private video;
     private context;
-    firstUpdated(): void;
+    showVideo: boolean;
+    active: boolean;
     handleSnap(): void;
+    activateVideo(): void;
+    handleShowVideo(): void;
     render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
 }
