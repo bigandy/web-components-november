@@ -141,13 +141,11 @@ export class AHImageGame extends LitElement {
               this.boardState[index] / this.columns
             );
 
-            // console.log(col, row);
-
             return html` <div
               @click=${() => this.handleCell(index)}
               class=${classMap({
                 cell: true,
-                activeCell: index === this.activeCell,
+                // activeCell: index === this.activeCell,
               })}
               style=${styleMap({
                 // @ts-ignore
