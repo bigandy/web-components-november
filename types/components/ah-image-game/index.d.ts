@@ -12,9 +12,9 @@ export declare class AHImageGame extends LitElement {
     private columns;
     private rows;
     private totalCells;
-    private image;
-    shuffleArray(array: number[]): number[];
-    boardState: never[];
+    imageSrc: string;
+    shuffleArray(array: any[]): any[];
+    boardState: number[];
     activeCell: number;
     handleCell(cell: number): void;
     checkIfCanActivate(cell: number): boolean | undefined;
