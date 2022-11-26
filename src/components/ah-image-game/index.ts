@@ -156,7 +156,7 @@ export class AHImageGame extends LitElement {
   }
 
   generateBoard() {
-    this.boardState = this.shuffleArray(this.initialBoardState);
+    this.boardState = this.shuffleArray([...this.initialBoardState]);
     this.winner = false;
   }
 
@@ -235,7 +235,7 @@ export class AHImageGame extends LitElement {
     }
 
     .activeCell {
-      background: black;
+      background: var(--ah-image-game-active-bg, var(--brand, black));
     }
   `;
 }
