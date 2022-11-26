@@ -9,13 +9,18 @@ declare global {
  * @slot - This element has a slot
  */
 export declare class AHImageGame extends LitElement {
-    private columns;
-    private rows;
-    private totalCells;
-    imageSrc: string;
-    shuffleArray(array: any[]): any[];
+    columns: number;
+    rows: number;
     boardState: number[];
+    initialBoardState: number[];
+    winner: boolean;
+    imageSrc: string;
+    randomize: boolean;
     activeCell: number;
+    private totalCells;
+    connectedCallback(): void;
+    shuffleArray(array: any[]): any[];
+    checkIfWon(): void;
     handleCell(cell: number): void;
     checkIfCanActivate(cell: number): boolean | undefined;
     generateBoard(): void;

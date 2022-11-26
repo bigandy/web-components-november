@@ -9,20 +9,48 @@ declare global {
   }
 }
 
-const initialGameState = [0, 1, 2, 3, 4, 5, 6, 7, 8];
-
 /**
  * An ah-image-game element.
  * @slot - This element has a slot
  */
 @customElement("ah-image-game")
 export class AHImageGame extends LitElement {
-  private columns = 3;
-  private rows = 3;
-  private totalCells = this.columns * this.rows;
+  @property({ type: Number })
+  columns = 3;
+
+  @property({ type: Number })
+  rows = 3;
+
+  @state()
+  boardState: number[] = [];
+
+  @state()
+  initialBoardState: number[] = [];
+
+  @state()
+  winner = false;
 
   @property({ type: String })
   imageSrc = "https://www.fillmurray.com/500/500";
+
+  @property({ type: Boolean })
+  randomize = false;
+
+  @state()
+  activeCell = this.columns - 1;
+
+  private totalCells = 0;
+
+  connectedCallback() {
+    super.connectedCallback();
+
+    this.totalCells = this.columns * this.rows;
+    this.activeCell = this.columns - 1;
+    this.initialBoardState = [...new Array(this.totalCells).keys()];
+    this.boardState = this.randomize
+      ? this.shuffleArray(this.initialBoardState)
+      : this.initialBoardState;
+  }
 
   shuffleArray(array: any[]) {
     let currentIndex = array.length,
@@ -44,37 +72,45 @@ export class AHImageGame extends LitElement {
     return array;
   }
 
-  @state()
-  boardState = initialGameState;
+  checkIfWon() {
+    const arrayOne = this.boardState;
+    const arrayTwo = [...new Array(this.totalCells).keys()];
 
-  @state()
-  activeCell = 2;
-
-  handleCell(cell: number) {
-    const canActivate = this.checkIfCanActivate(cell);
-
-    if (canActivate) {
-      // get the index of the cell
-      const prevIndex = this.boardState.findIndex((val) => val === cell);
-      const prevActiveCell = this.boardState.findIndex(
-        (val) => val === this.activeCell
-      );
-      console.log("canActivate", prevIndex, prevActiveCell);
-
-      const newBoardState = [...this.boardState];
-      newBoardState[prevActiveCell] = cell;
-      newBoardState[prevIndex] = this.activeCell;
-
-      this.boardState = newBoardState;
-
-      // this.activeCell = 1;
-      this.activeCell = cell;
+    if (
+      arrayOne.length === arrayTwo.length &&
+      arrayOne.every((value, index) => value === arrayTwo[index])
+    ) {
+      this.winner = true;
+    } else {
+      this.winner = false;
     }
   }
 
-  checkIfCanActivate(cell: number) {
-    console.log(cell);
+  handleCell(cell: number) {
+    // const cell = col + row * 3;
+    const canActivate = this.checkIfCanActivate(cell);
 
+    if (canActivate) {
+      // What is the value of the activeCell index?
+      const valueAtActiveCell = this.boardState[this.activeCell];
+
+      // clone the array;
+      const updatedArray = [...this.boardState];
+
+      // Swap the items
+      updatedArray[this.activeCell] = this.boardState[cell];
+      updatedArray[cell] = valueAtActiveCell;
+
+      // update the boardState with the new array
+      this.boardState = updatedArray;
+
+      this.activeCell = cell;
+    }
+
+    this.checkIfWon();
+  }
+
+  checkIfCanActivate(cell: number) {
     if (cell === this.activeCell) {
       return;
     }
@@ -120,8 +156,8 @@ export class AHImageGame extends LitElement {
   }
 
   generateBoard() {
-    // @ts-ignore
-    this.boardState = [...this.shuffleArray(initialGameState)];
+    this.boardState = this.shuffleArray(this.initialBoardState);
+    this.winner = false;
   }
 
   render() {
@@ -129,9 +165,14 @@ export class AHImageGame extends LitElement {
         >Generate Board</ah-button
       >
       <div
-        class="board"
+        class=${classMap({
+          board: true,
+          winner: this.winner,
+        })}
         style=${styleMap({
           "--ah-image-game-image-src": `url(${this.imageSrc})`,
+          "--ah-image-game-columns": `${this.columns}`,
+          "--ah-image-game-rows": `${this.rows}`,
         })}
       >
         ${[...new Array(this.totalCells)].map((_, index) => {
@@ -172,9 +213,16 @@ export class AHImageGame extends LitElement {
       grid-template-columns: repeat(var(--columns), 1fr);
       grid-template-rows: repeat(var(--rows), 1fr);
 
-      --height: 500px;
-      --columns: 3;
-      --rows: 3;
+      --height: var(--ah-image-game-size, 500px);
+      --columns: var(--ah-image-game-columns, 3);
+      --rows: var(--ah-image-game-rows, 3);
+    }
+
+    .winner {
+      border: 20px solid green;
+      cursor: not-allowed;
+
+      pointer-events: none;
     }
 
     .cell {
@@ -190,7 +238,8 @@ export class AHImageGame extends LitElement {
     }
 
     .activeCell {
-      background: green;
+      /* box-shadow: inset 0 0px 20px red; */
+      background: black;
     }
   `;
 }
