@@ -6,16 +6,15 @@ declare global {
 }
 /**
  * An ah-image-game element.
- * @slot - This element has a slot
  */
 export declare class AHImageGame extends LitElement {
     columns: number;
     rows: number;
+    imageSrc: string;
+    randomize: boolean;
     boardState: number[];
     initialBoardState: number[];
     winner: boolean;
-    imageSrc: string;
-    randomize: boolean;
     activeCell: number;
     private totalCells;
     connectedCallback(): void;

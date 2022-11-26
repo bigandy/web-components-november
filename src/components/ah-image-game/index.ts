@@ -11,7 +11,6 @@ declare global {
 
 /**
  * An ah-image-game element.
- * @slot - This element has a slot
  */
 @customElement("ah-image-game")
 export class AHImageGame extends LitElement {
@@ -21,6 +20,12 @@ export class AHImageGame extends LitElement {
   @property({ type: Number })
   rows = 3;
 
+  @property({ type: String })
+  imageSrc = "https://www.fillmurray.com/500/500";
+
+  @property({ type: Boolean })
+  randomize = false;
+
   @state()
   boardState: number[] = [];
 
@@ -29,12 +34,6 @@ export class AHImageGame extends LitElement {
 
   @state()
   winner = false;
-
-  @property({ type: String })
-  imageSrc = "https://www.fillmurray.com/500/500";
-
-  @property({ type: Boolean })
-  randomize = false;
 
   @state()
   activeCell = this.columns - 1;
@@ -74,8 +73,9 @@ export class AHImageGame extends LitElement {
 
   checkIfWon() {
     const arrayOne = this.boardState;
-    const arrayTwo = [...new Array(this.totalCells).keys()];
+    const arrayTwo = this.initialBoardState;
 
+    // this is a way to compare two arrays that I found on the internet! https://stackoverflow.com/questions/7837456/how-to-compare-arrays-in-javascript
     if (
       arrayOne.length === arrayTwo.length &&
       arrayOne.every((value, index) => value === arrayTwo[index])
@@ -162,7 +162,7 @@ export class AHImageGame extends LitElement {
 
   render() {
     return html` <ah-button @click=${this.generateBoard}
-        >Generate Board</ah-button
+        >Scramble Board</ah-button
       >
       <div
         class=${classMap({
@@ -189,14 +189,10 @@ export class AHImageGame extends LitElement {
               activeCell: index === this.activeCell,
             })}
             style=${styleMap({
-              // @ts-ignore
-              "--col": initialColumn,
-              // @ts-ignore
-              "--row": initialRow,
-              // @ts-ignore
-              "--initial-col": col,
-              // @ts-ignore
-              "--initial-row": row,
+              "--col": `${initialColumn}`,
+              "--row": `${initialRow}`,
+              "--initial-col": `${col}`,
+              "--initial-row": `${row}`,
             })}
           ></div>`;
         })}
@@ -205,6 +201,7 @@ export class AHImageGame extends LitElement {
 
   static styles = css`
     .board {
+      margin-block: 1em;
       gap: 0.1em;
       border: 1px solid;
       height: var(--height);
@@ -238,7 +235,6 @@ export class AHImageGame extends LitElement {
     }
 
     .activeCell {
-      /* box-shadow: inset 0 0px 20px red; */
       background: black;
     }
   `;
