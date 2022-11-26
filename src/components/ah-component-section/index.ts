@@ -2,11 +2,7 @@ import { LitElement, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 
-import {
-  BACK_ICON,
-  FORWARD_ICON,
-  COPY_ICON,
-} from "../../constants/icons";
+import { BACK_ICON, FORWARD_ICON, COPY_ICON } from "../../constants/icons";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -67,32 +63,13 @@ export class AHComponentSection extends LitElement {
       fill: black;
     }
 
-    @media (min-width: 500px) {
-      .link {
-        display: block;
-        display: grid;
-        place-content: center;
-      }
-
-      .container {
-        padding: 0.5em 1em;
-        border: 10px solid transparent;
-      }
-
-      .containerOpen {
-        border-color: lightblue;
-        padding-bottom: 1em;
-      }
-    }
-
     .link {
       display: none;
       position: fixed;
       top: 0;
 
       height: 100%;
-      transition: background-color 0.3s ease-in-out,
-        fill 0.3s ease-in-out;
+      transition: background-color 0.3s ease-in-out, fill 0.3s ease-in-out;
       fill: var(--brand);
     }
 
@@ -125,6 +102,23 @@ export class AHComponentSection extends LitElement {
       --ah-button-padding-inline: 0;
       --ah-button-padding-block: 0;
       --ah-button-border-radius: 5;
+    }
+
+    @media (min-width: 500px) {
+      .link {
+        display: grid;
+        place-content: center;
+      }
+
+      .container {
+        padding: 0.5em 1em;
+        border: 10px solid transparent;
+      }
+
+      .containerOpen {
+        border-color: lightblue;
+        padding-bottom: 1em;
+      }
     }
   `;
 
@@ -162,9 +156,7 @@ export class AHComponentSection extends LitElement {
 
     // add the url to the clipboard
     try {
-      await navigator.clipboard.writeText(
-        window.location.href
-      );
+      await navigator.clipboard.writeText(window.location.href);
     } catch (err) {
       console.error("Failed to copy: ", err);
     }
@@ -183,9 +175,7 @@ export class AHComponentSection extends LitElement {
         </h3>
 
         <details ?open=${this.open}>
-          <summary @click=${this.handleDateClick}>
-            ${this.summary}
-          </summary>
+          <summary @click=${this.handleDateClick}>${this.summary}</summary>
 
           <slot></slot>
 
@@ -194,9 +184,7 @@ export class AHComponentSection extends LitElement {
                 class="link link--prev"
                 @click=${this.handlePrevClick}
                 lazer
-                >${BACK_ICON}<span class="vh"
-                  >previous</span
-                ></ah-noise-button
+                >${BACK_ICON}<span class="vh">previous</span></ah-noise-button
               >`
             : null}
           ${this.next
@@ -205,9 +193,7 @@ export class AHComponentSection extends LitElement {
                 href="#${this.next}"
                 @click=${this.handleNextClick}
                 lazer
-                >${FORWARD_ICON}<span class="vh"
-                  >next</span
-                ></ah-noise-button
+                >${FORWARD_ICON}<span class="vh">next</span></ah-noise-button
               >`
             : null}
         </details>
