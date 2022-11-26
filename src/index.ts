@@ -5,6 +5,7 @@ import { AHComponentSection } from "./components/ah-component-section";
 import { AHConnectFour } from "./components/ah-connect-four";
 import { AHGetData } from "./components/ah-get-data";
 import { AHHeading } from "./components/ah-heading";
+import { AHHabitTracker } from "./components/ah-habit-tracker";
 import { AHHoudiniBanner } from "./components/ah-houdini-banner";
 import { AHHouse } from "./components/ah-house";
 import { AHImageGame } from "./components/ah-image-game";
@@ -26,6 +27,7 @@ export default {
   AHComponentSection,
   AHConnectFour,
   AHGetData,
+  AHHabitTracker,
   AHHeading,
   AHHoudiniBanner,
   AHHouse,
