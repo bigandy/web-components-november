@@ -12,6 +12,7 @@ export declare class AHImageGame extends LitElement {
     rows: number;
     imageSrc: string;
     randomize: boolean;
+    showReferenceImage: boolean;
     boardState: number[];
     initialBoardState: number[];
     winner: boolean;
