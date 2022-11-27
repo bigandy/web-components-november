@@ -26,6 +26,9 @@ export class AHImageGame extends LitElement {
   @property({ type: Boolean })
   randomize = false;
 
+  @property({ type: Boolean })
+  showReferenceImage = false;
+
   @state()
   boardState: number[] = [];
 
@@ -161,47 +164,49 @@ export class AHImageGame extends LitElement {
   }
 
   render() {
-    return html` <ah-button @click=${this.generateBoard}
-        >Scramble Board</ah-button
-      >
-      <div
-        class=${classMap({
-          board: true,
-          winner: this.winner,
-        })}
-        style=${styleMap({
-          "--ah-image-game-image-src": `url(${this.imageSrc})`,
-          "--ah-image-game-columns": `${this.columns}`,
-          "--ah-image-game-rows": `${this.rows}`,
-        })}
-      >
-        ${[...new Array(this.totalCells)].map((_, index) => {
-          const initialColumn = index % this.columns;
-          const initialRow = Math.floor(index / this.columns);
+    return html`
+      <ah-button @click=${this.generateBoard}>Scramble Board</ah-button>
+      <div class="wrapper">
+        <div
+          class=${classMap({
+            board: true,
+            winner: this.winner,
+          })}
+          style=${styleMap({
+            "--ah-image-game-image-src": `url(${this.imageSrc})`,
+            "--ah-image-game-columns": `${this.columns}`,
+            "--ah-image-game-rows": `${this.rows}`,
+          })}
+        >
+          ${[...new Array(this.totalCells)].map((_, index) => {
+            const initialColumn = index % this.columns;
+            const initialRow = Math.floor(index / this.columns);
 
-          const col = this.boardState[index] % this.columns;
-          const row = Math.floor(this.boardState[index] / this.columns);
+            const col = this.boardState[index] % this.columns;
+            const row = Math.floor(this.boardState[index] / this.columns);
 
-          return html` <div
-            @click=${() => this.handleCell(index)}
-            class=${classMap({
-              cell: true,
-              activeCell: index === this.activeCell,
-            })}
-            style=${styleMap({
-              "--col": `${initialColumn}`,
-              "--row": `${initialRow}`,
-              "--initial-col": `${col}`,
-              "--initial-row": `${row}`,
-            })}
-          ></div>`;
-        })}
-      </div>`;
+            return html` <div
+              @click=${() => this.handleCell(index)}
+              class=${classMap({
+                cell: true,
+                activeCell: index === this.activeCell,
+              })}
+              style=${styleMap({
+                "--col": `${initialColumn}`,
+                "--row": `${initialRow}`,
+                "--initial-col": `${col}`,
+                "--initial-row": `${row}`,
+              })}
+            ></div>`;
+          })}
+        </div>
+        ${this.showReferenceImage ? html`<img src=${this.imageSrc} />` : null}
+      </div>
+    `;
   }
 
   static styles = css`
     .board {
-      margin-block: 1em;
       gap: 0.1em;
       border: 1px solid;
       height: var(--height);
@@ -235,7 +240,48 @@ export class AHImageGame extends LitElement {
     }
 
     .activeCell {
-      background: var(--ah-image-game-active-bg, var(--brand, black));
+      position: relative;
+      overflow: hidden;
+      background: black;
+    }
+
+    .activeCell::after {
+      background-color: grey;
+      box-sizing: border-box;
+
+      border: 10px solid grey;
+      box-shadow: inset 0 0 0 10px rgba(255, 255, 255, 0.2),
+        inset 0 0 0 20px rgba(255, 255, 255, 0.3),
+        inset 0 0 0 30px rgba(255, 255, 255, 0.4),
+        inset 0 0 0 40px rgba(255, 255, 255, 0.5),
+        0 0 0 40px rgba(255, 255, 255, 0.4), 0 0 0 30px rgba(255, 255, 255, 0.4),
+        0 0 0 20px rgba(255, 255, 255, 0.4), 0 0 0 10px rgba(255, 255, 255, 0.4);
+      transform: rotate(4deg);
+      transition: box-shadow 600ms ease, transform 600ms ease;
+      height: 100%;
+      width: 100%;
+      content: "";
+      display: block;
+      border-radius: 50%;
+      border-top-left-radius: 59%;
+    }
+
+    .activeCell:hover::after {
+      transform: rotate(-6deg);
+    }
+
+    .wrapper {
+      margin-block: 1em;
+    }
+
+    .wrapper:has(img) {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+    }
+
+    img {
+      height: 300px;
+      width: 300px;
     }
   `;
 }
