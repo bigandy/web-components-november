@@ -69,6 +69,51 @@
       display: block;
     }
 
+    .dark {
+      --theme-bg: black;
+      --theme-color: white;
+      --link-color: var(--pink);
+      --checkbox-color: var(--pink);
+      --button-bg: var(--link-color);
+      --button-shadow: var(--link-color);
+      accent-color: var(--pink);
+    }
+
+
+    @supports (background: color(display-p3 1 0 0.87)) {
+      .dark {
+        --link-color: color(display-p3 1 0 0.87);
+      }
+    }
+
+    .red {
+      --theme-bg: red;
+      --theme-color: white;
+
+      --link-color: white;
+      --checkbox-color: cyan;
+      --button-bg: white;
+      --button-shadow: orange;
+      --button-color: black;
+      accent-color: red;
+    }
+
+    .rainbow {
+      --rainbow-colors: red, orange, yellow, green, cyan, blue, violet;
+      --theme-bg: linear-gradient(to right, var(--rainbow-colors));
+      --theme-color: black;
+
+      --link-color: black;
+      --button-bg: linear-gradient(45deg, var(--rainbow-colors));
+      --box-shadow: black;
+      --button-color: black;
+      accent-color: black;
+    }
+
+    body {
+      --brand: var(--theme-bg, var(--orange));
+      --ah-button-color: var(--theme-color, inherit);
+    }
   </style>
 </head>
 

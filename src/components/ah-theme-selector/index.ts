@@ -2,13 +2,15 @@ import { LitElement, css, html } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 
+const localStorageKey = "wcn2022-theme";
+
 declare global {
   interface HTMLElementTagNameMap {
     "ah-theme-selector": AHThemeSelector;
   }
 }
 
-type themeType = "light" | "dark" | "rainbow" | "red";
+type themeType = "none" | "dark" | "rainbow" | "red";
 
 /**
  * An ah-theme-selector element.
@@ -19,15 +21,17 @@ export class AHThemeSelector extends LitElement {
   open: Boolean = false;
 
   @state()
-  theme: themeType = "light";
+  theme: themeType = "none";
 
   connectedCallback() {
     super.connectedCallback();
 
-    const getStorageItem = localStorage.getItem("theme");
+    const storage = localStorage.getItem(localStorageKey);
 
-    if (getStorageItem) {
-      this.theme = getStorageItem as themeType;
+    if (storage) {
+      this.theme = storage as themeType;
+
+      document.body.className = this.theme;
     }
   }
 
@@ -68,7 +72,9 @@ export class AHThemeSelector extends LitElement {
   handleInputClick = (e: any) => {
     const theme = e.target.id;
     this.theme = theme;
-    localStorage.setItem("theme", theme); // save to localStorage
+    localStorage.setItem(localStorageKey, theme); // save to localStorage
+
+    document.body.className = this.theme;
   };
 
   render() {
@@ -77,7 +83,6 @@ export class AHThemeSelector extends LitElement {
         red: this.theme === "red",
         rainbow: this.theme === "rainbow",
         dark: this.theme === "dark",
-        light: this.theme === "light",
       })}
     >
       <div
@@ -100,6 +105,16 @@ export class AHThemeSelector extends LitElement {
         })}
       >
         <div>
+          <label for="none">None</label
+          ><input
+            @click=${this.handleInputClick}
+            type="radio"
+            name="theme"
+            id="none"
+            ?checked=${this.theme === "none"}
+          />
+        </div>
+        <div>
           <label for="dark">Dark</label
           ><input
             @click=${this.handleInputClick}
@@ -107,16 +122,6 @@ export class AHThemeSelector extends LitElement {
             name="theme"
             id="dark"
             ?checked=${this.theme === "dark"}
-          />
-        </div>
-        <div>
-          <label for="light">Light</label
-          ><input
-            @click=${this.handleInputClick}
-            type="radio"
-            name="theme"
-            id="light"
-            ?checked=${this.theme === "light"}
           />
         </div>
         <div>
@@ -163,7 +168,7 @@ export class AHThemeSelector extends LitElement {
       border: 1px solid black;
       background: var(--theme-bg, white);
       color: var(--theme-color, black);
-      box-shadow: -3px 3px 3px var(--button-bg, var(--link-color, red));
+      box-shadow: -3px 3px 3px var(--button-shadow, var(--link-color, red));
       padding: 1em;
       position: absolute;
       top: 3em;
@@ -172,7 +177,7 @@ export class AHThemeSelector extends LitElement {
       z-index: 2;
 
       background: var(--theme-bg);
-      color: var(--theme-text);
+      color: var(--theme-color);
     }
 
     .drawer > div {
@@ -180,49 +185,12 @@ export class AHThemeSelector extends LitElement {
       grid-template-columns: 1fr auto;
     }
 
+    :is(input, label) {
+      cursor: pointer;
+    }
+
     .drawer [type="radio"] {
       justify-self: flex-start;
-    }
-
-    .dark {
-      --theme-bg: black;
-      --theme-text: white;
-      --link-color: var(--pink);
-      --checkbox-color: var(--pink);
-      --button-bg: var(--link-color);
-      accent-color: var(--pink);
-    }
-
-    .light {
-      --theme-bg: white;
-      --theme-color: black;
-    }
-
-    @supports (background: color(display-p3 1 0 0.87)) {
-      .dark {
-        --link-color: color(display-p3 1 0 0.87);
-      }
-    }
-
-    .red {
-      --theme-bg: red;
-
-      --link-color: white;
-      --checkbox-color: cyan;
-      --button-bg: white;
-      --button-color: black;
-      accent-color: red;
-    }
-
-    .rainbow {
-      --rainbow-colors: red, orange, yellow, green, cyan, blue, violet;
-      --theme-bg: linear-gradient(to right, var(--rainbow-colors));
-      --theme-color: black;
-
-      --link-color: black;
-      --button-bg: linear-gradient(45deg, var(--rainbow-colors));
-      --button-color: black;
-      accent-color: black;
     }
 
     ah-button {
