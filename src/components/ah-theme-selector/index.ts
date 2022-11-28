@@ -58,10 +58,16 @@ export class AHThemeSelector extends LitElement {
       };
 
       const removeClickListener = () => {
-        document.removeEventListener("click", outsideClickListener);
+        document.removeEventListener(
+          "click",
+          outsideClickListener
+        );
       };
 
-      document.addEventListener("click", outsideClickListener);
+      document.addEventListener(
+        "click",
+        outsideClickListener
+      );
     };
   }
 
@@ -191,11 +197,6 @@ export class AHThemeSelector extends LitElement {
 
     .drawer [type="radio"] {
       justify-self: flex-start;
-    }
-
-    ah-button {
-      --ah-button-background: var(--theme-bg, black);
-      --ah-button-color: var(--theme-color, white);
     }
   `;
 }
