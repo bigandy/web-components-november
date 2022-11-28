@@ -1,5 +1,9 @@
 import { LitElement, css, html } from "lit";
-import { customElement, property, state } from "lit/decorators.js";
+import {
+  customElement,
+  property,
+  state,
+} from "lit/decorators.js";
 
 import { classMap } from "lit/directives/class-map.js";
 
@@ -47,18 +51,23 @@ export class AHHoudiniBanner extends LitElement {
   }
   render() {
     return html` <ah-supports
-        .show=${!this.browserSupported && !this.hideWarning}
+        ?show=${!this.browserSupported && !this.hideWarning}
         ><p>
-          Your browser does not support the CSS Houdini Paint API. Please try
-          latest Chrome or Edge or Opera.
-          <a href="https://caniuse.com/?search=paint%20">Details here</a>
+          Your browser does not support the CSS Houdini
+          Paint API. Please try latest Chrome or Edge or
+          Opera.
+          <a href="https://caniuse.com/?search=paint%20"
+            >Details here</a
+          >
         </p></ah-supports
       >
       <div
         class=${classMap({
           checkers: this.checkers,
           circles: this.circles,
-          fallback: !this.browserSupported || (!this.circles && !this.checkers),
+          fallback:
+            !this.browserSupported ||
+            (!this.circles && !this.checkers),
         })}
       >
         <slot> </slot>

@@ -1,5 +1,6 @@
 import { AHBetterNoiseButton } from "./components/ah-better-noise-button";
 import { AHButton } from "./components/ah-button";
+import { AHBluetoothHR } from "./components/ah-bluetooth-hr";
 import { AHCalendar } from "./components/ah-calendar";
 import { AHComponentSection } from "./components/ah-component-section";
 import { AHConnectFour } from "./components/ah-connect-four";
@@ -23,6 +24,7 @@ import { AHVideoCapture } from "./components/ah-video-capture";
 declare const _default: {
     AHBetterNoiseButton: typeof AHBetterNoiseButton;
     AHButton: typeof AHButton;
+    AHBluetoothHR: typeof AHBluetoothHR;
     AHCalendar: typeof AHCalendar;
     AHComponentSection: typeof AHComponentSection;
     AHConnectFour: typeof AHConnectFour;
