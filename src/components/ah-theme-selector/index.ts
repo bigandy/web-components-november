@@ -86,6 +86,7 @@ export class AHThemeSelector extends LitElement {
   render() {
     return html`<div
       class=${classMap({
+        container: true,
         red: this.theme === "red",
         rainbow: this.theme === "rainbow",
         dark: this.theme === "dark",
@@ -155,7 +156,7 @@ export class AHThemeSelector extends LitElement {
   }
 
   static styles = css`
-    :host {
+    .container {
       position: relative;
       padding-bottom: 2em;
     }
@@ -174,7 +175,8 @@ export class AHThemeSelector extends LitElement {
       border: 1px solid black;
       background: var(--theme-bg, white);
       color: var(--theme-color, black);
-      box-shadow: -3px 3px 3px var(--button-shadow, var(--link-color, red));
+      box-shadow: -3px 3px 3px
+        var(--button-shadow, var(--link-color, red));
       padding: 1em;
       position: absolute;
       top: 3em;
