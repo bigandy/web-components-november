@@ -71,7 +71,7 @@ export class AHGeolocation extends LitElement {
     );
   }
 
-  handleMotion(event: DeviceMotionEvent) {
+  handleMotion() {
     let accelerometer = null;
     try {
       // @ts-ignore
@@ -84,7 +84,7 @@ export class AHGeolocation extends LitElement {
           console.log("Cannot connect to the sensor.");
         }
       };
-      accelerometer.onreading = (e) => {
+      accelerometer.onreading = (e: any) => {
         console.log(e);
         this.acceleration = e;
       };

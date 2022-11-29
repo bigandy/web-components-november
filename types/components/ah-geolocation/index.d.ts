@@ -16,29 +16,16 @@ export declare class AHGeolocation extends LitElement {
         beta: number | null;
         gamma: number | null;
     } | null;
-    deviceMotion?: {
-        accelerationIncludingGravity: {
-            x: any;
-            y: any;
-            z: any;
-        };
-        acceleration: {
-            x: any;
-            y: any;
-            z: any;
-        } | null;
-        rotationRate: {
-            alpha: number | null;
-            beta: number;
-            gamma: number | null;
-        } | null;
-        interval: number;
-    };
+    acceleration?: {
+        x: any;
+        y: any;
+        z: any;
+    } | null;
     geoFindMe(): void;
     success(position: any): void;
     error(e: any): void;
     connectedCallback(): void;
-    handleMotion(event: DeviceMotionEvent): void;
+    handleMotion(): void;
     handleOrientation(event: DeviceOrientationEvent): void;
     render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
