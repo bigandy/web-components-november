@@ -74,8 +74,9 @@ export class AHGeolocation extends LitElement {
   handleMotion(event: DeviceMotionEvent) {
     let accelerometer = null;
     try {
+      // @ts-ignore
       accelerometer = new Accelerometer({ frequency: 10 });
-      accelerometer.onerror = (event) => {
+      accelerometer.onerror = (event: any) => {
         // Handle runtime errors.
         if (event.error.name === "NotAllowedError") {
           console.log("Permission to access sensor was denied.");
@@ -88,7 +89,7 @@ export class AHGeolocation extends LitElement {
         this.acceleration = e;
       };
       accelerometer.start();
-    } catch (error) {
+    } catch (error: any) {
       // Handle construction errors.
       if (error.name === "SecurityError") {
         console.log(
