@@ -5,6 +5,7 @@ import { AHCalendar } from "./components/ah-calendar";
 import { AHComponentSection } from "./components/ah-component-section";
 import { AHConnectFour } from "./components/ah-connect-four";
 import { AHGetData } from "./components/ah-get-data";
+import { AHGeolocation } from "./components/ah-geolocation";
 import { AHHeading } from "./components/ah-heading";
 import { AHHabitTracker } from "./components/ah-habit-tracker";
 import { AHHoudiniBanner } from "./components/ah-houdini-banner";
@@ -29,6 +30,7 @@ declare const _default: {
     AHComponentSection: typeof AHComponentSection;
     AHConnectFour: typeof AHConnectFour;
     AHGetData: typeof AHGetData;
+    AHGeolocation: typeof AHGeolocation;
     AHHabitTracker: typeof AHHabitTracker;
     AHHeading: typeof AHHeading;
     AHHoudiniBanner: typeof AHHoudiniBanner;

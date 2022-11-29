@@ -28,6 +28,18 @@ export class AHGeolocation extends LitElement {
     gamma: number | null;
   } | null = null;
 
+  @state()
+  deviceMotion?: {
+    accelerationIncludingGravity: { x: any; y: any; z: any };
+    acceleration: { x: any; y: any; z: any } | null;
+    rotationRate: {
+      alpha: number | null;
+      beta: number;
+      gamma: number | null;
+    } | null;
+    interval: number;
+  };
+
   geoFindMe() {
     if (!navigator.geolocation) {
       //   status.textContent =
@@ -50,8 +62,6 @@ export class AHGeolocation extends LitElement {
   success(position: any) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
-
-    // console.log({ position: position.coords });
 
     this.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
 
@@ -79,15 +89,21 @@ export class AHGeolocation extends LitElement {
   handleMotion(event: DeviceMotionEvent) {
     console.log("handleMotion", { event });
 
-    // const alpha = event.alpha;
-    // const beta = event.beta;
-    // const gamma = event.gamma;
+    const {
+      accelerationIncludingGravity,
+      acceleration,
+      rotationRate,
+      interval,
+    } = event;
 
-    // this.deviceMotion = {
-    //   rotationRate,
-    //   beta,
-    //   gamma,
-    // };
+    this.deviceMotion = {
+      //@ts-ignore
+      accelerationIncludingGravity,
+      acceleration,
+      //@ts-ignore
+      rotationRate,
+      interval,
+    };
   }
 
   handleOrientation(event: DeviceOrientationEvent) {
@@ -103,19 +119,14 @@ export class AHGeolocation extends LitElement {
   }
 
   render() {
-    return html`<ah-button @click=${this.geoFindMe}>
-        Show my location</ah-button
+    return html`<ah-button @click=${this.geoFindMe}> Show my location</ah-button
       ><br />
       ${this.href !== ""
-        ? html`<a href=${this.href} target="_blank"
-            >${this.mapLinkText}</a
-          >`
+        ? html`<a href=${this.href} target="_blank">${this.mapLinkText}</a>`
         : ""}
       ${this.deviceOrientation !== null
         ? html`
-            <ah-header variant="h3"
-              >Device Orientation</ah-header
-            >
+            <ah-header variant="h3">Device Orientation</ah-header>
             <table>
               <thead>
                 <tr>
@@ -129,30 +140,25 @@ export class AHGeolocation extends LitElement {
                 <tr>
                   <td>
                     ${this.deviceOrientation?.alpha
-                      ? Math.floor(
-                          this.deviceOrientation?.alpha
-                        )
+                      ? Math.floor(this.deviceOrientation?.alpha)
                       : ""}
                   </td>
                   <td>
                     ${this.deviceOrientation?.beta
-                      ? Math.floor(
-                          this.deviceOrientation?.beta
-                        )
+                      ? Math.floor(this.deviceOrientation?.beta)
                       : ""}
                   </td>
                   <td>
                     ${this.deviceOrientation?.gamma
-                      ? Math.floor(
-                          this.deviceOrientation?.gamma
-                        )
+                      ? Math.floor(this.deviceOrientation?.gamma)
                       : ""}
                   </td>
                 </tr>
               </tbody>
             </table>
           `
-        : html`<p>No deviceOrientation</p>`} `;
+        : html`<p>No deviceOrientation</p>`}
+      ${JSON.stringify(this.deviceMotion)} `;
   }
 
   static styles = css``;
