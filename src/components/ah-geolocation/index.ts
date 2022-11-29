@@ -56,8 +56,6 @@ export class AHGeolocation extends LitElement {
     this.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`;
 
     this.mapLinkText = `Latitude: ${latitude} °, Longitude: ${longitude} °`;
-
-    //   status.textContent = "";
   }
 
   error(e: any) {
@@ -67,10 +65,29 @@ export class AHGeolocation extends LitElement {
   connectedCallback(): void {
     super.connectedCallback();
 
-    window.addEventListener(
-      "deviceorientation",
-      (orientation) => this.handleOrientation(orientation)
+    window.addEventListener("deviceorientation", (event) =>
+      this.handleOrientation(event)
     );
+
+    window.addEventListener(
+      "devicemotion",
+      (event) => this.handleMotion(event),
+      true
+    );
+  }
+
+  handleMotion(event: DeviceMotionEvent) {
+    console.log("handleMotion", { event });
+
+    // const alpha = event.alpha;
+    // const beta = event.beta;
+    // const gamma = event.gamma;
+
+    // this.deviceMotion = {
+    //   rotationRate,
+    //   beta,
+    //   gamma,
+    // };
   }
 
   handleOrientation(event: DeviceOrientationEvent) {
@@ -86,8 +103,6 @@ export class AHGeolocation extends LitElement {
   }
 
   render() {
-    console.log(this.deviceOrientation);
-
     return html`<ah-button @click=${this.geoFindMe}>
         Show my location</ah-button
       ><br />
@@ -98,6 +113,9 @@ export class AHGeolocation extends LitElement {
         : ""}
       ${this.deviceOrientation !== null
         ? html`
+            <ah-header variant="h3"
+              >Device Orientation</ah-header
+            >
             <table>
               <thead>
                 <tr>
