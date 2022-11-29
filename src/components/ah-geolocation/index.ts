@@ -29,16 +29,7 @@ export class AHGeolocation extends LitElement {
   } | null = null;
 
   @state()
-  deviceMotion?: {
-    accelerationIncludingGravity: { x: any; y: any; z: any };
-    acceleration: { x: any; y: any; z: any } | null;
-    rotationRate: {
-      alpha: number | null;
-      beta: number;
-      gamma: number | null;
-    } | null;
-    interval: number;
-  };
+  acceleration?: { x: any; y: any; z: any } | null;
 
   geoFindMe() {
     if (!navigator.geolocation) {
@@ -78,32 +69,37 @@ export class AHGeolocation extends LitElement {
     window.addEventListener("deviceorientation", (event) =>
       this.handleOrientation(event)
     );
-
-    window.addEventListener(
-      "devicemotion",
-      (event) => this.handleMotion(event),
-      true
-    );
   }
 
   handleMotion(event: DeviceMotionEvent) {
-    console.log("handleMotion", { event });
-
-    const {
-      accelerationIncludingGravity,
-      acceleration,
-      rotationRate,
-      interval,
-    } = event;
-
-    this.deviceMotion = {
-      //@ts-ignore
-      accelerationIncludingGravity,
-      acceleration,
-      //@ts-ignore
-      rotationRate,
-      interval,
-    };
+    let accelerometer = null;
+    try {
+      accelerometer = new Accelerometer({ frequency: 10 });
+      accelerometer.onerror = (event) => {
+        // Handle runtime errors.
+        if (event.error.name === "NotAllowedError") {
+          console.log("Permission to access sensor was denied.");
+        } else if (event.error.name === "NotReadableError") {
+          console.log("Cannot connect to the sensor.");
+        }
+      };
+      accelerometer.onreading = (e) => {
+        console.log(e);
+        this.acceleration = e;
+      };
+      accelerometer.start();
+    } catch (error) {
+      // Handle construction errors.
+      if (error.name === "SecurityError") {
+        console.log(
+          "Sensor construction was blocked by the Permissions Policy."
+        );
+      } else if (error.name === "ReferenceError") {
+        console.log("Sensor is not supported by the User Agent.");
+      } else {
+        throw error;
+      }
+    }
   }
 
   handleOrientation(event: DeviceOrientationEvent) {
@@ -158,7 +154,7 @@ export class AHGeolocation extends LitElement {
             </table>
           `
         : html`<p>No deviceOrientation</p>`}
-      ${JSON.stringify(this.deviceMotion)} `;
+      ${JSON.stringify(this.acceleration)} `;
   }
 
   static styles = css``;
