@@ -58,16 +58,10 @@ export class AHThemeSelector extends LitElement {
       };
 
       const removeClickListener = () => {
-        document.removeEventListener(
-          "click",
-          outsideClickListener
-        );
+        document.removeEventListener("click", outsideClickListener);
       };
 
-      document.addEventListener(
-        "click",
-        outsideClickListener
-      );
+      document.addEventListener("click", outsideClickListener);
     };
   }
 
@@ -159,6 +153,9 @@ export class AHThemeSelector extends LitElement {
     .container {
       position: relative;
       padding-bottom: 2em;
+      display: inline-block;
+      z-index: 1;
+      position: relative;
     }
 
     .buttonOpen {
@@ -171,20 +168,16 @@ export class AHThemeSelector extends LitElement {
 
     .drawer {
       width: 200px;
-
       border: 1px solid black;
       background: var(--theme-bg, white);
       color: var(--theme-color, black);
-      box-shadow: -3px 3px 3px
-        var(--button-shadow, var(--link-color, red));
+      box-shadow: -3px 3px 3px var(--button-shadow, var(--link-color, red));
       padding: 1em;
       position: absolute;
       top: 3em;
       left: 0;
       margin-bottom: 1em;
       z-index: 2;
-
-      background: var(--theme-bg);
       color: var(--theme-color);
     }
 

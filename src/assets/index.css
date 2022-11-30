@@ -17,11 +17,6 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
 }
 
 body {
@@ -31,13 +26,18 @@ body {
 
 @media (min-width: 500px) {
   body {
-    padding: 3em;
+    padding: 3em 3em 0;
   }
 }
 
+footer,
 main {
   max-width: 1000px;
   margin-inline: auto;
+}
+
+footer {
+  padding-inline: 2em;
 }
 
 @media (prefers-color-scheme: light) {
@@ -50,6 +50,7 @@ main {
 @media (prefers-color-scheme: dark) {
   :root {
     --ah-button-color: white;
+    --body-color: white;
   }
 }
 
