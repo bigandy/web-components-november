@@ -11,6 +11,7 @@ import { AHHabitTracker } from "./components/ah-habit-tracker";
 import { AHHoudiniBanner } from "./components/ah-houdini-banner";
 import { AHHouse } from "./components/ah-house";
 import { AHImageGame } from "./components/ah-image-game";
+import { AHSnap } from "./components/ah-snap";
 import { AHSupports } from "./components/ah-supports";
 import { AHSwitch } from "./components/ah-switch";
 import { AHIsVisible } from "./components/ah-is-visible";
@@ -40,6 +41,7 @@ declare const _default: {
     AHNoughtsCrosses: typeof AHNoughtsCrosses;
     AHNoiseButton: typeof AHNoiseButton;
     AHScroller: typeof AHScroller;
+    AHSnap: typeof AHSnap;
     AHSupports: typeof AHSupports;
     AHSwitch: typeof AHSwitch;
     AHTimeDiff: typeof AHTimeDiff;
