@@ -13,6 +13,7 @@ export declare class AHImageMatch extends LitElement {
     gameState: any[];
     showAnimals: boolean;
     guesses: any[];
+    count: number;
     correctGuesses: number;
     numberOfAnimals: number;
     private animals;

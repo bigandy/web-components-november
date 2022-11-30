@@ -5,6 +5,8 @@ import {
   state,
 } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
+import { styleMap } from "lit/directives/style-map.js";
+
 declare global {
   interface HTMLElementTagNameMap {
     "ah-image-match": AHImageMatch;
@@ -30,6 +32,9 @@ export class AHImageMatch extends LitElement {
 
   @state()
   guesses: any[] = [];
+
+  @state()
+  count = 0;
 
   @state()
   correctGuesses = 0;
@@ -76,6 +81,7 @@ export class AHImageMatch extends LitElement {
     this.guesses = [];
 
     this.resetActiveGameState();
+    this.count = 0;
     this.correctGuesses = 0;
   }
 
@@ -140,6 +146,7 @@ export class AHImageMatch extends LitElement {
     ) {
       return;
     }
+    this.count++;
 
     updatedGameState[index].active = true;
     this.guesses.push({
@@ -187,6 +194,18 @@ export class AHImageMatch extends LitElement {
         winner:
           this.correctGuesses === this.numberOfAnimals,
       })}
+      style=${styleMap({
+        "--columns": `${
+          this.numberOfAnimals > 4
+            ? 3
+            : this.numberOfAnimals
+        }`,
+        "--rows": `${
+          this.numberOfAnimals > 4
+            ? 3
+            : this.numberOfAnimals
+        }`,
+      })}
     >
       <ah-button @click=${this.reset}>Reset</ah-button>
 
@@ -196,7 +215,7 @@ export class AHImageMatch extends LitElement {
           >`
         : null}
 
-      <div>Correct Guesses: ${this.correctGuesses}</div>
+      <div>Number of Moves: ${this.count}</div>
 
       ${this.showAnimals && this.gameAnimals.length > 0
         ? html`
@@ -254,8 +273,8 @@ export class AHImageMatch extends LitElement {
 
     .board {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      grid-template-rows: repeat(2, 1fr);
+      grid-template-columns: repeat(var(--columns), 1fr);
+      grid-template-rows: repeat(var(--rows), 1fr);
       gap: 1em;
       margin-top: 1em;
     }
