@@ -1,11 +1,6 @@
 import { LitElement, css, html } from "lit";
-import {
-  customElement,
-  property,
-  state,
-} from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
-import { styleMap } from "lit/directives/style-map.js";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -18,9 +13,6 @@ declare global {
  */
 @customElement("ah-image-match")
 export class AHImageMatch extends LitElement {
-  @state()
-  difficultyLevel = "easy";
-
   @state()
   gameAnimals: any[] = [];
 
@@ -40,7 +32,12 @@ export class AHImageMatch extends LitElement {
   correctGuesses = 0;
 
   @property({ type: Number })
-  numberOfAnimals = 3; // 1 - 5 currently
+  numberOfAnimals = 10; // 1 - 12 currently
+
+  @property({ type: String })
+  level: "easy" | "medium" | "hard" = "easy";
+
+  private numberEachAnimal = 2;
 
   private animals: any = {
     sheep: {
@@ -58,20 +55,37 @@ export class AHImageMatch extends LitElement {
     pig: {
       url: "https://images.unsplash.com/photo-1567201080580-bfcc97dae346?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1760&q=80",
     },
+    monkey: {
+      url: "https://images.unsplash.com/photo-1605559911160-a3d95d213904?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1311&q=80",
+    },
+    unicorn: {
+      url: "https://images.unsplash.com/photo-1550747528-cdb45925b3f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=989&q=80",
+    },
+    tiger: {
+      url: "https://images.unsplash.com/photo-1615963244664-5b845b2025ee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2636&q=80",
+    },
+    flamingo: {
+      url: "https://images.unsplash.com/photo-1497206365907-f5e630693df0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1760&q=80",
+    },
+    zebra: {
+      url: "https://images.unsplash.com/photo-1501706362039-c06b2d715385?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1820&q=80",
+    },
+    toucan: {
+      url: "https://images.unsplash.com/photo-1550853024-fae8cd4be47f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1776&q=80",
+    },
+    frog: {
+      url: "https://images.unsplash.com/photo-1586769203201-3f12adc567a8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1833&q=80",
+    },
   };
 
   getMultipleRandom(arr: any[], num: number) {
-    const shuffled = [...arr].sort(
-      () => 0.5 - Math.random()
-    );
+    const shuffled = [...arr].sort(() => 0.5 - Math.random());
 
     return shuffled.slice(0, num);
   }
 
   randomiseArray(arr: any[]) {
-    const shuffled = [...arr].sort(
-      () => 0.5 - Math.random()
-    );
+    const shuffled = [...arr].sort(() => 0.5 - Math.random());
 
     return shuffled.slice(0, arr.length);
   }
@@ -87,6 +101,15 @@ export class AHImageMatch extends LitElement {
 
   connectedCallback(): void {
     super.connectedCallback();
+
+    if (this.level === "easy") {
+      this.numberEachAnimal = 2;
+    } else if (this.level === "medium") {
+      this.numberEachAnimal = 3;
+    } else {
+      this.numberEachAnimal = 4;
+    }
+
     this.createBoard();
   }
 
@@ -94,37 +117,28 @@ export class AHImageMatch extends LitElement {
     // randomise the board.
     const animals = Object.keys(this.animals);
 
-    const randomAnimals = this.getMultipleRandom(
-      animals,
-      this.numberOfAnimals
-    );
+    const randomAnimals = this.getMultipleRandom(animals, this.numberOfAnimals);
 
     const gameAnimals: any = [];
     const gameState: any = [];
 
-    new Array(this.numberOfAnimals)
-      .fill("")
-      .forEach((_, index) => {
-        gameAnimals.push(
-          this.animals[randomAnimals[index]]
-        );
+    new Array(this.numberOfAnimals).fill("").forEach((_, index) => {
+      gameAnimals.push(this.animals[randomAnimals[index]]);
 
-        // take two of each animal
-        gameState.push(
-          {
-            name: randomAnimals[index],
-            active: false,
-            guessed: false,
-          },
-          {
-            name: randomAnimals[index],
-            active: false,
-            guessed: false,
-          }
-        );
-      }),
-      //   console.log({ gameAnimals });
-      (this.gameAnimals = gameAnimals);
+      // take x of each animal
+
+      const toAdd = new Array(this.numberEachAnimal).fill("").map(() => {
+        return {
+          name: randomAnimals[index],
+          active: false,
+          guessed: false,
+        };
+      });
+
+      gameState.push(...toAdd);
+    });
+    //   console.log({ gameAnimals });
+    this.gameAnimals = gameAnimals;
 
     // and put them in an array randomly.
     this.gameState = this.randomiseArray(gameState);
@@ -132,18 +146,16 @@ export class AHImageMatch extends LitElement {
 
   handleCell(index: number) {
     const updatedGameState = [...this.gameState];
+    const name = updatedGameState[index].name;
 
     // check if the cell is already active, guessed or the user has used their goes up.
 
-    if (this.guesses.length === 2) {
+    if (this.guesses.length === this.numberEachAnimal) {
       this.nextPlayer();
       this.guesses = [];
     }
 
-    if (
-      updatedGameState[index].active ||
-      updatedGameState[index].guessed
-    ) {
+    if (updatedGameState[index].active || updatedGameState[index].guessed) {
       return;
     }
     this.count++;
@@ -151,16 +163,16 @@ export class AHImageMatch extends LitElement {
     updatedGameState[index].active = true;
     this.guesses.push({
       index,
-      name: updatedGameState[index].name,
+      name,
     });
 
-    if (this.guesses.length === 2) {
-      if (this.guesses[0].name === this.guesses[1].name) {
+    if (this.guesses.length === this.numberEachAnimal) {
+      if (this.guesses.every((v) => v.name === name)) {
         // console.log("we have a match");
-        updatedGameState[this.guesses[0].index].guessed =
-          true;
-        updatedGameState[this.guesses[1].index].guessed =
-          true;
+
+        this.guesses.forEach((_, index) => {
+          updatedGameState[this.guesses[index].index].guessed = true;
+        });
 
         this.correctGuesses++;
         this.resetActiveGameState();
@@ -187,32 +199,34 @@ export class AHImageMatch extends LitElement {
     this.gameState = updatedGameState;
   }
 
+  handleSwitch(e: any) {
+    this.showAnimals = e.detail.state;
+  }
+
   render() {
     return html` <div
       class=${classMap({
         wrapper: true,
-        winner:
-          this.correctGuesses === this.numberOfAnimals,
+        winner: this.correctGuesses === this.numberOfAnimals,
       })}
-      style=${styleMap({
-        "--columns": `${
-          this.numberOfAnimals > 4
-            ? 3
-            : this.numberOfAnimals
-        }`,
-        "--rows": `${
-          this.numberOfAnimals > 4
-            ? 3
-            : this.numberOfAnimals
-        }`,
-      })}
+      @switch=${this.handleSwitch}
     >
+      <div>
+        <ah-header variant="h3">Level: ${this.level}</ah-header>
+        <p>
+          You need to find ${this.numberEachAnimal} of a kind to get a match
+        </p>
+      </div>
       <ah-button @click=${this.reset}>Reset</ah-button>
 
-      ${this.guesses.length === 2
-        ? html` <ah-button @click=${this.nextPlayer}>
-            Next Player</ah-button
-          >`
+      <ah-switch
+        onLabel="Show Animals"
+        offLabel="Hide Animals"
+        ?on=${!this.showAnimals}
+      ></ah-switch>
+
+      ${this.guesses.length === this.numberEachAnimal
+        ? html` <ah-button @click=${this.nextPlayer}> Next Player</ah-button>`
         : null}
 
       <div>Number of Moves: ${this.count}</div>
@@ -222,11 +236,7 @@ export class AHImageMatch extends LitElement {
             <div class="animals">
               ${this.gameAnimals.map((animal) => {
                 return html`
-                  <img
-                    src=${animal.url}
-                    width="200"
-                    height="200"
-                  />
+                  <img src=${animal.url} width="200" height="200" />
                 `;
               })}
             </div>
@@ -239,8 +249,7 @@ export class AHImageMatch extends LitElement {
                 return html`
                   <div
                     class=${classMap({
-                      active:
-                        animal.active || animal.guessed,
+                      active: animal.active || animal.guessed,
                       guessed: animal.guessed,
                       cell: true,
                     })}
@@ -269,17 +278,24 @@ export class AHImageMatch extends LitElement {
 
     .animals {
       margin-top: 1em;
+      display: flex;
+      overflow: scroll;
+      gap: 0.5em;
+    }
+
+    .animals img {
+      display: inline-block;
     }
 
     .board {
-      display: grid;
-      grid-template-columns: repeat(var(--columns), 1fr);
-      grid-template-rows: repeat(var(--rows), 1fr);
+      display: flex;
+      flex-wrap: wrap;
       gap: 1em;
       margin-top: 1em;
     }
 
     .cell {
+      width: 100px;
       background: var(--theme-bg, var(--brand));
     }
 
@@ -298,6 +314,7 @@ export class AHImageMatch extends LitElement {
 
     img {
       display: block;
+      pointer-events: none;
     }
 
     .board img {

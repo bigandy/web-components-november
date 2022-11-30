@@ -1,9 +1,5 @@
 import { LitElement, html, css } from "lit";
-import {
-  customElement,
-  state,
-  property,
-} from "lit/decorators.js";
+import { customElement, state, property } from "lit/decorators.js";
 
 import { classMap } from "lit/directives/class-map.js";
 
@@ -34,6 +30,12 @@ export class AHSwitch extends LitElement {
 
   @property({ type: Boolean })
   muted = false;
+
+  @property({ type: String })
+  onLabel = "On";
+
+  @property({ type: String })
+  offLabel = "Off";
 
   private initialized = false;
   private audioCtx: AudioContext | null = null;
@@ -97,9 +99,7 @@ export class AHSwitch extends LitElement {
     if (this.audioCtx && !this.muted) {
       const buffer = await fetch(url)
         .then((response) => response.arrayBuffer())
-        .then((arrayBuffer) =>
-          this.audioCtx?.decodeAudioData(arrayBuffer)
-        );
+        .then((arrayBuffer) => this.audioCtx?.decodeAudioData(arrayBuffer));
 
       if (buffer) {
         const source = this.audioCtx.createBufferSource();
@@ -140,8 +140,8 @@ export class AHSwitch extends LitElement {
         })}
         >${!this.hideLabel
           ? this.on
-            ? "ON"
-            : "OFF"
+            ? this.onLabel
+            : this.offLabel
           : ""}</ah-button
       >
     `;
