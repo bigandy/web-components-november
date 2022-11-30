@@ -60,7 +60,6 @@ export class AHSwitch extends LitElement {
       border-radius: 50%;
 
       left: 4px;
-      transform: translateX(0);
       background: white;
     }
 
@@ -70,8 +69,8 @@ export class AHSwitch extends LitElement {
     }
 
     .on::after {
-      left: calc(100% - 4px);
-      transform: translateX(-100%);
+      left: unset;
+      right: 8px;
     }
 
     .off {

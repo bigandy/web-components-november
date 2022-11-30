@@ -68,7 +68,7 @@
         display: block;
       }
 
-      .dark {
+      [data-theme="dark"] {
         --theme-bg: black;
         --theme-color: white;
         --link-color: var(--pink);
@@ -81,12 +81,12 @@
       }
 
       @supports (background: color(display-p3 1 0 0.87)) {
-        .dark {
+        [data-theme="dark"] {
           --link-color: color(display-p3 1 0 0.87);
         }
       }
 
-      .red {
+      [data-theme="red"] {
         --theme-bg: red;
         --theme-color: white;
 
@@ -98,7 +98,7 @@
         accent-color: red;
       }
 
-      .rainbow {
+      [data-theme="rainbow"] {
         --rainbow-colors: red, orange, yellow, green, cyan, blue, violet;
         --theme-bg: linear-gradient(to right, var(--rainbow-colors));
         --theme-color: black;

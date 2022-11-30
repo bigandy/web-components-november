@@ -31,7 +31,7 @@ export class AHThemeSelector extends LitElement {
     if (storage) {
       this.theme = storage as themeType;
 
-      document.body.className = this.theme;
+      document.body.dataset.theme = this.theme;
     }
   }
 
@@ -74,7 +74,7 @@ export class AHThemeSelector extends LitElement {
     this.theme = theme;
     localStorage.setItem(localStorageKey, theme); // save to localStorage
 
-    document.body.className = this.theme;
+    document.body.dataset.theme = this.theme;
   };
 
   render() {

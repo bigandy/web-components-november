@@ -220,8 +220,8 @@ export class AHImageMatch extends LitElement {
       <ah-button @click=${this.reset}>Reset</ah-button>
 
       <ah-switch
-        onLabel="Show Animals"
-        offLabel="Hide Animals"
+        onLabel="Hide Animals"
+        offLabel="Show Animals"
         ?on=${!this.showAnimals}
       ></ah-switch>
 
