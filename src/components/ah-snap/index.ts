@@ -1,6 +1,6 @@
 import { LitElement, css, html } from "lit";
 import { customElement, state } from "lit/decorators.js";
-
+import { classMap } from "lit/directives/class-map.js";
 declare global {
   interface HTMLElementTagNameMap {
     "ah-snap": AHSnap;
@@ -20,6 +20,20 @@ export class AHSnap extends LitElement {
 
   @state()
   gameAnimals: any[] = [];
+
+  @state()
+  gameState: any[] = [];
+
+  @state()
+  showAnimals = false;
+
+  @state()
+  guesses: any[] = [];
+
+  @state()
+  correctGuesses = 0;
+
+  private numberOfAnimals = 3; // 1 - 5 currently
 
   private animals: any = {
     sheep: {
@@ -47,54 +61,227 @@ export class AHSnap extends LitElement {
     return shuffled.slice(0, num);
   }
 
+  randomiseArray(arr: any[]) {
+    const shuffled = [...arr].sort(
+      () => 0.5 - Math.random()
+    );
+
+    return shuffled.slice(0, arr.length);
+  }
+
   start() {
+    this.createBoard();
+    this.guesses = [];
+
+    this.resetActiveGameState();
+  }
+
+  connectedCallback(): void {
+    super.connectedCallback();
+    this.createBoard();
+  }
+
+  createBoard() {
     // randomise the board.
     const animals = Object.keys(this.animals);
 
     const randomAnimals = this.getMultipleRandom(
       animals,
-      2
+      this.numberOfAnimals
     );
 
-    console.log(randomAnimals);
+    const gameAnimals: any = [];
+    const gameState: any = [];
 
-    this.gameAnimals = [
-      this.animals[randomAnimals[0]],
-      this.animals[randomAnimals[1]],
-    ];
+    new Array(this.numberOfAnimals)
+      .fill("")
+      .forEach((_, index) => {
+        gameAnimals.push(
+          this.animals[randomAnimals[index]]
+        );
 
-    // take two animals and put them in an array randomly.
+        // take two of each animal
+        gameState.push(
+          {
+            name: randomAnimals[index],
+            active: false,
+            guessed: false,
+          },
+          {
+            name: randomAnimals[index],
+            active: false,
+            guessed: false,
+          }
+        );
+      }),
+      //   console.log({ gameAnimals });
+      (this.gameAnimals = gameAnimals);
+
+    // and put them in an array randomly.
+    this.gameState = this.randomiseArray(gameState);
 
     // reset the count to zero
     this.count = 0;
   }
 
-  render() {
-    return html`<ah-button @click=${this.start}>
-        ${this.count > 0 ? "Reset" : "Start"}</ah-button
-      >
+  handleCell(index: number) {
+    const updatedGameState = [...this.gameState];
 
-      ${this.count > 0
-        ? html`Number of goes:
-            <output>${this.count}</output>`
+    // check if the cell is already active, guessed or the user has used their goes up.
+    if (
+      updatedGameState[index].active ||
+      updatedGameState[index].guessed ||
+      this.guesses.length === 2
+    ) {
+      return;
+    }
+
+    updatedGameState[index].active = true;
+    this.guesses.push({
+      index,
+      name: updatedGameState[index].name,
+    });
+
+    console.log(this.guesses);
+    if (this.guesses.length === 2) {
+      //   console.log("check the guesses");
+      if (this.guesses[0].name === this.guesses[1].name) {
+        console.log("we have a match");
+        updatedGameState[this.guesses[0].index].guessed =
+          true;
+        updatedGameState[this.guesses[1].index].guessed =
+          true;
+
+        this.correctGuesses++;
+        this.resetActiveGameState();
+        this.guesses = [];
+      } else {
+        console.log("no match");
+
+        // this.nextPlayer();
+      }
+    }
+
+    this.gameState = updatedGameState;
+  }
+
+  nextPlayer() {
+    this.guesses = [];
+    this.count++;
+
+    this.resetActiveGameState();
+  }
+
+  resetActiveGameState() {
+    let updatedGameState = [...this.gameState];
+    updatedGameState.forEach((_, index) => {
+      updatedGameState[index].active = false;
+    });
+
+    this.gameState = updatedGameState;
+  }
+
+  render() {
+    return html` <div
+      class=${classMap({
+        winner:
+          this.correctGuesses === this.numberOfAnimals,
+      })}
+    >
+      <ah-button @click=${this.start}>Reset</ah-button>
+
+      ${this.correctGuesses !== this.numberOfAnimals &&
+      this.guesses.length === 2
+        ? html` <ah-button @click=${this.nextPlayer}>
+            Next Player</ah-button
+          >`
+        : null}
+      ${this.showAnimals && this.gameAnimals.length > 0
+        ? html`
+            <div class="animals">
+              ${this.gameAnimals.map((animal) => {
+                return html`
+                  <img
+                    src=${animal.url}
+                    width="200"
+                    height="200"
+                  />
+                `;
+              })}
+            </div>
+          `
         : null}
       ${this.gameAnimals.length > 0
         ? html`
-            <img
-              src=${this.gameAnimals[0].url}
-              width="300"
-              height="300"
-            />
-            <img
-              src=${this.gameAnimals[1].url}
-              width="300"
-              height="300"
-            />
+            <div class="board">
+              ${this.gameState.map((animal, index) => {
+                return html`
+                  <div
+                    class=${classMap({
+                      active:
+                        animal.active || animal.guessed,
+                      guessed: animal.guessed,
+                      cell: true,
+                    })}
+                    @click=${() => this.handleCell(index)}
+                  >
+                    <img
+                      src=${this.animals[animal.name].url}
+                      width="100"
+                      height="100"
+                    />
+                  </div>
+                `;
+              })}
+            </div>
           `
         : null}
-
-      <div class="board"></div> `;
+    </div>`;
   }
 
-  static styles = css``;
+  static styles = css`
+    .animals {
+      margin-top: 1em;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 1fr);
+      gap: 1em;
+      margin-top: 1em;
+    }
+
+    .cell {
+      background: var(--theme-bg);
+    }
+
+    .cell img {
+      opacity: 0;
+    }
+
+    .active img {
+      opacity: 1;
+      background: transparent;
+    }
+
+    .guessed {
+      rotate: 180deg;
+    }
+
+    img {
+      display: block;
+    }
+
+    .board img {
+      max-width: 100%;
+      width: 100%;
+      aspect-ratio: 1;
+      height: auto;
+    }
+
+    .winner {
+      border: 20px solid green;
+    }
+  `;
 }
