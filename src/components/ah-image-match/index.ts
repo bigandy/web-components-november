@@ -1,20 +1,21 @@
 import { LitElement, css, html } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import {
+  customElement,
+  property,
+  state,
+} from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 declare global {
   interface HTMLElementTagNameMap {
-    "ah-snap": AHSnap;
+    "ah-image-match": AHImageMatch;
   }
 }
 
 /**
- * An ah-snap element.
+ * An ah-image-match element.
  */
-@customElement("ah-snap")
-export class AHSnap extends LitElement {
-  @state()
-  count = 0;
-
+@customElement("ah-image-match")
+export class AHImageMatch extends LitElement {
   @state()
   difficultyLevel = "easy";
 
@@ -33,7 +34,8 @@ export class AHSnap extends LitElement {
   @state()
   correctGuesses = 0;
 
-  private numberOfAnimals = 3; // 1 - 5 currently
+  @property({ type: Number })
+  numberOfAnimals = 3; // 1 - 5 currently
 
   private animals: any = {
     sheep: {
@@ -69,11 +71,12 @@ export class AHSnap extends LitElement {
     return shuffled.slice(0, arr.length);
   }
 
-  start() {
+  reset() {
     this.createBoard();
     this.guesses = [];
 
     this.resetActiveGameState();
+    this.correctGuesses = 0;
   }
 
   connectedCallback(): void {
@@ -119,19 +122,21 @@ export class AHSnap extends LitElement {
 
     // and put them in an array randomly.
     this.gameState = this.randomiseArray(gameState);
-
-    // reset the count to zero
-    this.count = 0;
   }
 
   handleCell(index: number) {
     const updatedGameState = [...this.gameState];
 
     // check if the cell is already active, guessed or the user has used their goes up.
+
+    if (this.guesses.length === 2) {
+      this.nextPlayer();
+      this.guesses = [];
+    }
+
     if (
       updatedGameState[index].active ||
-      updatedGameState[index].guessed ||
-      this.guesses.length === 2
+      updatedGameState[index].guessed
     ) {
       return;
     }
@@ -142,11 +147,9 @@ export class AHSnap extends LitElement {
       name: updatedGameState[index].name,
     });
 
-    console.log(this.guesses);
     if (this.guesses.length === 2) {
-      //   console.log("check the guesses");
       if (this.guesses[0].name === this.guesses[1].name) {
-        console.log("we have a match");
+        // console.log("we have a match");
         updatedGameState[this.guesses[0].index].guessed =
           true;
         updatedGameState[this.guesses[1].index].guessed =
@@ -156,9 +159,7 @@ export class AHSnap extends LitElement {
         this.resetActiveGameState();
         this.guesses = [];
       } else {
-        console.log("no match");
-
-        // this.nextPlayer();
+        // console.log("no match");
       }
     }
 
@@ -167,8 +168,6 @@ export class AHSnap extends LitElement {
 
   nextPlayer() {
     this.guesses = [];
-    this.count++;
-
     this.resetActiveGameState();
   }
 
@@ -184,18 +183,21 @@ export class AHSnap extends LitElement {
   render() {
     return html` <div
       class=${classMap({
+        wrapper: true,
         winner:
           this.correctGuesses === this.numberOfAnimals,
       })}
     >
-      <ah-button @click=${this.start}>Reset</ah-button>
+      <ah-button @click=${this.reset}>Reset</ah-button>
 
-      ${this.correctGuesses !== this.numberOfAnimals &&
-      this.guesses.length === 2
+      ${this.guesses.length === 2
         ? html` <ah-button @click=${this.nextPlayer}>
             Next Player</ah-button
           >`
         : null}
+
+      <div>Correct Guesses: ${this.correctGuesses}</div>
+
       ${this.showAnimals && this.gameAnimals.length > 0
         ? html`
             <div class="animals">
@@ -240,20 +242,26 @@ export class AHSnap extends LitElement {
   }
 
   static styles = css`
+    .wrapper {
+      padding: 1em;
+      margin-block: 1em;
+      border: 1px solid;
+    }
+
     .animals {
       margin-top: 1em;
     }
 
     .board {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       grid-template-rows: repeat(2, 1fr);
       gap: 1em;
       margin-top: 1em;
     }
 
     .cell {
-      background: var(--theme-bg);
+      background: var(--theme-bg, var(--brand));
     }
 
     .cell img {
@@ -281,7 +289,7 @@ export class AHSnap extends LitElement {
     }
 
     .winner {
-      border: 20px solid green;
+      background: green;
     }
   `;
 }
