@@ -31,12 +31,6 @@ export class AHSwitch extends LitElement {
   @property({ type: Boolean })
   muted = false;
 
-  @property({ type: String })
-  onLabel = "On";
-
-  @property({ type: String })
-  offLabel = "Off";
-
   private initialized = false;
   private audioCtx: AudioContext | null = null;
 
@@ -60,6 +54,7 @@ export class AHSwitch extends LitElement {
       border-radius: 50%;
 
       left: 4px;
+      transform: translateX(0);
       background: white;
     }
 
@@ -69,8 +64,8 @@ export class AHSwitch extends LitElement {
     }
 
     .on::after {
-      left: unset;
-      right: 8px;
+      left: calc(100% - 4px);
+      transform: translateX(-100%);
     }
 
     .off {
@@ -137,11 +132,7 @@ export class AHSwitch extends LitElement {
           on: this.on,
           off: !this.on,
         })}
-        >${!this.hideLabel
-          ? this.on
-            ? this.onLabel
-            : this.offLabel
-          : ""}</ah-button
+        >${!this.hideLabel ? (this.on ? "ON" : "OFF") : ""}</ah-button
       >
     `;
   }

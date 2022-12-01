@@ -13,8 +13,6 @@ export declare class AHSwitch extends LitElement {
     fullWidth: boolean;
     hideLabel: boolean;
     muted: boolean;
-    onLabel: string;
-    offLabel: string;
     private initialized;
     private audioCtx;
     static styles: import("lit").CSSResult;

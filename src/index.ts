@@ -23,6 +23,7 @@ import { AHThemeSelector } from "./components/ah-theme-selector";
 import { AHTimeDiff } from "./components/ah-time-diff";
 import { AHTodoList } from "./components/ah-todo-list";
 import { AHVideoCapture } from "./components/ah-video-capture";
+import { AHVideoImageCapture } from "./components/ah-video-image-capture";
 
 export default {
   AHBetterNoiseButton,
@@ -49,5 +50,6 @@ export default {
   AHThemeSelector,
   AHTodoList,
   AHVideoCapture,
+  AHVideoImageCapture,
   AHWatcher,
 };

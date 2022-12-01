@@ -23,6 +23,7 @@ import { AHThemeSelector } from "./components/ah-theme-selector";
 import { AHTimeDiff } from "./components/ah-time-diff";
 import { AHTodoList } from "./components/ah-todo-list";
 import { AHVideoCapture } from "./components/ah-video-capture";
+import { AHVideoImageCapture } from "./components/ah-video-image-capture";
 declare const _default: {
     AHBetterNoiseButton: typeof AHBetterNoiseButton;
     AHButton: typeof AHButton;
@@ -48,6 +49,7 @@ declare const _default: {
     AHThemeSelector: typeof AHThemeSelector;
     AHTodoList: typeof AHTodoList;
     AHVideoCapture: typeof AHVideoCapture;
+    AHVideoImageCapture: typeof AHVideoImageCapture;
     AHWatcher: typeof AHWatcher;
 };
 export default _default;
