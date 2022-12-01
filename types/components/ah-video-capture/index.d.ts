@@ -12,10 +12,11 @@ export declare class AHVideoCapture extends LitElement {
     private video;
     private context;
     showVideo: boolean;
-    active: boolean;
     handleSnap(): void;
+    private stream;
     activateVideo(): void;
     handleShowVideo(): void;
+    cancel(): void;
     render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
 }

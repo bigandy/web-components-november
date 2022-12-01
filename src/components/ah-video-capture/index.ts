@@ -20,20 +20,13 @@ export class AHVideoCapture extends LitElement {
   @state()
   showVideo = false;
 
-  @state()
-  active = false;
-
   handleSnap() {
     if (this.context && this.video) {
-      this.context.drawImage(
-        this.video as CanvasImageSource,
-        0,
-        0,
-        640,
-        480
-      );
+      this.context.drawImage(this.video as CanvasImageSource, 0, 0, 640, 480);
     }
   }
+
+  private stream: any;
 
   activateVideo() {
     // Code copied and then modified from https://davidwalsh.name/browser-camera demo. Thanks David Walsh!
@@ -47,18 +40,14 @@ export class AHVideoCapture extends LitElement {
       var mediaConfig = { video: true };
 
       // Put video listeners into place
-      if (
-        navigator.mediaDevices &&
-        navigator.mediaDevices.getUserMedia
-      ) {
-        navigator.mediaDevices
-          .getUserMedia(mediaConfig)
-          .then((stream) => {
-            if (this.video) {
-              this.video.srcObject = stream;
-              this.video.play();
-            }
-          });
+      if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia(mediaConfig).then((stream) => {
+          if (this.video) {
+            this.video.srcObject = stream;
+            this.video.play();
+          }
+          this.stream = stream;
+        });
       }
     }
   }
@@ -66,35 +55,38 @@ export class AHVideoCapture extends LitElement {
   handleShowVideo() {
     this.showVideo = true;
 
-    if (!this.active && this.showVideo) {
-      this.active = true;
-
+    if (this.showVideo) {
       this.activateVideo();
     }
   }
 
+  cancel() {
+    this.stream.getTracks().forEach((track: any) => {
+      track.stop();
+      this.showVideo = false;
+    });
+  }
+
   render() {
-    return html`<div
+    return html` <ah-button
+        class=${classMap({
+          hide: !this.showVideo,
+          show: this.showVideo,
+        })}
+        @click=${this.cancel}
+        >Stop Feed</ah-button
+      >
+      <div
         class=${classMap({
           hide: !this.showVideo,
           show: this.showVideo,
         })}
       >
-        <video
-          id="video"
-          width="640"
-          height="480"
-          autoplay
-        ></video>
-        <button @click=${this.handleSnap}>
-          Snap Photo
-        </button>
-        <canvas
-          id="canvas"
-          width="640"
-          height="480"
-        ></canvas>
+        <video id="video" width="640" height="480" autoplay></video>
+        <button @click=${this.handleSnap}>Snap Photo</button>
+        <canvas id="canvas" width="640" height="480"></canvas>
       </div>
+
       <ah-button
         @click=${this.handleShowVideo}
         class=${classMap({
