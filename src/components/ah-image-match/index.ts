@@ -222,7 +222,7 @@ export class AHImageMatch extends LitElement {
       <ah-switch
         onLabel="Hide Animals"
         offLabel="Show Animals"
-        ?on=${!this.showAnimals}
+        ?on=${this.showAnimals}
       ></ah-switch>
 
       ${this.guesses.length === this.numberEachAnimal

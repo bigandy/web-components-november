@@ -21,7 +21,8 @@ export class AHImageGame extends LitElement {
   rows = 3;
 
   @property({ type: String })
-  imageSrc = "https://www.fillmurray.com/500/500";
+  imageSrc =
+    "https://github.com/davecowart/placecage/blob/master/images/source/fillmurray/Bill%252BMurray.jpeg?raw=true";
 
   @property({ type: Boolean })
   randomize = false;

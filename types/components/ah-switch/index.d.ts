@@ -5,7 +5,7 @@ declare global {
     }
 }
 /**
- * An ah-house element.
+ * An ah-switch element.
  */
 export declare class AHSwitch extends LitElement {
     on: boolean;

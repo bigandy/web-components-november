@@ -1,16 +1,9 @@
 import { LitElement, html, css } from "lit";
-import {
-  customElement,
-  state,
-  property,
-} from "lit/decorators.js";
+import { customElement, state, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 
-import {
-  LIGHT_ICON,
-  DARK_ICON,
-} from "../../constants/icons";
+import { LIGHT_ICON, DARK_ICON } from "../../constants/icons";
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -47,8 +40,7 @@ export class AHHouse extends LitElement {
       height: 0;
       border-style: solid;
       border-width: 0 200px 100px 200px;
-      border-color: transparent transparent var(--house-bg)
-        transparent;
+      border-color: transparent transparent var(--house-bg) transparent;
     }
 
     .house {
@@ -94,31 +86,21 @@ export class AHHouse extends LitElement {
         class="house"
         @switch=${this.handleSwitch}
         style=${styleMap({
-          "--house-bg": `hsla(60, 100%, ${
-            checkedPercent / 2
-          }%, 1)`,
+          "--house-bg": `hsla(60, 100%, ${checkedPercent / 2}%, 1)`,
         })}
       >
         <div class="roof"></div>
-        <ah-room room="main" .on=${this.lights.main}>
-        </ah-room>
+        <ah-room room="main" .on=${this.lights.main}> </ah-room>
 
-        <ah-room room="kitchen" .on=${this.lights.kitchen}>
-        </ah-room>
+        <ah-room room="kitchen" .on=${this.lights.kitchen}> </ah-room>
 
-        <ah-room room="bedroom" .on=${this.lights.bedroom}>
-        </ah-room>
+        <ah-room room="bedroom" .on=${this.lights.bedroom}> </ah-room>
 
-        <ah-room room="lounge" .on=${this.lights.lounge}>
-        </ah-room>
+        <ah-room room="lounge" .on=${this.lights.lounge}> </ah-room>
 
         <div class="controls">
           <h3>main</h3>
-          <ah-switch
-            ?on=${this.lights.main}
-            ref="main"
-            fullWidth
-          ></ah-switch>
+          <ah-switch ?on=${this.lights.main} ref="main" fullWidth></ah-switch>
 
           <h3>kitchen</h3>
           <ah-switch

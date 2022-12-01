@@ -12,11 +12,11 @@ declare global {
   }
 }
 /**
- * An ah-house element.
+ * An ah-switch element.
  */
 @customElement("ah-switch")
 export class AHSwitch extends LitElement {
-  @state()
+  @property({ type: Boolean, reflect: true })
   on = false;
 
   @property({ type: String })

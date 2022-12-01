@@ -30,7 +30,7 @@ export class AHVideoImageCapture extends LitElement {
   showGame = false;
 
   @state()
-  showImage = false;
+  showImage = true;
 
   handleSnap() {
     if (this.context && this.video) {
@@ -77,7 +77,6 @@ export class AHVideoImageCapture extends LitElement {
   }
 
   handleSwitch(e: any) {
-    console.log(e.detail);
     if (e.detail.ref === "game") {
       this.showGame = e.detail.state;
     }
@@ -113,20 +112,33 @@ export class AHVideoImageCapture extends LitElement {
 
           ${this.imageSrc !== ""
             ? html`Show Game?:
-                <ah-switch hideLabel ref="game" muted></ah-switch>`
+                <ah-switch
+                  ?on=${this.showGame}
+                  hideLabel
+                  ref="game"
+                  muted
+                ></ah-switch>`
             : null}
           ${this.imageSrc !== ""
             ? html`Show Image?:
-                <ah-switch ref="image" hideLabel muted></ah-switch>`
+                <ah-switch
+                  ?on=${this.showImage}
+                  ref="image"
+                  hideLabel
+                  muted
+                ></ah-switch>`
             : null}
         </div>
         ${this.imageSrc
           ? html` ${this.showGame
-              ? html`<ah-image-game imageSrc=${this.imageSrc}></ah-image-game>`
+              ? html`<ah-image-game
+                  ?showReferenceImage=${this.showImage}
+                  imageSrc=${this.imageSrc}
+                ></ah-image-game>`
               : null}`
           : null}
         ${this.imageSrc
-          ? html` ${this.showImage
+          ? html` ${this.showImage && !this.showGame
               ? html`<img src=${this.imageSrc} height="300" width="300" />`
               : null}`
           : null}
