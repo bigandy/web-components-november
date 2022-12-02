@@ -2,6 +2,7 @@ import { AHBetterNoiseButton } from "./components/ah-better-noise-button";
 import { AHButton } from "./components/ah-button";
 import { AHBluetoothHR } from "./components/ah-bluetooth-hr";
 import { AHCalendar } from "./components/ah-calendar";
+import { AHDigit } from "./components/ah-digit";
 import { AHComponentSection } from "./components/ah-component-section";
 import { AHConnectFour } from "./components/ah-connect-four";
 import { AHGetData } from "./components/ah-get-data";
@@ -33,6 +34,7 @@ export default {
   AHCalendar,
   AHComponentSection,
   AHConnectFour,
+  AHDigit,
   AHGetData,
   AHGeolocation,
   AHHabitTracker,
