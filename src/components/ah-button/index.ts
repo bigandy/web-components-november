@@ -62,7 +62,7 @@ export class AHButton extends LitElement {
 
     .outlined {
       border-color: var(--ah-button-background, var(--brand));
-      color: var(--ah-button-color, black);
+      color: var(--ah-button-outlined-color, black);
     }
 
     .outlined:hover,
