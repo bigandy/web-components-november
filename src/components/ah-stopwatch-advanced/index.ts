@@ -23,6 +23,7 @@ export class AHStopwatchAdvanced extends LitElement {
     ah-button {
       --ah-button-border-radius: 0;
       --ah-button-background: black;
+      --ah-button-color: white;
       --ah-button-background-hover: grey;
       margin-right: 1em;
     }
