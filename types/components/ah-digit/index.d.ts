@@ -8,7 +8,8 @@ declare global {
  * An ah-digit element.
  */
 export declare class AHDigit extends LitElement {
-    numberstring: string;
+    number: number;
     static styles: import("lit").CSSResult;
+    private numbers;
     render(): import("lit-html").TemplateResult<1>;
 }

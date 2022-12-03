@@ -11,8 +11,8 @@ declare global {
  */
 @customElement("ah-digit")
 export class AHDigit extends LitElement {
-  @property({ type: String })
-  numberstring = "one";
+  @property({ type: 1 })
+  number = 1;
 
   static styles = css`
     :host {
@@ -126,10 +126,22 @@ export class AHDigit extends LitElement {
     }
   `;
 
+  private numbers: any = {
+    0: "zero",
+    1: "one",
+    2: "two",
+    3: "three",
+    4: "four",
+    5: "five",
+    6: "six",
+    7: "seven",
+    8: "eight",
+    9: "nine",
+  };
+
   render() {
-    console.log(this.numberstring);
     return html`
-      <div class="digit-wrapper ${this.numberstring}">
+      <div class="digit-wrapper ${this.numbers[this.number]}">
         <div class="digit">
           <div class="digit__inner digit__inner--top">
             <div class="seg left top-left"></div>

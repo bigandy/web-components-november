@@ -21,6 +21,7 @@ import { AHNoughtsCrosses } from "./components/ah-noughts-crosses";
 import { AHWatcher } from "./components/ah-watcher";
 import { AHScroller } from "./components/ah-scroller";
 import { AHStopwatch } from "./components/ah-stopwatch";
+import { AHStopwatchAdvanced } from "./components/ah-stopwatch-advanced";
 import { AHThemeSelector } from "./components/ah-theme-selector";
 import { AHTimeDiff } from "./components/ah-time-diff";
 import { AHTodoList } from "./components/ah-todo-list";
@@ -47,6 +48,7 @@ declare const _default: {
     AHNoiseButton: typeof AHNoiseButton;
     AHScroller: typeof AHScroller;
     AHStopwatch: typeof AHStopwatch;
+    AHStopwatchAdvanced: typeof AHStopwatchAdvanced;
     AHSupports: typeof AHSupports;
     AHSwitch: typeof AHSwitch;
     AHTimeDiff: typeof AHTimeDiff;
