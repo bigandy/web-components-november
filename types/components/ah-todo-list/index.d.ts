@@ -5,7 +5,7 @@ declare global {
         "ah-todo-list": AHTodoList;
     }
 }
-type TodoType = {
+declare type TodoType = {
     createdAt: Dayjs;
     done: boolean;
     text: string;

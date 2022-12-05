@@ -4,7 +4,7 @@ declare global {
         "ah-theme-selector": AHThemeSelector;
     }
 }
-type themeType = "none" | "dark" | "rainbow" | "red";
+declare type themeType = "none" | "dark" | "rainbow" | "red";
 /**
  * An ah-theme-selector element.
  */

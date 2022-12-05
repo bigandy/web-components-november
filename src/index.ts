@@ -18,7 +18,6 @@ import { AHSwitch } from "./components/ah-switch";
 import { AHIsVisible } from "./components/ah-is-visible";
 import { AHNoiseButton } from "./components/ah-noise-button";
 import { AHNoughtsCrosses } from "./components/ah-noughts-crosses";
-import { AHWatcher } from "./components/ah-watcher";
 import { AHScroller } from "./components/ah-scroller";
 import { AHStopwatch } from "./components/ah-stopwatch";
 import { AHStopwatchAdvanced } from "./components/ah-stopwatch-advanced";
@@ -27,6 +26,8 @@ import { AHTimeDiff } from "./components/ah-time-diff";
 import { AHTodoList } from "./components/ah-todo-list";
 import { AHVideoCapture } from "./components/ah-video-capture";
 import { AHVideoImageCapture } from "./components/ah-video-image-capture";
+import { AHWatcher } from "./components/ah-watcher";
+import { AHWheelOfNames } from "./components/ah-wheel-of-names";
 
 export default {
   AHBetterNoiseButton,
@@ -58,4 +59,5 @@ export default {
   AHVideoCapture,
   AHVideoImageCapture,
   AHWatcher,
+  AHWheelOfNames,
 };
