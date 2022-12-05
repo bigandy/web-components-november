@@ -16,7 +16,7 @@ export declare class AHComponentSection extends LitElement {
     prev?: string;
     next?: string;
     open: boolean;
-    static styles: import("lit").CSSResult;
+    static styles: import("lit").CSSResult[];
     constructor();
     connectedCallback(): void;
     handleNextClick(): void;

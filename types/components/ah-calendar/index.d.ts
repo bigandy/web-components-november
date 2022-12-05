@@ -9,7 +9,7 @@ declare global {
  */
 export declare class AHCalendar extends LitElement {
     offset: number;
-    static styles: import("lit").CSSResult;
+    static styles: import("lit").CSSResult[];
     private _indexToDay;
     private _getMonth;
     private _dayToNumericDay;

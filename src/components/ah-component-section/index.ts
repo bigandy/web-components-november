@@ -2,6 +2,7 @@ import { LitElement, html, css } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 
+import { VH } from "../../constants/styles";
 import { BACK_ICON, FORWARD_ICON, COPY_ICON } from "../../constants/icons";
 
 declare global {
@@ -37,90 +38,81 @@ export class AHComponentSection extends LitElement {
   @property({ type: Boolean })
   open = false;
 
-  static styles = css`
-    .container {
-      padding: 0.5em 0;
-      overflow: auto;
-    }
-
-    .containerOpen {
-      margin-bottom: 1.5em;
-      padding-bottom: 1em;
-    }
-
-    h3 {
-      cursor: pointer;
-    }
-
-    h3 svg {
-      fill: lightgray;
-      height: 20px;
-      aspect-ratio: 1;
-      transition: fill 0.3s ease-in-out;
-    }
-
-    h3:hover svg {
-      fill: black;
-    }
-
-    .link {
-      display: none;
-      position: fixed;
-      top: 0;
-
-      height: 100%;
-      transition: background-color 0.3s ease-in-out, fill 0.3s ease-in-out;
-      fill: var(--brand);
-    }
-
-    .link:hover {
-      background-color: lightgrey;
-      fill: var(--brand-hover);
-    }
-
-    .link--prev {
-      left: 0;
-    }
-
-    .link--next {
-      right: 0;
-    }
-
-    .vh {
-      border: 0;
-      clip: rect(0, 0, 0, 0);
-      height: 1px;
-      margin: -1px;
-      overflow: hidden;
-      padding: 0;
-      position: absolute;
-      white-space: nowrap;
-      width: 1px;
-    }
-
-    ah-noise-button {
-      --ah-button-padding-inline: 0;
-      --ah-button-padding-block: 0;
-      --ah-button-border-radius: 5;
-    }
-
-    @media (min-width: 500px) {
-      .link {
-        display: grid;
-        place-content: center;
-      }
-
+  static styles = [
+    VH,
+    css`
       .container {
-        padding: 0.5em 1em;
-        border: 10px solid transparent;
+        padding: 0.5em 0;
+        overflow: auto;
       }
 
       .containerOpen {
-        border-color: lightblue;
+        margin-bottom: 1.5em;
         padding-bottom: 1em;
       }
-    }
-  `;
+
+      h3 {
+        cursor: pointer;
+      }
+
+      h3 svg {
+        fill: lightgray;
+        height: 20px;
+        aspect-ratio: 1;
+        transition: fill 0.3s ease-in-out;
+      }
+
+      h3:hover svg {
+        fill: black;
+      }
+
+      .link {
+        display: none;
+        position: fixed;
+        top: 0;
+
+        height: 100%;
+        transition: background-color 0.3s ease-in-out, fill 0.3s ease-in-out;
+        fill: var(--brand);
+      }
+
+      .link:hover {
+        background-color: lightgrey;
+        fill: var(--brand-hover);
+      }
+
+      .link--prev {
+        left: 0;
+      }
+
+      .link--next {
+        right: 0;
+      }
+
+      ah-noise-button {
+        --ah-button-padding-inline: 0;
+        --ah-button-padding-block: 0;
+        --ah-button-border-radius: 5;
+      }
+
+      @media (min-width: 500px) {
+        .link {
+          display: grid;
+          place-content: center;
+        }
+
+        .container {
+          padding: 0.5em 1em;
+          border: 10px solid transparent;
+        }
+
+        .containerOpen {
+          border-color: lightblue;
+          padding-bottom: 1em;
+        }
+      }
+    `,
+  ];
 
   constructor() {
     super();
