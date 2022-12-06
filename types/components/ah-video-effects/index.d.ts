@@ -26,9 +26,7 @@ export declare class AHVideoEffects extends LitElement {
         alpha: number;
     };
     applyGrayScale(): void;
-    applyRed(): void;
-    applyGreen(): void;
-    applyBlue(): void;
+    applyColor(input: "red" | "green" | "blue"): void;
     render(): import("lit-html").TemplateResult<1>;
     static styles: import("lit").CSSResult;
 }

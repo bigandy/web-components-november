@@ -25,7 +25,7 @@ export class AHVideoEffects extends LitElement {
 
   @state()
   effect: "none" | "greyscale" | "red" | "green" | "blue" =
-    "none";
+    "greyscale";
 
   handleSnap() {
     if (this.context && this.video) {
@@ -50,13 +50,13 @@ export class AHVideoEffects extends LitElement {
         this.applyGrayScale();
       }
       if (this.effect === "red") {
-        this.applyRed();
+        this.applyColor("red");
       }
       if (this.effect === "green") {
-        this.applyGreen();
+        this.applyColor("green");
       }
       if (this.effect === "blue") {
-        this.applyBlue();
+        this.applyColor("blue");
       }
     }, 100); // once every 100 ms
   }
@@ -143,7 +143,7 @@ export class AHVideoEffects extends LitElement {
     }
   }
 
-  applyRed() {
+  applyColor(input: "red" | "green" | "blue") {
     if (this.context) {
       var imgData = this.context.getImageData(
         0,
@@ -156,55 +156,13 @@ export class AHVideoEffects extends LitElement {
         for (var x = 0; x < CANVAS_HEIGHT; x++) {
           var pixel = this.getPixelValue(data, x, y);
 
-          data[(y * CANVAS_HEIGHT + x) * 4 + 0] = pixel.red;
-          data[(y * CANVAS_HEIGHT + x) * 4 + 1] = 0;
-          data[(y * CANVAS_HEIGHT + x) * 4 + 2] = 0;
-        }
-      }
-      this.context.putImageData(imgData, 0, 0);
-    }
-  }
+          const red = input === "red" ? pixel.red : 0;
+          const green = input === "green" ? pixel.red : 0;
+          const blue = input === "blue" ? pixel.red : 0;
 
-  applyGreen() {
-    if (this.context) {
-      var imgData = this.context.getImageData(
-        0,
-        0,
-        CANVAS_WIDTH,
-        CANVAS_HEIGHT
-      );
-      var data = imgData.data;
-      for (var y = 0; y < CANVAS_WIDTH; y++) {
-        for (var x = 0; x < CANVAS_HEIGHT; x++) {
-          var pixel = this.getPixelValue(data, x, y);
-
-          data[(y * CANVAS_HEIGHT + x) * 4 + 0] = 0;
-          data[(y * CANVAS_HEIGHT + x) * 4 + 1] =
-            pixel.green;
-          data[(y * CANVAS_HEIGHT + x) * 4 + 2] = 0;
-        }
-      }
-      this.context.putImageData(imgData, 0, 0);
-    }
-  }
-
-  applyBlue() {
-    if (this.context) {
-      var imgData = this.context.getImageData(
-        0,
-        0,
-        CANVAS_WIDTH,
-        CANVAS_HEIGHT
-      );
-      var data = imgData.data;
-      for (var y = 0; y < CANVAS_WIDTH; y++) {
-        for (var x = 0; x < CANVAS_HEIGHT; x++) {
-          var pixel = this.getPixelValue(data, x, y);
-
-          data[(y * CANVAS_HEIGHT + x) * 4 + 0] = 0;
-          data[(y * CANVAS_HEIGHT + x) * 4 + 1] = 0;
-          data[(y * CANVAS_HEIGHT + x) * 4 + 2] =
-            pixel.blue;
+          data[(y * CANVAS_HEIGHT + x) * 4 + 0] = red;
+          data[(y * CANVAS_HEIGHT + x) * 4 + 1] = green;
+          data[(y * CANVAS_HEIGHT + x) * 4 + 2] = blue;
         }
       }
       this.context.putImageData(imgData, 0, 0);
@@ -254,6 +212,7 @@ export class AHVideoEffects extends LitElement {
               <li>
                 <label for="none">No Effect</label>
                 <input
+                  ?checked=${this.effect === "none"}
                   type="radio"
                   name="effects"
                   id="none"
@@ -263,6 +222,7 @@ export class AHVideoEffects extends LitElement {
               <li>
                 <label for="greyscale">Greyscale</label>
                 <input
+                  ?checked=${this.effect === "greyscale"}
                   type="radio"
                   name="effects"
                   id="greyscale"
@@ -273,6 +233,7 @@ export class AHVideoEffects extends LitElement {
               <li>
                 <label for="red">Red</label>
                 <input
+                  ?checked=${this.effect === "red"}
                   type="radio"
                   name="effects"
                   id="red"
@@ -282,6 +243,7 @@ export class AHVideoEffects extends LitElement {
               <li>
                 <label for="green">Green</label>
                 <input
+                  ?checked=${this.effect === "green"}
                   type="radio"
                   name="effects"
                   id="green"
@@ -291,6 +253,7 @@ export class AHVideoEffects extends LitElement {
               <li>
                 <label for="blue">Blue</label>
                 <input
+                  ?checked=${this.effect === "blue"}
                   type="radio"
                   name="effects"
                   id="blue"
