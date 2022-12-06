@@ -16,12 +16,14 @@ export declare class AHWheelOfNames extends LitElement {
     winner: string;
     showTextArea: boolean;
     removeWinner: boolean;
+    private dialog;
     connectedCallback(): void;
     getInputNames(): void;
     randomiseArray(arr: any[]): any[];
     spinWheel(): void;
     handleTextChange(e: any): void;
     addNames(): void;
+    firstUpdated(): void;
     showDialog(): void;
     removeTheWinner(): void;
     handleWheelReset(): void;

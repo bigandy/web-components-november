@@ -1,9 +1,5 @@
 import { LitElement, css, html } from "lit";
-import {
-  customElement,
-  property,
-  state,
-} from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 
@@ -25,12 +21,7 @@ export class AHWheelOfNames extends LitElement {
   @state()
   wheelStarted = false;
 
-  private namesArray = [
-    "Marion",
-    "Andrew",
-    "Arthur",
-    "Emma",
-  ];
+  private namesArray = ["Marion", "Andrew", "Arthur", "Emma"];
 
   @state()
   names: string[] = this.namesArray;
@@ -49,6 +40,8 @@ export class AHWheelOfNames extends LitElement {
 
   @property({ type: Boolean })
   removeWinner = false;
+
+  private dialog: HTMLDialogElement | null = null;
 
   connectedCallback() {
     super.connectedCallback();
@@ -70,9 +63,7 @@ export class AHWheelOfNames extends LitElement {
   }
 
   randomiseArray(arr: any[]) {
-    const shuffled = [...arr].sort(
-      () => 0.5 - Math.random()
-    );
+    const shuffled = [...arr].sort(() => 0.5 - Math.random());
 
     return shuffled.slice(0, arr.length);
   }
@@ -80,20 +71,19 @@ export class AHWheelOfNames extends LitElement {
   spinWheel() {
     this.wheelStarted = true;
 
-    // after a set number of seconds. Stop the wheel
-    setTimeout(() => {
+    const handleWheelStop = () => {
       this.wheelStarted = false;
       // this.names = this.randomiseArray(this.names);
       this.startingAngle = randomInteger(0, 1280);
       const remainder = this.startingAngle % 360;
 
       this.winner =
-        this.names[
-          Math.floor((remainder / 360) * this.names.length)
-        ];
+        this.names[Math.floor((remainder / 360) * this.names.length)];
 
       this.showDialog();
-    }, 1000);
+    };
+    // after a set number of seconds. Stop the wheel
+    setTimeout(handleWheelStop, 1000);
   }
 
   handleTextChange(e: any) {
@@ -104,20 +94,23 @@ export class AHWheelOfNames extends LitElement {
     this.names = this.content.split("\n");
   }
 
-  showDialog() {
-    const dialog = this.renderRoot.querySelector("dialog");
-    dialog?.showModal();
+  firstUpdated() {
+    this.dialog = this.renderRoot.querySelector("dialog");
 
-    if (dialog) {
-      dialog.addEventListener("close", () => {
-        if (dialog.returnValue === "close") {
-          dialog?.close();
-        } else if (dialog.returnValue === "remove") {
+    if (this.dialog) {
+      this.dialog.addEventListener("close", () => {
+        if (this.dialog?.returnValue === "close") {
+          this.dialog?.close();
+        } else if (this.dialog?.returnValue === "remove") {
           this.removeTheWinner();
-          dialog?.close();
+          this.dialog?.close();
         }
       });
     }
+  }
+
+  showDialog() {
+    this.dialog?.showModal();
   }
 
   removeTheWinner() {
@@ -145,9 +138,7 @@ export class AHWheelOfNames extends LitElement {
               .value=${this.content}
             ></textarea>
 
-            <button @click=${this.addNames}>
-              ADD NAMES
-            </button>
+            <button @click=${this.addNames}>ADD NAMES</button>
           `
         : null}
       ${this.names.length > 0
@@ -157,28 +148,21 @@ export class AHWheelOfNames extends LitElement {
             </div>
           `
         : html`
-            <button @click=${this.handleWheelReset}>
-              Reset Wheel ?
-            </button>
+            <button @click=${this.handleWheelReset}>Reset Wheel ?</button>
           `}
 
       <dialog>
         <form method="dialog">
-          <button class="close" value="close">Close</button>
+          <button class="right" value="close">Close</button>
           ${this.winner !== ""
             ? html`
                 <div class="winner">
-                  <p>
-                    Winner: <strong>${this.winner}</strong>
-                  </p>
+                  <p>Winner: <strong>${this.winner}</strong></p>
                 </div>
-                <button value="remove">
-                  Remove Winner?
-                </button>
+                <button value="remove" class="right">Remove Winner?</button>
               `
             : html`<p>
-                No winner has been chosen. Close the dialog
-                and spin the wheel.
+                No winner has been chosen. Close the dialog and spin the wheel.
               </p>`}
         </form>
       </dialog>
@@ -197,10 +181,7 @@ export class AHWheelOfNames extends LitElement {
             })}
           >
             ${this.names.map((name, index) => {
-              return html`<div
-                class="name"
-                style="--multiplier: ${index}"
-              >
+              return html`<div class="name" style="--multiplier: ${index}">
                 <span>${name}</span>
               </div>`;
             })}
@@ -214,7 +195,7 @@ export class AHWheelOfNames extends LitElement {
     .winner {
       margin-block: 1em;
     }
-    .close {
+    .right {
       display: flex;
       margin-left: auto;
     }
@@ -243,8 +224,7 @@ export class AHWheelOfNames extends LitElement {
       height: 0;
       border-style: solid;
       border-width: 20px 40px 20px 0;
-      border-color: transparent #007bff transparent
-        transparent;
+      border-color: transparent #007bff transparent transparent;
     }
     .overflow {
       overflow: hidden;
@@ -308,8 +288,7 @@ export class AHWheelOfNames extends LitElement {
 
     .name span {
       display: inline-block;
-      transform: translateX(calc(var(--transX, 70) * 1%))
-        translateY(-10px);
+      transform: translateX(calc(var(--transX, 70) * 1%)) translateY(-10px);
     }
 
     .wheelActive {
