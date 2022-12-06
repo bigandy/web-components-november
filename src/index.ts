@@ -25,6 +25,7 @@ import { AHThemeSelector } from "./components/ah-theme-selector";
 import { AHTimeDiff } from "./components/ah-time-diff";
 import { AHTodoList } from "./components/ah-todo-list";
 import { AHVideoCapture } from "./components/ah-video-capture";
+import { AHVideoEffects } from "./components/ah-video-effects";
 import { AHVideoImageCapture } from "./components/ah-video-image-capture";
 import { AHWatcher } from "./components/ah-watcher";
 import { AHWheelOfNames } from "./components/ah-wheel-of-names";
@@ -57,6 +58,7 @@ export default {
   AHThemeSelector,
   AHTodoList,
   AHVideoCapture,
+  AHVideoEffects,
   AHVideoImageCapture,
   AHWatcher,
   AHWheelOfNames,
