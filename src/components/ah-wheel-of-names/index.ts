@@ -1,5 +1,9 @@
 import { LitElement, css, html } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import {
+  customElement,
+  property,
+  state,
+} from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 import { styleMap } from "lit/directives/style-map.js";
 
@@ -40,6 +44,12 @@ export class AHWheelOfNames extends LitElement {
   @state()
   winner: string = "";
 
+  @property({ type: Boolean })
+  showTextArea = false;
+
+  @property({ type: Boolean })
+  removeWinner = false;
+
   connectedCallback() {
     super.connectedCallback();
 
@@ -73,7 +83,7 @@ export class AHWheelOfNames extends LitElement {
     // after a set number of seconds. Stop the wheel
     setTimeout(() => {
       this.wheelStarted = false;
-      this.names = this.randomiseArray(this.names);
+      // this.names = this.randomiseArray(this.names);
       this.startingAngle = randomInteger(0, 1280);
       const remainder = this.startingAngle % 360;
 
@@ -81,6 +91,8 @@ export class AHWheelOfNames extends LitElement {
         this.names[
           Math.floor((remainder / 360) * this.names.length)
         ];
+
+      this.showDialog();
     }, 1000);
   }
 
@@ -90,11 +102,25 @@ export class AHWheelOfNames extends LitElement {
 
   addNames() {
     this.names = this.content.split("\n");
-
-    console.log(this.names);
   }
 
-  removeWinner() {
+  showDialog() {
+    const dialog = this.renderRoot.querySelector("dialog");
+    dialog?.showModal();
+
+    if (dialog) {
+      dialog.addEventListener("close", () => {
+        if (dialog.returnValue === "close") {
+          dialog?.close();
+        } else if (dialog.returnValue === "remove") {
+          this.removeTheWinner();
+          dialog?.close();
+        }
+      });
+    }
+  }
+
+  removeTheWinner() {
     const newNames = [...this.names];
 
     newNames.splice(
@@ -112,15 +138,18 @@ export class AHWheelOfNames extends LitElement {
 
   render() {
     return html`
-      <!--<textarea
-        @change=${this.handleTextChange}
-        .value=${this.content}
-      ></textarea>
+      ${this.showTextArea
+        ? html`
+            <textarea
+              @change=${this.handleTextChange}
+              .value=${this.content}
+            ></textarea>
 
-      <button @click=${this.addNames}>ADD NAMES</button>
-
-	  -->
-
+            <button @click=${this.addNames}>
+              ADD NAMES
+            </button>
+          `
+        : null}
       ${this.names.length > 0
         ? html`
             <div>
@@ -132,19 +161,29 @@ export class AHWheelOfNames extends LitElement {
               Reset Wheel ?
             </button>
           `}
-      ${this.winner !== ""
-        ? html`
-            <div class="winner">
-              Winner: ${this.winner}
 
-              <button @click=${this.removeWinner}>
-                Remove Winner?
-              </button>
-            </div>
-          `
-        : null}
+      <dialog>
+        <form method="dialog">
+          <button class="close" value="close">Close</button>
+          ${this.winner !== ""
+            ? html`
+                <div class="winner">
+                  <p>
+                    Winner: <strong>${this.winner}</strong>
+                  </p>
+                </div>
+                <button value="remove">
+                  Remove Winner?
+                </button>
+              `
+            : html`<p>
+                No winner has been chosen. Close the dialog
+                and spin the wheel.
+              </p>`}
+        </form>
+      </dialog>
 
-      <div class="spinner-wrapper">
+      <div class="spinner-wrapper" @click=${this.spinWheel}>
         <div class="overflow">
           <div
             style=${styleMap({
@@ -172,6 +211,22 @@ export class AHWheelOfNames extends LitElement {
   }
 
   static styles = css`
+    .winner {
+      margin-block: 1em;
+    }
+    .close {
+      display: flex;
+      margin-left: auto;
+    }
+    dialog::backdrop {
+      background: rgba(0, 0, 0, 0.75);
+    }
+
+    dialog {
+      width: 100%;
+      max-width: 500px;
+    }
+
     .spinner-wrapper {
       position: relative;
       display: inline-block;
@@ -197,8 +252,9 @@ export class AHWheelOfNames extends LitElement {
 
     .wheel {
       --size: 400;
+      --transX: 200;
 
-      width: 400px;
+      width: calc(var(--size) * 1px);
       aspect-ratio: 1;
       border-radius: 50%;
       position: relative;
@@ -241,19 +297,19 @@ export class AHWheelOfNames extends LitElement {
       top: 50%;
 
       --angle: calc(
-        calc(var(--per-segment) * var(--multiplier, 1) + 45)
-      );
-
-      transform: rotate(calc(var(--angle) * 1deg))
-        translate(
-          calc(calc(calc(var(--size) / 2) - 50) * 1px)
+        calc(
+          var(--per-segment) * var(--multiplier, 1) +
+            calc(var(--per-segment) / 2)
         )
-        rotate(calc(var(--angle) * -1deg));
+      );
+      transform-origin: 0 0px;
+      transform: rotate(calc(var(--angle) * 1deg));
     }
 
     .name span {
       display: inline-block;
-      transform: translateX(-50%);
+      transform: translateX(calc(var(--transX, 70) * 1%))
+        translateY(-10px);
     }
 
     .wheelActive {
@@ -263,6 +319,13 @@ export class AHWheelOfNames extends LitElement {
     textarea {
       width: 100%;
       height: 500px;
+    }
+
+    @media (max-width: 500px) {
+      .wheel {
+        --size: 200;
+        --transX: 70;
+      }
     }
 
     @keyframes rotate {
