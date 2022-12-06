@@ -38,13 +38,20 @@ export class AHBetterNoiseButton extends LitElement {
     this.volume.gain.value = 0.01; // can adjust this later if you want to have a louder/quieter volume
   }
 
-  createOscillator(frequency: number = 440, type: OscillatorType = "sine") {
-    const oscillator = this.audioCtx ? this.audioCtx.createOscillator() : null;
+  createOscillator(
+    frequency: number = 440,
+    type: OscillatorType = "sine"
+  ) {
+    const oscillator = this.audioCtx
+      ? this.audioCtx.createOscillator()
+      : null;
 
     if (oscillator && this.audioCtx && this.volume) {
       oscillator.frequency.value = frequency;
       oscillator.type = type;
-      oscillator.connect(this.volume).connect(this.audioCtx.destination);
+      oscillator
+        .connect(this.volume)
+        .connect(this.audioCtx.destination);
     }
 
     return oscillator;
@@ -71,7 +78,10 @@ export class AHBetterNoiseButton extends LitElement {
 
     this.playTune();
     if (this.cycling) {
-      this.interval = setInterval(() => this.playTune(), 2000);
+      this.interval = setInterval(
+        () => this.playTune(),
+        2000
+      );
     }
 
     if (this.volume) {
@@ -94,10 +104,13 @@ export class AHBetterNoiseButton extends LitElement {
 
   render() {
     return html`
-      <slot></slot>
-      <ah-button outlined @click=${this.handleStart}> Start </ah-button>
+      <ah-button outlined @click=${this.handleStart}>
+        Start
+      </ah-button>
 
-      <ah-button @click=${this.handleStop}> Stop </ah-button>
+      <ah-button @click=${this.handleStop}>
+        Stop
+      </ah-button>
     `;
   }
 }
