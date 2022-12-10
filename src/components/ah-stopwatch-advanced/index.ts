@@ -97,8 +97,6 @@ export class AHStopwatchAdvanced extends LitElement {
   }
 
   display() {
-    console.log(this.time);
-
     const minutes = this.convertTimetoMinutes(this.time);
     const seconds = this.convertTimetoSeconds(this.time);
     const hours = this.convertTimetoHours(this.time);

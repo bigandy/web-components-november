@@ -52,7 +52,7 @@ export class AHWheelOfNames extends LitElement {
   getInputNames() {
     const inputNames: string[] = this.textContent
       ? this.textContent
-          ?.split("\n")
+          ?.split(" ")
           .map((l) => l.replace(/\s/g, ""))
           .filter((l) => l !== "")
       : [];
@@ -73,7 +73,6 @@ export class AHWheelOfNames extends LitElement {
 
     const handleWheelStop = () => {
       this.wheelStarted = false;
-      // this.names = this.randomiseArray(this.names);
       this.startingAngle = randomInteger(0, 1280);
       const remainder = this.startingAngle % 360;
 
