@@ -69,7 +69,7 @@ export class AHHouse extends LitElement {
     }
   `;
 
-  handleSwitch(e: any) {
+  handleSwitch(e: MouseEvent) {
     const newState = { ...this.lights };
     // @ts-ignore
     newState[e.detail.ref] = e.detail.state;

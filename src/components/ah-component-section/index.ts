@@ -35,15 +35,33 @@ export class AHComponentSection extends LitElement {
   @property()
   next?: string;
 
-  @property({ type: Boolean })
+  @property({ type: Boolean, reflect: true })
   open = false;
+
+  @property({ type: String })
+  tags?: string;
 
   static styles = [
     VH,
     css`
+      .tag-title {
+        margin-block: 1em 0.5em;
+        display: block;
+      }
+      .tag {
+        margin: 0 0.5rem 0.5rem 0;
+        border-radius: calc(var(--border-radius-small) * 1px);
+        display: inline-block;
+        border: 1px solid black;
+        padding: 0.5rem 0.25rem;
+      }
+
       .container {
-        padding: 0.5em 0;
+        border: 5px solid orange;
+        padding: 0.5em;
         overflow: auto;
+        height: calc(100% - 20px);
+        border-radius: calc(var(--border-radius-medium) * 1px);
       }
 
       .containerOpen {
@@ -92,7 +110,7 @@ export class AHComponentSection extends LitElement {
       ah-noise-button {
         --ah-button-padding-inline: 0;
         --ah-button-padding-block: 0;
-        --ah-button-border-radius: 5;
+        --ah-button-border-radius: var(--border-radius-small);
       }
 
       @media (min-width: 500px) {
@@ -103,7 +121,7 @@ export class AHComponentSection extends LitElement {
 
         .container {
           padding: 0.5em 1em;
-          border: 10px solid transparent;
+          border: 10px solid green;
         }
 
         .containerOpen {
@@ -154,9 +172,14 @@ export class AHComponentSection extends LitElement {
     }
   }
 
+  toggleDetails(e: MouseEvent) {
+    e.preventDefault();
+    this.open = !this.open;
+  }
+
   render() {
     return html`
-      <div
+      <li
         class=${classMap({
           container: true,
           containerOpen: this.open,
@@ -167,7 +190,7 @@ export class AHComponentSection extends LitElement {
         </h3>
 
         <details ?open=${this.open}>
-          <summary @click=${this.handleDateClick}>${this.summary}</summary>
+          <summary @click=${this.toggleDetails}>${this.summary}</summary>
 
           <slot></slot>
 
@@ -189,7 +212,15 @@ export class AHComponentSection extends LitElement {
               >`
             : null}
         </details>
-      </div>
+        ${this.tags
+          ? html` <ah-heading noGutter class="tag-title" variant="h4"
+                >Tags</ah-heading
+              >
+              ${this.tags?.split(",").map((tag) => {
+                return html`<span class="tag">${tag}</span>`;
+              })}`
+          : ""}
+      </li>
     `;
   }
 }

@@ -18,7 +18,7 @@ export declare class AHHouse extends LitElement {
         lounge: boolean;
     };
     static styles: import("lit").CSSResult;
-    handleSwitch(e: any): void;
+    handleSwitch(e: MouseEvent): void;
     render(): import("lit-html").TemplateResult<1>;
 }
 /**

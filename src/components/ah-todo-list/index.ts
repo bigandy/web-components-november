@@ -1,9 +1,5 @@
 import { LitElement, html, css } from "lit";
-import {
-  customElement,
-  property,
-  state,
-} from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import { classMap } from "lit/directives/class-map.js";
 
 import dayjs, { Dayjs } from "dayjs";
@@ -41,8 +37,7 @@ export class AHTodoList extends LitElement {
 
     const storage = localStorage.getItem(localStorageKey);
 
-    const storageArray =
-      storage && storage !== "" && JSON.parse(storage);
+    const storageArray = storage && storage !== "" && JSON.parse(storage);
 
     if (Array.isArray(storageArray)) {
       this.todos = storageArray;
@@ -86,10 +81,7 @@ export class AHTodoList extends LitElement {
   }
 
   save(state: TodoType[]) {
-    localStorage.setItem(
-      localStorageKey,
-      JSON.stringify(state)
-    );
+    localStorage.setItem(localStorageKey, JSON.stringify(state));
   }
 
   static styles = css`
@@ -204,9 +196,7 @@ export class AHTodoList extends LitElement {
           placeholder="Create a new web component with lit!"
         />
 
-        <ah-button type="submit" @click=${this.handleSubmit}
-          >Submit</ah-button
-        >
+        <ah-button type="submit" @click=${this.handleSubmit}>Submit</ah-button>
 
         <ul>
           ${Boolean(this.todos.length > 0)
@@ -220,10 +210,7 @@ export class AHTodoList extends LitElement {
                 >
                   ${todo.text}
 
-                  <ah-button
-                    @click=${(e: any) =>
-                      this.handleDelete(e, index)}
-                  >
+                  <ah-button @click=${(e: any) => this.handleDelete(e, index)}>
                     <div slot="before">${CROSS_ICON}</div>
                     Delete</ah-button
                   >

@@ -44,7 +44,9 @@ export class AHButton extends LitElement {
     }
 
     button {
-      border-radius: calc(var(--ah-button-border-radius, 20) * 1px);
+      border-radius: calc(
+        var(--ah-button-border-radius, var(--border-radius-large)) * 1px
+      );
       border: none;
       padding-inline: var(--ah-button-padding-inline, 1.2em);
       padding-block: var(--ah-button-padding-block, 0.6em);

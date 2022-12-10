@@ -16,11 +16,13 @@ export declare class AHComponentSection extends LitElement {
     prev?: string;
     next?: string;
     open: boolean;
+    tags?: string;
     static styles: import("lit").CSSResult[];
     constructor();
     connectedCallback(): void;
     handleNextClick(): void;
     handlePrevClick(): void;
     handleDateClick(): Promise<void>;
+    toggleDetails(e: MouseEvent): void;
     render(): import("lit-html").TemplateResult<1>;
 }

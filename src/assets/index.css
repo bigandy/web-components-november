@@ -10,6 +10,9 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+  --border-radius-small: 4;
+  --border-radius-medium: 8;
+  --border-radius-large: 12;
 }
 
 a {
@@ -46,8 +49,123 @@ footer {
   }
 }
 
-
-
 details summary {
   cursor: pointer;
+}
+
+:root {
+  --orange: #ff3c00;
+  --orange-hover: #7c1e02;
+  --brand: var(--orange);
+  --brand-hover: var(--orange-hover);
+}
+
+ul li {
+  max-width: 700px;
+}
+
+#controls {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1;
+}
+
+ah-watcher {
+  width: 100%;
+  display: block;
+  background: hotpink;
+}
+
+ah-watcher[matched] {
+  background-color: green;
+}
+
+ah-houdini-banner {
+  --ah-houdini-banner-color: black;
+}
+
+ah-component-section {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 500px) {
+  .component-list {
+    gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  }
+}
+
+@media (min-width: 1000px) {
+  .component-list {
+    padding-left: 0;
+  }
+}
+
+ah-component-section[open] {
+  grid-column: 1 / -1;
+}
+
+[data-theme="dark"] {
+  --theme-bg: black;
+  --theme-color: white;
+  --link-color: var(--pink);
+  --checkbox-color: var(--pink);
+  --button-bg: var(--link-color);
+  --button-shadow: var(--link-color);
+  --ah-button-color: white;
+  --ah-button-background: black;
+  accent-color: var(--pink);
+}
+
+@supports (background: color(display-p3 1 0 0.87)) {
+  [data-theme="dark"] {
+    --link-color: color(display-p3 1 0 0.87);
+  }
+}
+
+[data-theme="red"] {
+  --theme-bg: red;
+  --theme-color: white;
+
+  --link-color: red;
+  --checkbox-color: cyan;
+  --button-bg: white;
+  --button-shadow: orange;
+  --button-color: black;
+  accent-color: red;
+}
+
+[data-theme="rainbow"] {
+  --rainbow-colors: red, orange, yellow, green, cyan, blue, violet;
+  --theme-bg: linear-gradient(to right, var(--rainbow-colors));
+  --theme-color: black;
+
+  --link-color: black;
+  --button-bg: linear-gradient(45deg, var(--rainbow-colors));
+  --box-shadow: black;
+  --button-color: black;
+  accent-color: black;
+}
+
+body {
+  --brand: var(--theme-bg, var(--orange));
+  --ah-button-color: var(--theme-color, white);
+  background: var(--body-bg, white);
+  color: var(--body-color, black);
+}
+
+a {
+  color: var(--link-color, blue);
+  text-decoration: underline;
+}
+
+.component-list {
+  padding-left: 0;
+}
+
+.rules-list {
+  padding-left: 1rem;
 }

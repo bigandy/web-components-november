@@ -18,11 +18,11 @@
     "build:lib": "tsc && vite build --config vite-lib.config.ts"
   },
   "dependencies": {
-    "dayjs": "1.11.6",
-    "lit": "2.4.1"
+    "dayjs": "1.11.7",
+    "lit": "2.5.0"
   },
   "devDependencies": {
-    "typescript": "4.9.3",
-    "vite": "^3.2.0"
+    "typescript": "4.9.4",
+    "vite": "4.0.0"
   }
 }

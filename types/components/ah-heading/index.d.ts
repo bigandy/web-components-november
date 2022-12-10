@@ -1,4 +1,4 @@
-import { LitElement } from "lit";
+import { CSSResultGroup, LitElement } from "lit";
 declare global {
     interface HTMLElementTagNameMap {
         "ah-header": AHHeading;
@@ -10,5 +10,7 @@ declare global {
  */
 export declare class AHHeading extends LitElement {
     variant: string;
+    noGutter: boolean;
+    static styles?: CSSResultGroup | undefined;
     render(): import("lit-html").TemplateResult<1 | 2>;
 }
