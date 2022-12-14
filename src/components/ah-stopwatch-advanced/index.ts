@@ -44,7 +44,7 @@ export class AHStopwatchAdvanced extends LitElement {
   }
 
   createInterval() {
-    this.interval = setInterval(() => this.time++, 1000);
+    this.interval = window.setInterval(() => this.time++, 1000);
   }
 
   handleStart() {

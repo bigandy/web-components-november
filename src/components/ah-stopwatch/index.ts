@@ -33,7 +33,7 @@ export class AHStopwatch extends LitElement {
   }
 
   createInterval() {
-    this.interval = setInterval(() => this.time++, 100);
+    this.interval = window.setInterval(() => this.time++, 100);
   }
 
   handleStart() {
@@ -63,12 +63,8 @@ export class AHStopwatch extends LitElement {
     return html`
       <div class="display">${this.time}</div>
       ${!this.playing
-        ? html`<button @click=${this.handleStart}>
-            Start
-          </button>`
-        : html`<button @click=${this.handleStop}>
-            Stop
-          </button>`}
+        ? html`<button @click=${this.handleStart}>Start</button>`
+        : html`<button @click=${this.handleStop}>Stop</button>`}
 
       <button @click=${this.handlePause}>Pause</button>
       <button @click=${this.handleReset}>Reset</button>
