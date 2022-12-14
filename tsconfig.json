@@ -20,5 +20,6 @@
     "skipLibCheck": true
   },
   "include": ["src/**/*.ts"],
+  "exclude": ["src/stories/**/*.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
