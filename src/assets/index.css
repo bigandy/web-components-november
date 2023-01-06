@@ -90,22 +90,10 @@ ah-component-section {
   margin-bottom: 1rem;
 }
 
-@media (min-width: 500px) {
-  .component-list {
-    gap: 1rem;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  }
-}
-
 @media (min-width: 1000px) {
   .component-list {
     padding-left: 0;
   }
-}
-
-ah-component-section[open] {
-  grid-column: 1 / -1;
 }
 
 [data-theme="dark"] {
@@ -139,12 +127,19 @@ ah-component-section[open] {
 }
 
 [data-theme="rainbow"] {
-  --rainbow-colors: red, orange, yellow, green, cyan, blue, violet;
-  --theme-bg: linear-gradient(to right, var(--rainbow-colors));
+  --rainbow-colors: red, orange, yellow, green, cyan, blue,
+    violet;
+  --theme-bg: linear-gradient(
+    to right,
+    var(--rainbow-colors)
+  );
   --theme-color: black;
 
   --link-color: black;
-  --button-bg: linear-gradient(45deg, var(--rainbow-colors));
+  --button-bg: linear-gradient(
+    45deg,
+    var(--rainbow-colors)
+  );
   --box-shadow: black;
   --button-color: black;
   accent-color: black;
